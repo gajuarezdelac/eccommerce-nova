@@ -1,0 +1,24 @@
+
+@import url("https://fonts.googleapis.com/css?family=Acme|Lobster|Patua+One|Rubik|Sniglet");
+@import "~angular-notifier/styles";
+
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+header,
+section {
+  overflow-x: hidden;
+}
+
+
+
+td {
+  cursor: pointer;
+}
