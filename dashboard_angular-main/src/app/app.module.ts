@@ -110,6 +110,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { DetailsProductComponent } from './pages/details-product/details-product.component';
 import { ShopCartComponent } from './pages/shop-cart/shop-cart.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { FormShopComponent } from './pages/form-shop/form-shop.component';
 
 registerLocaleData(en);
 
@@ -140,6 +141,7 @@ registerLocaleData(en);
     DetailsProductComponent,
     ShopCartComponent,
     UserProfileComponent,
+    FormShopComponent,
   ],
   imports: [
     BrowserModule,
