@@ -44,6 +44,7 @@ const routes: Routes = [
   { path: 'my-profile' , component: UserProfileComponent },
   { path: "faq",  component: FaqComponent },
   { path: 'check-delivery', component: FormShopComponent },
+  { path: 'payment', component: PaymentComponent },
   {path: '**', component: HomeComponent,  redirectTo: ''},
 ];
 
