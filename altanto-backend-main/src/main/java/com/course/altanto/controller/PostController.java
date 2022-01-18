@@ -20,7 +20,6 @@ import com.course.altanto.service.IPostService;
 @RequestMapping("/post")
 public class PostController {
 
-	
 	private IPostService service;
 
     private PostController(IPostService service) { 

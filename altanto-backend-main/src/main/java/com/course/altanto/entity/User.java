@@ -16,6 +16,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * @author gabriel.juarez
+ *
+*/
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,12 +49,14 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	
-	private boolean gender;
+	private String gender;
 	
 	private Date dateOfBirth;
 	
 	@Column(nullable = false)
 	private String role;
+	
+	private String token;
 	
 	private String profileImageUrl;
 	
@@ -64,5 +71,5 @@ public class User implements Serializable {
     private Date lastLoginDate;
     
     private Date lastLoginDateDisplay;
-
+   
 }

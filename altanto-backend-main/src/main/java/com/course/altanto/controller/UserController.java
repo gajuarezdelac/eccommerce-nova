@@ -1,10 +1,19 @@
 package com.course.altanto.controller;
 
+import static com.course.altanto.constant.FileConstant.FORWARD_SLASH;
+import static com.course.altanto.constant.FileConstant.TEMP_PROFILE_IMAGE_BASE_URL;
+import static com.course.altanto.constant.FileConstant.USER_FOLDER;
+import static com.course.altanto.constant.SecurityConstant.JWT_TOKEN_HEADER;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -29,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.course.altanto.entity.HttpResponse;
 import com.course.altanto.entity.User;
 import com.course.altanto.entity.UserPrincipal;
+import com.course.altanto.entity.dto.RecoveryPasswordDTO;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
 import com.course.altanto.exception.NotAnImageFileException;
@@ -36,12 +46,6 @@ import com.course.altanto.exception.UserNotFoundException;
 import com.course.altanto.exception.UsernameExistException;
 import com.course.altanto.service.IUserService;
 import com.course.altanto.utils.JWTTokenProvider;
-import java.nio.file.Files;
-
-import static com.course.altanto.constant.FileConstant.*;
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
-import static com.course.altanto.constant.SecurityConstant.JWT_TOKEN_HEADER;
 
 @RestController
 @RequestMapping("/user")
@@ -71,7 +75,7 @@ public class UserController {
 
 	    @PostMapping("/register")
 	    public ResponseEntity<User> register(@RequestBody User user) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
-	        User newUser = userService.register(user.getNames(), user.getSurnames(), user.getUsername());
+	        User newUser = userService.register(user.getNames(), user.getSurnames(), user.getUsername(), user.getPassword(), user.getGender(), user.getDateOfBirth());
 	        return new ResponseEntity<>(newUser, OK);
 	    }
 
@@ -80,10 +84,12 @@ public class UserController {
 	                                           @RequestParam("lastName") String lastName,
 	                                           @RequestParam("username") String username,
 	                                           @RequestParam("role") String role,
+	                                           @RequestParam("gender") String gender,
+	                                           @RequestParam("birth") Date dateOfBirth,
 	                                           @RequestParam("isActive") String isActive,
 	                                           @RequestParam("isNonLocked") String isNonLocked,
 	                                           @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
-	        User newUser = userService.addNewUser(firstName, lastName, username, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+	        User newUser = userService.addNewUser(firstName, lastName, username, role, gender, dateOfBirth, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
 	        return new ResponseEntity<>(newUser, OK);
 	    }
 
@@ -93,10 +99,12 @@ public class UserController {
 	                                       @RequestParam("lastName") String lastName,
 	                                       @RequestParam("username") String username,
 	                                       @RequestParam("role") String role,
+	                                       @RequestParam("gender") String gender,
+                                           @RequestParam("birth") Date dateOfBirth,
 	                                       @RequestParam("isActive") String isActive,
 	                                       @RequestParam("isNonLocked") String isNonLocked,
 	                                       @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
-	        User updatedUser = userService.updateUser(currentUsername, firstName, lastName, username, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+	        User updatedUser = userService.updateUser(currentUsername, firstName, lastName, username, role,gender, dateOfBirth, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
 	        return new ResponseEntity<>(updatedUser, OK);
 	    }
 	    
@@ -112,10 +120,17 @@ public class UserController {
 	        return new ResponseEntity<>(users, OK);
 	    }
 
-	    @GetMapping("/resetpassword/{email}")
-	    public ResponseEntity<HttpResponse> resetPassword(@PathVariable("email") String email) throws MessagingException, EmailNotFoundException {
-	        userService.resetPassword(email);
+	    @GetMapping("/recovery-password/{email}")
+	    public ResponseEntity<HttpResponse> recoveryPassword(@PathVariable("email") String email) throws MessagingException, EmailNotFoundException {
+	        userService.recoveryPassword(email);
 	        return response(OK, EMAIL_SENT + email);
+	    }
+	    
+	    
+	    @PostMapping("/reset-password")
+	    public ResponseEntity<HttpResponse> resetPassword(@RequestBody RecoveryPasswordDTO response) {
+	    	 
+	    	 return response(OK, EMAIL_SENT);
 	    }
 
 	    @DeleteMapping("/delete/{username}")

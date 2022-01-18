@@ -11,6 +11,7 @@ import static com.course.altanto.constant.FileConstant.USER_FOLDER;
 import static com.course.altanto.constant.FileConstant.USER_IMAGE_PATH;
 import static com.course.altanto.constant.UserImplConstant.EMAIL_ALREADY_EXISTS;
 import static com.course.altanto.constant.UserImplConstant.FOUND_USER_BY_USERNAME;
+import static com.course.altanto.constant.UserImplConstant.NO_USER_FOUND_BY_EMAIL;
 import static com.course.altanto.constant.UserImplConstant.NO_USER_FOUND_BY_USERNAME;
 import static com.course.altanto.constant.UserImplConstant.USERNAME_ALREADY_EXISTS;
 import static com.course.altanto.enumeration.Role.ROLE_USER;
@@ -46,7 +47,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import static com.course.altanto.constant.UserImplConstant.*;
 
 import com.course.altanto.entity.User;
 import com.course.altanto.entity.UserPrincipal;
@@ -98,17 +98,18 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public User register(String firstName, String lastName, String username)
+	public User register(String firstName, String lastName, String username, String password, String gender, Date dateOfBirth)
 			throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
 		
 		  validateNewUsernameAndEmail(EMPTY, username, username);
 	        User user = new User();
-	        String password = generatePassword();
 	        user.setNames(firstName);
 	        user.setSurnames(lastName);
 	        user.setUsername(username);
 	        user.setJoinDate(new Date());
 	        user.setPassword(encodePassword(password));
+	        user.setGender(gender);
+	        user.setDateOfBirth(dateOfBirth);
 	        user.setActive(true);
 	        user.setNotLocked(true);
 	        user.setRole(ROLE_USER.name());
@@ -138,7 +139,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public User addNewUser(String firstName, String lastName, String username,  String role,
+	public User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,
 			boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException,
 			UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
 		
@@ -149,6 +150,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	      user.setJoinDate(new Date());
 	      user.setUsername(username);
 	      user.setPassword(encodePassword(password));
+	      user.setGender(gender);
+	      user.setDateOfBirth(dateOfBirth);
 	      user.setActive(isActive);
 	      user.setNotLocked(isNonLocked);
 	      user.setRole(getRoleEnumName(role).name());
@@ -163,7 +166,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage)
+	public User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String role, String gender, Date dateOfBirth, boolean isNonLocked, boolean isActive, MultipartFile profileImage)
 			throws UserNotFoundException, UsernameExistException, EmailExistException, IOException,
 			NotAnImageFileException {
 		  User currentUser = validateNewUsernameAndEmail(currentUsername, newUsername, newUsername);
@@ -171,6 +174,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	        currentUser.setSurnames(newLastName);
 	        currentUser.setUsername(newUsername);
 	        currentUser.setActive(isActive);
+	        currentUser.setGender(gender);
+	        currentUser.setDateOfBirth(dateOfBirth);
 	        currentUser.setNotLocked(isNonLocked);
 	        currentUser.setRole(getRoleEnumName(role).name());
 	        currentUser.setAuthorities(getRoleEnumName(role).getAuthorities());
@@ -188,16 +193,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public void resetPassword(String email) throws MessagingException, EmailNotFoundException {
-		   User user = userRepository.findUserByUsername(email);
-	        if (user == null) {
-	            throw new EmailNotFoundException(NO_USER_FOUND_BY_EMAIL + email);
-	        }
-	        String password = generatePassword();
-	        user.setPassword(encodePassword(password));
-	        userRepository.save(user);
-	        LOGGER.info("New user password: " + password);
-	        emailService.sendNewPasswordEmail(user.getNames(), password, user.getUsername());
+	public void resetPassword(String password, String newPassword, String email, String token) throws MessagingException, EmailNotFoundException {
+	
+		
+		
 	}
 
 	@Override
@@ -247,11 +246,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
     private String generatePassword() {
-        return RandomStringUtils.randomAlphanumeric(10);
-    }
-
-    private String generateUserId() {
-        return RandomStringUtils.randomNumeric(10);
+        return RandomStringUtils.randomAlphanumeric(23);
     }
 
     private void validateLoginAttempt(User user) {
@@ -291,6 +286,23 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
             return null;
         }
     }
+
+	@Override
+	public void recoveryPassword(String email) throws EmailNotFoundException, MessagingException {
+		
+		   User user = userRepository.findUserByUsername(email);
+	        if (user == null) {
+	            throw new EmailNotFoundException(NO_USER_FOUND_BY_EMAIL + email);
+	        }
+	        
+	        String token = generatePassword();
+	        user.setPassword(encodePassword(token));
+//	        user.setToken(token);
+	        userRepository.save(user);
+	        LOGGER.info("Token generate: " + token);
+	        emailService.sendNewPasswordEmail(user.getNames(), token, user.getUsername());
+
+	}
 
 	
 	

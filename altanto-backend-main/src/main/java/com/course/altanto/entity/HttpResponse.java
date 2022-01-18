@@ -6,6 +6,11 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * @author gabriel.juarez
+ *
+ */
+
 public class HttpResponse {
 	
 
