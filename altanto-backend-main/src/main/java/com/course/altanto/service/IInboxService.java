@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Inbox;
+import com.course.altanto.exception.ExceptionGeneric;
 
 @Component
 public interface IInboxService {
@@ -13,8 +14,8 @@ public interface IInboxService {
 	 
 	 List<Inbox> viewAllInbox();
 	 
-	 Inbox viewInboxById(String id);
+	 Inbox viewInboxById(String id) throws ExceptionGeneric;
 	 
-	 Inbox deleteInboxById(String id);
+	 Inbox deleteInboxById(String id) throws ExceptionGeneric;
 	 
 }

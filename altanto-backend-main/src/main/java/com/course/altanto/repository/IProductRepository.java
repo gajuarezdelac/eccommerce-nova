@@ -6,4 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.course.altanto.entity.Product;
 
 @Repository
-public interface IProductRepository extends JpaRepository<Product, String> {}
+public interface IProductRepository extends JpaRepository<Product, String> {
+	
+	Product findProductByCode(String code);
+	
+	Product findProductById(String id);
+	
+}

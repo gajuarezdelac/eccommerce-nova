@@ -1,6 +1,7 @@
 package com.course.altanto.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,6 @@ public class Inbox  implements Serializable {
 	
 	private String content;
 	
-	private String createdAt;
+	private Date createdAt;
 	
 }

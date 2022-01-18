@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Product;
+import com.course.altanto.exception.ExceptionGeneric;
 
 @Component
 public interface IProductService {
@@ -17,8 +18,8 @@ public interface IProductService {
 	
 	Product editProduct(Product request);
 	
-	Product viewProductByCode(String code);
+	Product viewProductById(String id) throws ExceptionGeneric;
 	
-	void deleteProductByCode();
+	Product deleteProductById(String id) throws ExceptionGeneric;
 	
 }
