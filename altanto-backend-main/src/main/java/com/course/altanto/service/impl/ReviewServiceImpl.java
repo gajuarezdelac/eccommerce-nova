@@ -2,45 +2,49 @@ package com.course.altanto.service.impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Component;
 
-import com.course.altanto.entity.Orders;
-import com.course.altanto.service.IOrdersService;
+import com.course.altanto.entity.Review;
+import com.course.altanto.service.IReviewService;
 
 @Component
-@Transactional
-public class OrdersServiceImpl implements IOrdersService{
+public class ReviewServiceImpl implements IReviewService{
 
 	@Override
-	public Orders createOrder(Orders request) {
+	public List<Review> getAllReviews() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Orders updateOrder(Orders request) {
+	public List<Review> getReviewsByProduct() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Orders deleteOrder() {
+	public Review viewReviewById() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Orders> viewOrderByUser(String userId) {
+	public Review addReview() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Orders> getAllOrders() {
+	public Review updateReview() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public void deleteReview() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

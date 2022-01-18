@@ -6,41 +6,35 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 
-import com.course.altanto.entity.Orders;
-import com.course.altanto.service.IOrdersService;
+import com.course.altanto.entity.Inbox;
+import com.course.altanto.service.IInboxService;
 
 @Component
 @Transactional
-public class OrdersServiceImpl implements IOrdersService{
+public class InboxServiceImpl implements IInboxService{
 
 	@Override
-	public Orders createOrder(Orders request) {
+	public Inbox contact(String email, String subject, String content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Orders updateOrder(Orders request) {
+	public List<Inbox> viewAllInbox() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Orders deleteOrder() {
+	public Inbox viewInboxById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Orders> viewOrderByUser(String userId) {
+	public Inbox deleteInboxById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<Orders> getAllOrders() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
