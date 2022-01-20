@@ -13,7 +13,6 @@ import static com.course.altanto.constant.UserImplConstant.EMAIL_ALREADY_EXISTS;
 import static com.course.altanto.constant.UserImplConstant.FOUND_USER_BY_USERNAME;
 import static com.course.altanto.constant.UserImplConstant.NO_USER_FOUND_BY_EMAIL;
 import static com.course.altanto.constant.UserImplConstant.NO_USER_FOUND_BY_USERNAME;
-import static com.course.altanto.constant.UserImplConstant.USERNAME_ALREADY_EXISTS;
 import static com.course.altanto.enumeration.Role.ROLE_USER;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -27,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +53,7 @@ import com.course.altanto.entity.UserPrincipal;
 import com.course.altanto.enumeration.Role;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
+import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.exception.NotAnImageFileException;
 import com.course.altanto.exception.UserNotFoundException;
 import com.course.altanto.exception.UsernameExistException;
@@ -101,7 +102,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	public User register(String firstName, String lastName, String username, String password, String gender, Date dateOfBirth)
 			throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
 		
-		  validateNewUsernameAndEmail(EMPTY, username, username);
+		  validateNewUsernameAndEmail(EMPTY, username);
 	        User user = new User();
 	        user.setNames(firstName);
 	        user.setSurnames(lastName);
@@ -116,8 +117,6 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	        user.setAuthorities(ROLE_USER.getAuthorities());
 	        user.setProfileImageUrl(getTemporaryProfileImageUrl(username));
 	        userRepository.save(user);
-	        LOGGER.info("New user password: " + password);
-	        emailService.sendNewPasswordEmail(firstName, password, username);
 	        return user;
 		
 	}
@@ -143,8 +142,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 			boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException,
 			UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
 		
+		
+		 validateNewUsernameAndEmail(EMPTY, username);
 		  User user = new User();
 	      String password = generatePassword();
+	      System.out.println(password);
 	      user.setNames(firstName);
 	      user.setSurnames(lastName);
 	      user.setJoinDate(new Date());
@@ -169,7 +171,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	public User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String role, String gender, Date dateOfBirth, boolean isNonLocked, boolean isActive, MultipartFile profileImage)
 			throws UserNotFoundException, UsernameExistException, EmailExistException, IOException,
 			NotAnImageFileException {
-		  User currentUser = validateNewUsernameAndEmail(currentUsername, newUsername, newUsername);
+		  User currentUser = validateNewUsernameAndEmail(currentUsername, newUsername);
 	        currentUser.setNames(newFirstName);
 	        currentUser.setSurnames(newLastName);
 	        currentUser.setUsername(newUsername);
@@ -193,23 +195,34 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public void resetPassword(String password, String newPassword, String email, String token) throws MessagingException, EmailNotFoundException {
+	public void resetPassword(String newPassword, String email, String token) throws MessagingException, EmailNotFoundException, ExceptionGeneric {
 	
+		User user = userRepository.findUserByTokenAndUsername(token, email);
+	
+		if(user == null ) { 
+	    	 throw new ExceptionGeneric("El token es incorrecto o bien ya fue utilizado.");
+		}
 		
-		
+	    if(user.getExpireToken().before(new Date())) {
+	    	 throw new ExceptionGeneric("El token se encuentra expirado!");
+	    }
+	    
+	    user.setToken("");
+	    user.setPassword(encodePassword(newPassword));
+	    
+	    userRepository.save(user);
 	}
 
 	@Override
 	public User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException,
 			UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
-		 User user = validateNewUsernameAndEmail(username, null, null);
+		 User user = validateNewUsernameAndEmail(username, null);
 	     saveProfileImage(user, profileImage);
 	     return user;
 	}
 	
 	
 	// Others methods 
-	
 	private void saveProfileImage(User user, MultipartFile profileImage) throws IOException, NotAnImageFileException {
         if (profileImage != null) {
             if(!Arrays.asList(IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE, IMAGE_GIF_VALUE).contains(profileImage.getContentType())) {
@@ -261,47 +274,69 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         }
     }
 
-    private User validateNewUsernameAndEmail(String currentUsername, String newUsername, String newEmail) throws UserNotFoundException, UsernameExistException, EmailExistException {
-        User userByNewUsername = findUserByUsername(newUsername);
-        User userByNewEmail = findUserByEmail(newEmail);
-        if(StringUtils.isNotBlank(currentUsername)) {
-            User currentUser = findUserByUsername(currentUsername);
-            if(currentUser == null) {
-                throw new UserNotFoundException(NO_USER_FOUND_BY_USERNAME + currentUsername);
-            }
-            if(userByNewUsername != null && !currentUser.getId().equals(userByNewUsername.getId())) {
-                throw new UsernameExistException(USERNAME_ALREADY_EXISTS);
-            }
-            if(userByNewEmail != null && !currentUser.getId().equals(userByNewEmail.getId())) {
-                throw new EmailExistException(EMAIL_ALREADY_EXISTS);
-            }
-            return currentUser;
-        } else {
-            if(userByNewUsername != null) {
-                throw new UsernameExistException(USERNAME_ALREADY_EXISTS);
-            }
-            if(userByNewEmail != null) {
-                throw new EmailExistException(EMAIL_ALREADY_EXISTS);
-            }
-            return null;
-        }
-    }
+    
+	private User validateNewUsernameAndEmail(String currentUsername, String newUsername) throws UserNotFoundException, UsernameExistException, EmailExistException{
+		
+	   User userByNewUsername = findUserByUsername(newUsername);
+		 
+	  if(StringUtils.isNotBlank(currentUsername)) { 
+		 User currentUser = findUserByUsername(currentUsername);
+	     if(currentUser == null) {
+	    	 throw new UserNotFoundException(NO_USER_FOUND_BY_USERNAME + currentUsername);
+	     }
+	     
+	     if(userByNewUsername != null && !currentUser.getId().equals(userByNewUsername.getId())) {
+	    	 throw new UsernameExistException(EMAIL_ALREADY_EXISTS);
+	     }
+	      
+	     return currentUser;
+	  } else {
+		  
+	      if(userByNewUsername != null) {
+		    	 throw new UsernameExistException(EMAIL_ALREADY_EXISTS);
+		  }
+		  
+		  return userByNewUsername;
+	  }  
+	}
+	
+
+	private User validateUpdateUsername(String currentUsername) throws UserNotFoundException {
+		
+		 User currentUser = findUserByUsername(currentUsername);
+		
+		  if(StringUtils.isNotBlank(currentUsername)) { 
+			  if(currentUser == null) {
+			    	 throw new UserNotFoundException(NO_USER_FOUND_BY_USERNAME + currentUsername);
+			   }     
+			}
+		  
+		return currentUser;
+	}
+	
 
 	@Override
 	public void recoveryPassword(String email) throws EmailNotFoundException, MessagingException {
 		
-		   User user = userRepository.findUserByUsername(email);
+		    User user = userRepository.findUserByUsername(email);
+		    
 	        if (user == null) {
 	            throw new EmailNotFoundException(NO_USER_FOUND_BY_EMAIL + email);
 	        }
 	        
+	        Calendar calendar = Calendar.getInstance();	
+	        calendar.setTime(new Date()); 
+	        calendar.add(Calendar.HOUR, 1);  
+	        Date expireToken = calendar.getTime();
+	        
 	        String token = generatePassword();
-	        user.setPassword(encodePassword(token));
-//	        user.setToken(token);
+	        user.setToken(token);
+	        user.setExpireToken(expireToken);
+	        user.setPassword(encodePassword(token));	        
 	        userRepository.save(user);
+	        
 	        LOGGER.info("Token generate: " + token);
-	        emailService.sendNewPasswordEmail(user.getNames(), token, user.getUsername());
-
+	        emailService.resetPassword(user.getNames(), token, user.getUsername());
 	}
 
 	

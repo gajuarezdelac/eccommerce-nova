@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.course.altanto.entity.User;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
+import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.exception.NotAnImageFileException;
 import com.course.altanto.exception.UserNotFoundException;
 import com.course.altanto.exception.UsernameExistException;
@@ -33,9 +34,9 @@ public interface IUserService {
 
 	    void deleteUser(String username) throws IOException;
 
-	    void resetPassword(String password, String newPassword, String email, String token) throws MessagingException, EmailNotFoundException;
+	    void resetPassword(String newPassword, String email, String token) throws MessagingException, EmailNotFoundException, ExceptionGeneric;
 	    
-	    void recoveryPassword(String email) throws MessagingException, EmailNotFoundException;
+	    void recoveryPassword(String token) throws MessagingException, EmailNotFoundException;
 
 	    User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 }

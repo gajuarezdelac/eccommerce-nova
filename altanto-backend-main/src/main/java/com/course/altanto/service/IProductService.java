@@ -5,18 +5,20 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Product;
+import com.course.altanto.entity.dto.ProductDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 
 @Component
 public interface IProductService {
 
+	// View products 
 	List<Product> seach();
 	
 	List<Product> getAllProducts();
 	
-	Product newProduct(Product request);
+	Product newProduct(ProductDTO request);
 	
-	Product editProduct(Product request);
+	Product editProduct(String id, ProductDTO request) throws ExceptionGeneric;
 	
 	Product viewProductById(String id) throws ExceptionGeneric;
 	

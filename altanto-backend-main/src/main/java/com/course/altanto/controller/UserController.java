@@ -41,6 +41,7 @@ import com.course.altanto.entity.UserPrincipal;
 import com.course.altanto.entity.dto.RecoveryPasswordDTO;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
+import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.exception.NotAnImageFileException;
 import com.course.altanto.exception.UserNotFoundException;
 import com.course.altanto.exception.UsernameExistException;
@@ -52,6 +53,7 @@ import com.course.altanto.utils.JWTTokenProvider;
 public class UserController {
 
 	  public static final String EMAIL_SENT = "An email with a new password was sent to: ";
+	  public static final String PASSWORD_RESET = "Contraseña restablecida correctamente";
 	  public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully";
 	  private AuthenticationManager authenticationManager;
 	  private IUserService userService;
@@ -64,7 +66,7 @@ public class UserController {
 	        this.jwtTokenProvider = jwtTokenProvider;
 	  }
 	  
-	    @PostMapping("/login")
+	  @PostMapping("/login")
 	    public ResponseEntity<User> login(@RequestBody User user) {
 	        authenticate(user.getUsername(), user.getPassword());
 	        User loginUser = userService.findUserByUsername(user.getUsername());
@@ -73,11 +75,11 @@ public class UserController {
 	        return new ResponseEntity<>(loginUser, jwtHeader, OK);
 	    }
 
-	    @PostMapping("/register")
+	   @PostMapping("/register")
 	    public ResponseEntity<User> register(@RequestBody User user) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
 	        User newUser = userService.register(user.getNames(), user.getSurnames(), user.getUsername(), user.getPassword(), user.getGender(), user.getDateOfBirth());
 	        return new ResponseEntity<>(newUser, OK);
-	    }
+	   }
 
 	    @PostMapping("/add")
 	    public ResponseEntity<User> addNewUser(@RequestParam("firstName") String firstName,
@@ -89,6 +91,9 @@ public class UserController {
 	                                           @RequestParam("isActive") String isActive,
 	                                           @RequestParam("isNonLocked") String isNonLocked,
 	                                           @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
+	    	
+	    	
+	    
 	        User newUser = userService.addNewUser(firstName, lastName, username, role, gender, dateOfBirth, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
 	        return new ResponseEntity<>(newUser, OK);
 	    }
@@ -126,11 +131,10 @@ public class UserController {
 	        return response(OK, EMAIL_SENT + email);
 	    }
 	    
-	    
-	    @PostMapping("/reset-password")
-	    public ResponseEntity<HttpResponse> resetPassword(@RequestBody RecoveryPasswordDTO response) {
-	    	 
-	    	 return response(OK, EMAIL_SENT);
+	    @PostMapping("/reset-password/{token}")
+	    public ResponseEntity<HttpResponse> resetPassword(@PathVariable("token") String token,@RequestBody RecoveryPasswordDTO response) throws MessagingException, EmailNotFoundException, ExceptionGeneric {
+	    	userService.resetPassword(response.getNewPassword(), response.getEmail(), token);
+	    	 return response(OK, PASSWORD_RESET);
 	    }
 
 	    @DeleteMapping("/delete/{username}")

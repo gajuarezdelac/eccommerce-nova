@@ -58,6 +58,8 @@ public class User implements Serializable {
 	
 	private String token;
 	
+	private Date expireToken;
+	
 	private String profileImageUrl;
 	
 	private Date joinDate;

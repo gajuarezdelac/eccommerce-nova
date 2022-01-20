@@ -1,6 +1,7 @@
 package com.course.altanto.exception;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
@@ -25,10 +26,12 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.course.altanto.entity.HttpResponse;
 
+
+@RestControllerAdvice
 public class ExceptionHandling implements ErrorController{
 	
 

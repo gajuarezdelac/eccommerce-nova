@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Product;
+import com.course.altanto.entity.dto.ProductDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.repository.IProductRepository;
 import com.course.altanto.service.IProductService;
@@ -23,14 +24,21 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
-	public Product newProduct(Product request) {
-		// TODO Auto-generated method stub
+	public Product newProduct(ProductDTO request) {
+		
+		Product element = new Product();
+		
+	
+		
 		return null;
 	}
 
 	@Override
-	public Product editProduct(Product request) {
-		// TODO Auto-generated method stub
+	public Product editProduct(String id, ProductDTO request) throws ExceptionGeneric {
+		
+		Product element = validateProductExist(id);
+		
+		
 		return null;
 	}
 
@@ -62,11 +70,9 @@ public class ProductServiceImpl implements IProductService {
 	private Product validateProductExist(String id) throws ExceptionGeneric {
 		
 		Product element = productRepository.findProductById(id);
-		
 		if(element == null ) {
 			 throw new ExceptionGeneric("No existe el producto seleccionado");
-		}
-		
+		}	
 		return element;
 	}
 
