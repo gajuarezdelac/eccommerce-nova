@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthComponent } from './pages/auth/auth.component';
 import { LoginComponent } from './pages/auth/login/login.component';
@@ -11,9 +12,7 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FormShopComponent } from './pages/form-shop/form-shop.component';
 import { HomeComponent } from './pages/home/home.component';
-import { MyregistersComponent } from './pages/myregisters/myregisters.component';
 import { PaymentComponent } from './pages/payment/payment.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ShopCartComponent } from './pages/shop-cart/shop-cart.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
@@ -23,13 +22,10 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent, children: [
      { path: "payment", component: PaymentComponent },
-     { path: "profile", component: ProfileComponent },
      { path: "dashboard", component: DashboardComponent },
-     { path: "my-goods", component: MyregistersComponent },
-     { path: "profile", component: ProfileComponent },
      { path: "profile", component: FavoritesComponent },
      { path: "users", component: UsersComponent },
-     { path: '', pathMatch: 'full', redirectTo: '/login' },
+     { path: 'welcome', pathMatch: 'full', redirectTo: '/dashboard' },
     ],
   // canActivate: [ AuthGuard ]
   },
@@ -37,15 +33,21 @@ const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
     { path: "recovery-password", component: RecoveryPasswordComponent },
+    { path: 'auth', pathMatch: 'full', redirectTo: '/login' },
   ]},
-  {path: 'search', component: SearchComponent },
-  {path: 'product/:id', component: DetailsProductComponent },
-  { path: 'my-cart' , component: ShopCartComponent },
-  { path: 'my-profile' , component: UserProfileComponent },
-  { path: "faq",  component: FaqComponent },
-  { path: 'check-delivery', component: FormShopComponent },
-  { path: 'payment', component: PaymentComponent },
-  {path: '**', component: HomeComponent,  redirectTo: ''},
+
+  {path: '', component: NavbarComponent, children : [
+    {path: 'home', component: HomeComponent },
+    {path: 'search', component: SearchComponent },
+    {path: 'product/:id', component: DetailsProductComponent },
+    { path: 'my-cart' , component: ShopCartComponent },
+    { path: 'my-profile' , component: UserProfileComponent },
+    { path: "faq",  component: FaqComponent },
+    { path: 'check-delivery', component: FormShopComponent },
+    { path: 'payment', component: PaymentComponent },
+    { path: '', pathMatch: 'full', redirectTo: '/home' },
+  ]},
+  {path: '**', redirectTo: '',     pathMatch: 'full'},
 ];
 
 @NgModule({

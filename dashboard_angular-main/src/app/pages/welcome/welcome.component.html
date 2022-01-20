@@ -20,65 +20,47 @@
         <span  routerLink="/welcome/dashboard" > Dashboard </span>
       </li>
 
-      <li nz-submenu nzOpen nzTitle="Bienes" nzIcon="audit">
-        <ul>
-
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome/search"  >Mis bienes</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/profile" >Buscar</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/favorites" > Guardados </a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li nz-submenu nzOpen nzTitle="Comprar" nzIcon="shopping-cart">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>  Pagos e historial </a>
-          </li>
-        </ul>
-      </li>
-      
-
       <li nz-submenu nzOpen nzTitle="Administración" nzIcon="apartment">
         <ul>
 
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome/users"  >Usuarios</a>
+            <a routerLink="/welcome/search"  >Inventario</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/rols" >Roles</a>
+            <a  routerLink="/welcome/profile" >Usuarios</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/rols" >Anuncios</a>
+            <a  routerLink="/welcome/favorites" > Pedidos </a>
+          </li>
+
+          <li nz-menu-item nzMatchRouter>
+            <a  routerLink="/welcome/favorites" > Comentarios </a>
+          </li>
+
+          <li nz-menu-item nzMatchRouter>
+            <a  routerLink="/welcome/favorites" > Mensajes </a>
           </li>
 
         </ul>
       </li>
-      
-      <li nz-menu-item zMatchRouter>
-        <i nz-icon nzType="user"> </i> 
-        <span> Mi perfil </span>
+
+      <li nz-submenu nzOpen nzTitle="Finanzas" nzIcon="shopping-cart">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>  Contabilidad y gastos </a>
+          </li>
+        </ul>
       </li>
+      
+      
 
       <li nz-menu-item nzMatchRouter>
         <i nz-icon nzType="solution"> </i> 
         <span> FAQ </span>
       </li>
 
-      <li nz-menu-item  nzTitle="Comprar" nzMatchRouter nzIcon="form">
-        <i nz-icon nzType="coffee"> </i> 
-        <span> Anuncios </span>
-      </li>
 
       <li nz-menu-item  nzTitle="Comprar" nzMatchRouter nzIcon="form">
         <i nz-icon nzType="verified"> </i> 

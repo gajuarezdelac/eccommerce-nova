@@ -11,10 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { PaymentComponent } from './pages/payment/payment.component';
-import { AnnouncementsComponent } from './pages/announcements/announcements.component';
-import { MyregistersComponent } from './pages/myregisters/myregisters.component';
 import { HelpComponent } from './pages/help/help.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { LoginComponent } from './pages/auth/login/login.component';
@@ -93,7 +90,6 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthService } from './services/auth.service';
@@ -103,7 +99,6 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { NotificationModule } from './notification.module';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { UsersComponent } from './pages/users/users.component';
-import { AnnouncementsAdminComponent } from './pages/announcements-admin/announcements-admin.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './pages/search/search.component';
@@ -118,10 +113,7 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     WelcomeComponent,
-    ProfileComponent,
     PaymentComponent,
-    AnnouncementsComponent,
-    MyregistersComponent,
     HelpComponent,
     FaqComponent,
     LoginComponent,
@@ -129,12 +121,10 @@ registerLocaleData(en);
     ResetPasswordComponent,
     RecoveryPasswordComponent,
     AuthComponent,
-    NotfoundComponent,
     DashboardComponent,
     HomeComponent,
     FavoritesComponent,
     UsersComponent,
-    AnnouncementsAdminComponent,
     NavbarComponent,
     FooterComponent,
     SearchComponent,
