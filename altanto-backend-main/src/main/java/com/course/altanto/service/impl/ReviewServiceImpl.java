@@ -2,13 +2,19 @@ package com.course.altanto.service.impl;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Component;
+
 import com.course.altanto.entity.Review;
 import com.course.altanto.entity.dto.ReviewDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.repository.IReviewRepository;
 import com.course.altanto.service.IReviewService;
 
-
+@Component
+@Transactional
 public class ReviewServiceImpl implements IReviewService{
 	
 	
@@ -59,6 +65,7 @@ public class ReviewServiceImpl implements IReviewService{
 		
 		return element;
 	}
+	
 
 	@Override
 	public Review deleteReview(String id) throws ExceptionGeneric {

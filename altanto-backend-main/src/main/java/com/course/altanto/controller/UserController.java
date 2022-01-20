@@ -39,6 +39,7 @@ import com.course.altanto.entity.HttpResponse;
 import com.course.altanto.entity.User;
 import com.course.altanto.entity.UserPrincipal;
 import com.course.altanto.entity.dto.RecoveryPasswordDTO;
+import com.course.altanto.entity.dto.UserDTO;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
 import com.course.altanto.exception.ExceptionGeneric;
@@ -66,6 +67,7 @@ public class UserController {
 	        this.jwtTokenProvider = jwtTokenProvider;
 	  }
 	  
+	  
 	  @PostMapping("/login")
 	    public ResponseEntity<User> login(@RequestBody User user) {
 	        authenticate(user.getUsername(), user.getPassword());
@@ -79,9 +81,15 @@ public class UserController {
 	    public ResponseEntity<User> register(@RequestBody User user) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
 	        User newUser = userService.register(user.getNames(), user.getSurnames(), user.getUsername(), user.getPassword(), user.getGender(), user.getDateOfBirth());
 	        return new ResponseEntity<>(newUser, OK);
+   	   }
+	   
+	   @DeleteMapping("/desactivate-profile/{username}")
+	   public ResponseEntity<User> desactivateProfile(@PathVariable("username") String username) throws UserNotFoundException {
+		   User response = userService.desactiveProfile(username);
+		   return new ResponseEntity<User>(response, HttpStatus.OK);
 	   }
-
-	    @PostMapping("/add")
+	   
+	   @PostMapping("/add")
 	    public ResponseEntity<User> addNewUser(@RequestParam("firstName") String firstName,
 	                                           @RequestParam("lastName") String lastName,
 	                                           @RequestParam("username") String username,
@@ -113,8 +121,16 @@ public class UserController {
 	        return new ResponseEntity<>(updatedUser, OK);
 	    }
 	    
+	    
+	    @PostMapping("/update-profile/{username}")
+	    public ResponseEntity<User> updateProfile(@PathVariable("username") String username, @RequestBody UserDTO request) throws UserNotFoundException {
+	    	User response = userService.updateProfile(username, request);
+	    	return new ResponseEntity<User>(response, HttpStatus.OK);
+	    }
+	    
+	    
 	    @GetMapping("/find/{username}")
-	    public ResponseEntity<User> getUser(@PathVariable("username") String username) {
+	    public ResponseEntity<User> getUser(@PathVariable("username") String username) throws UserNotFoundException {
 	        User user = userService.findUserByUsername(username);
 	        return new ResponseEntity<>(user, OK);
 	    }
@@ -184,6 +200,4 @@ public class UserController {
 	        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 	    }
 	  
-	  
-	
 }

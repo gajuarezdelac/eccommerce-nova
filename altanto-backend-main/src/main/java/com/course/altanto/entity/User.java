@@ -53,6 +53,8 @@ public class User implements Serializable {
 	
 	private Date dateOfBirth;
 	
+	private String numberPhone;
+	
 	@Column(nullable = false)
 	private String role;
 	
@@ -65,6 +67,8 @@ public class User implements Serializable {
 	private Date joinDate;
 	
 	private String[] authorities;
+	
+	private String location;
 	
 	private boolean isActive;
 	

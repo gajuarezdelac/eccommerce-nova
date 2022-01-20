@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.course.altanto.entity.User;
+import com.course.altanto.entity.dto.UserDTO;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
 import com.course.altanto.exception.ExceptionGeneric;
@@ -25,8 +26,10 @@ public interface IUserService {
 	    List<User> getUsers();
 
 	    User findUserByUsername(String username);
-
-	    User findUserByEmail(String email);
+  
+	    User desactiveProfile(String username) throws UserNotFoundException;
+	    
+	    User updateProfile(String currentUsername, UserDTO request) throws UserNotFoundException;
 
 	    User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,  boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException;
 

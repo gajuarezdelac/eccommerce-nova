@@ -56,8 +56,8 @@ public class OrdersServiceImpl implements IOrdersService{
 	}
 
 	@Override
-	public Orders viewOrderById(String id) {
-		Orders response = ordersRepository.findOrdersById(id);
+	public Orders viewOrderById(String id) throws ExceptionGeneric {
+		Orders response = validateOrdersExist(id);
 		return response;
 	}
 

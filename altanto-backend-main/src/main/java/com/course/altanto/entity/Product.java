@@ -42,11 +42,10 @@ public class Product implements Serializable {
 
 	@Column(nullable = false)
 	private String shortDescription;
-	
-	@Column(nullable = false)
-	private String longDescription;	
 
 	private int cantd;
+	
+	private String size;
 	
 	@Column(nullable = false)
 	private double price;
@@ -56,11 +55,9 @@ public class Product implements Serializable {
 	private int discount;
 	
 	private String category;
-
+	
 	private double rating;
 	
 	private String typeGarment;
-	
-	
 		
 }

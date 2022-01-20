@@ -50,6 +50,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.course.altanto.entity.User;
 import com.course.altanto.entity.UserPrincipal;
+import com.course.altanto.entity.dto.UserDTO;
 import com.course.altanto.enumeration.Role;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
@@ -130,13 +131,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	public User findUserByUsername(String username) {
 		return userRepository.findUserByUsername(username);
 	}
-
-	@Override
-	public User findUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,
 			boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException,
@@ -225,20 +220,27 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	// Others methods 
 	private void saveProfileImage(User user, MultipartFile profileImage) throws IOException, NotAnImageFileException {
         if (profileImage != null) {
-            if(!Arrays.asList(IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE, IMAGE_GIF_VALUE).contains(profileImage.getContentType())) {
+            
+        	if(!Arrays.asList(IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE, IMAGE_GIF_VALUE).contains(profileImage.getContentType())) {
                 throw new NotAnImageFileException(profileImage.getOriginalFilename() + NOT_AN_IMAGE_FILE);
             }
+            
+        	
+        	
             Path userFolder = Paths.get(USER_FOLDER + user.getUsername()).toAbsolutePath().normalize();
+           
             if(!Files.exists(userFolder)) {
                 Files.createDirectories(userFolder);
                 LOGGER.info(DIRECTORY_CREATED + userFolder);
             }
+            
             Files.deleteIfExists(Paths.get(userFolder + user.getUsername() + DOT + JPG_EXTENSION));
             Files.copy(profileImage.getInputStream(), userFolder.resolve(user.getUsername() + DOT + JPG_EXTENSION), REPLACE_EXISTING);
             user.setProfileImageUrl(setProfileImageUrl(user.getUsername()));
             userRepository.save(user);
             LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + profileImage.getOriginalFilename());
         }
+        
     }
 
     private String setProfileImageUrl(String username) {
@@ -301,6 +303,22 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 	
 
+	@Override
+	public User updateProfile(String currentUsername, UserDTO request) throws UserNotFoundException {
+		
+		User element = validateUpdateUsername(currentUsername);
+		element.setNames(request.getNames());
+		element.setSurnames(request.getSurnames());
+		element.setGender(request.getGender());
+		element.setDateOfBirth(request.getDateOfBirth());
+		element.setNumberPhone(request.getNumberPhone());
+		element.setUsername(request.getUsername());
+		userRepository.save(element);
+		
+		return element;
+	}
+	
+
 	private User validateUpdateUsername(String currentUsername) throws UserNotFoundException {
 		
 		 User currentUser = findUserByUsername(currentUsername);
@@ -338,6 +356,14 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	        LOGGER.info("Token generate: " + token);
 	        emailService.resetPassword(user.getNames(), token, user.getUsername());
 	}
+
+	@Override
+	public User desactiveProfile(String currentUsername) throws UserNotFoundException {
+		User element = validateUpdateUsername(currentUsername);
+		element.setActive(false);		
+		return element;
+	}
+
 
 	
 	

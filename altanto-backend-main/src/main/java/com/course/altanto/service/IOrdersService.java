@@ -18,7 +18,7 @@ public interface IOrdersService {
 	
 	List<Orders> viewOrderByUser(String userId);
 	
-	Orders viewOrderById(String id);
+	Orders viewOrderById(String id) throws ExceptionGeneric;
 	
 	List<Orders> getAllOrders();
 		

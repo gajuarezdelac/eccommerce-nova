@@ -35,7 +35,7 @@ public class OrderController {
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Orders> getOrderById(@PathVariable(value = "id") String id) {
+	public ResponseEntity<Orders> getOrderById(@PathVariable(value = "id") String id) throws ExceptionGeneric {
 		Orders response = service.viewOrderById(id);
 		return new ResponseEntity<Orders>(response, HttpStatus.OK);
 	}
@@ -64,8 +64,6 @@ public class OrderController {
     	return new ResponseEntity<>(response, HttpStatus.OK);    	
     }
     
-    
-    
-        
+       
 	
 }

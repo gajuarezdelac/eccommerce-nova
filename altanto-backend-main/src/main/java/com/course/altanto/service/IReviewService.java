@@ -23,6 +23,4 @@ public interface IReviewService {
 	
 	Review deleteReview(String id) throws ExceptionGeneric;	
 	
-	
-	
 }
