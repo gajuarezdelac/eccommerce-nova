@@ -109,6 +109,10 @@ import { FormShopComponent } from './pages/form-shop/form-shop.component';
 
 registerLocaleData(en);
 
+
+import { ChartsModule } from 'ng2-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +138,7 @@ registerLocaleData(en);
     FormShopComponent,
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

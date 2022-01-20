@@ -1,48 +1,132 @@
-<div class="layout">
+<div class="container-dash">
 
-    <div class="header-statistic">
 
-        <div>
-            <nz-row [nzGutter]="16">
-               
-                <nz-col [nzSpan]="8" class="element-statistic">
-                    <nz-statistic [nzValue]="(1949101 | number)!" [nzTitle]="'Active Users'"></nz-statistic>
-                </nz-col>  
+    <div class="container-welcome">
+    
+      <h2> <strong class="welcome">  Bienvenido  </strong> <span> Gabriel Juarez 😃 </span> </h2>
 
-                <nz-col [nzSpan]="8" class="element-statistic">
-                  <nz-statistic [nzValue]="(2019.111 | number: '1.0-2')!" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
-                </nz-col>
+     <div class="contact">
+      <nz-tag nzColor="#55acee">
+        <i nz-icon nzType="twitter"></i>
+        <span>Twitter</span>
+      </nz-tag>
+      <nz-tag nzColor="#cd201f">
+        <i nz-icon nzType="youtube"></i>
+        <span>Youtube</span>
+      </nz-tag>
+      <nz-tag nzColor="#3b5999">
+        <i nz-icon nzType="facebook"></i>
+        <span>Facebook</span>
+      </nz-tag>
+      <nz-tag nzColor="#55acee">
+        <i nz-icon nzType="linkedin"></i>
+        <span>LinkedIn</span>
+      </nz-tag>
+     </div>
 
-                <nz-col [nzSpan]="8" class="element-statistic">
-                    <nz-statistic [nzValue]="(2019.111 | number: '1.0-2')!" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
-                  </nz-col>
+
+    </div>
+
+    <br>
+
+    
+    <div class="statists">
+
+          <div class="card-s">                    
+            <h2> 
+              <!-- <i nz-icon nzType="alert" nzTheme="twotone"></i> -->
+              <i nz-icon nzType="pie-chart" nzTheme="twotone"></i>
+                 400 Bienes registrados  </h2>
+                 <p> Actualizado: 2021/03/20  </p>       
+          </div>
+
+          <div class="card-s">                    
+            <h2> 
+              <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#a31600'"  ></i>
+                 3,020 Favoritos </h2>
+                 <p> Actualizado: 2021/03/20  </p>
+          </div>
+
+             <div class="card-s">                    
+            <h2> 
+              <i nz-icon nzType="alert" nzTheme="twotone"></i>
+                 10,020 Reportes </h2>
+                 <p> Actualizado: 2021/03/20  </p>
+            
+          </div>          
+    </div>
+    
+    <div class="charts">
+
+      <div class="chart-ele">
   
+        <div class="chartjs-block">
+          <canvas baseChart 
+              [datasets]="lineChartData" 
+              [labels]="lineChartLabels" 
+              [options]="lineChartOptions"
+              [colors]="lineChartColors" 
+              [legend]="lineChartLegend" 
+              [chartType]="lineChartType" 
+              [plugins]="lineChartPlugins">
+          </canvas>
+      </div>
+  
+      </div>
+  
+  
+      <div class="chart-ele">
+  
+        <div class="chart-wrapper">
+          <canvas baseChart 
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [colors]="barChartColors" 
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+      </div>
+  
+      </div>
+  
+      <div class="chart-ele">
+        <div class="chart-wrapper">
+          <canvas baseChart 
+          [data]="pieChartData" 
+          [labels]="pieChartLabels" 
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [legend]="pieChartLegend">
+        </canvas>
+      </div>
+      </div>
 
-                
-           </nz-row>
-        </div>
-
-        <div class="element-statistic"> 
-            
-        </div>
-        
-        <div class="element-statistic"> 
-            
-        </div>
-
-    </div>
-
-    <div class="charts-statistic">
-        
-        <div class="chart-statistic">  </div>
-
-        <div class="chart-statistic">  </div>
-        
-        <div class="chart-statistic">  </div>
-
-    </div>
-
-
+      <div class="chart-ele">
+  
+        <div class="chartjs-block">
+          <canvas baseChart 
+              [datasets]="lineChartData" 
+              [labels]="lineChartLabels" 
+              [options]="lineChartOptions"
+              [colors]="lineChartColors" 
+              [legend]="lineChartLegend" 
+              [chartType]="lineChartType" 
+              [plugins]="lineChartPlugins">
+          </canvas>
+      </div>
+  
+      </div>
+  
+      
+  
+  
+      </div>
+  
+    
+      
+    
 
 </div>
-
