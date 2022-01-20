@@ -40,9 +40,6 @@ public class File implements Serializable {
 	private String id;
 
 	@Column(nullable = false)
-	private String consecutive;
-	
-	@Column(nullable = false)
 	private String routeFile;
 	
 	@Column(nullable = false)

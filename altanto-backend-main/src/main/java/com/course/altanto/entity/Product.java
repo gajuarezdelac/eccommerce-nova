@@ -2,11 +2,14 @@ package com.course.altanto.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -59,5 +62,10 @@ public class Product implements Serializable {
 	private double rating;
 	
 	private String typeGarment;
+	
+	@ManyToMany(targetEntity = File.class,cascade = CascadeType.ALL)
+	private List<File> images;
+	
+	
 		
 }

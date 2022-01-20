@@ -1,5 +1,6 @@
 package com.course.altanto.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.course.altanto.entity.Product;
 import com.course.altanto.entity.dto.ProductDTO;
 import com.course.altanto.exception.ExceptionGeneric;
+import com.course.altanto.exception.NotAnImageFileException;
 
 @Component
 public interface IProductService {
@@ -19,7 +21,7 @@ public interface IProductService {
 	List<Product> getAllProducts();
 
 	Product newProduct(String codeProd, String name, String description, int cant, String size, double price,
-			int discount, String category, String typeGarment, List<MultipartFile> images);
+			int discount, String category, String typeGarment, List<MultipartFile> images) throws NotAnImageFileException, IOException;
 
 	Product editProduct(String id, String name, String description, int cant, String size, double price,int discount) throws ExceptionGeneric;
 
