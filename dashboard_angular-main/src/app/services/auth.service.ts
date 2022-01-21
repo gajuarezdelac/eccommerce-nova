@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CustomHttpRespone } from '../models/custom-http-response';
 import { User } from '../models/User';
 
 @Injectable({
@@ -24,6 +25,15 @@ export class AuthService {
  public register(user: User): Observable<User> {
    return this.http.post<User>(`${this.host}/user/register`, user);
  }
+
+  public recoveryPassword(email: string): Observable<CustomHttpRespone> {
+    return this.http.get<CustomHttpRespone>(`${this.host}/user/recovery-password/${email}`);
+  }
+
+  // * Reset password
+  public resetPassword(email: string): Observable<CustomHttpRespone> {
+    return this.http.get<CustomHttpRespone>(`${this.host}/user/resetpassword/${email}`);
+  }
 
   public logOut(): void  {
     this.token = null;

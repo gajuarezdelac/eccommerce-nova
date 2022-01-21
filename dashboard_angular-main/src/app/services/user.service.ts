@@ -24,10 +24,6 @@ export class UserService {
     return this.http.post<User>(`${this.host}/user/add`, formData);
   }
 
-  public register(formData: FormData) : Observable<User> {
-    return this.http.post<User>(`${this.host}/user/register`, formData);
-  }
-  
   // * update user manually
   public updateUser(formData: FormData): Observable<User> {
     return this.http.post<User>(`${this.host}/user/update`, formData);
@@ -44,20 +40,12 @@ export class UserService {
   }
 
   
-  // * Reset password
-  public recoveryPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${this.host}/user/recovery-password/${email}`);
-  }
 
   // * Update Profile
   public updateProfile(username : string ,formData: any ) : Observable<User>  {
     return this.http.post<User>(`${this.host}/user/update-profile/${username}`, formData);
   } 
 
-  // * Reset password
-  public resetPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${this.host}/user/resetpassword/${email}`);
-  }
  
   public updateProfileImage(formData: FormData): Observable<HttpEvent<User>> {
     return this.http.post<User>(`${this.host}/user/updateProfileImage`, formData,
