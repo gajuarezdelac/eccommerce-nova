@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
   private isUserLoggedIn(): boolean {
     
     if (this.authenticationService.isUserLoggedIn()) {
-      console.log('Si entro a la condicional');
       return true;
     }
     

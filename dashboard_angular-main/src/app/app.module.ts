@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { es_ES, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
+
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import es from '@angular/common/locales/es';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -89,7 +91,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthService } from './services/auth.service';
@@ -107,7 +109,7 @@ import { ShopCartComponent } from './pages/shop-cart/shop-cart.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { FormShopComponent } from './pages/form-shop/form-shop.component';
 
-registerLocaleData(en);
+registerLocaleData(es);
 
 
 import { ChartsModule } from 'ng2-charts';
@@ -117,6 +119,7 @@ import { ReviewsControlComponent } from './pages/reviews-control/reviews-control
 import { InboxControlComponent } from './pages/inbox-control/inbox-control.component';
 import { FinanceControlComponent } from './pages/finance-control/finance-control.component';
 import { CardProductComponent } from './components/card-product/card-product.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 @NgModule({
@@ -153,6 +156,7 @@ import { CardProductComponent } from './components/card-product/card-product.com
     ChartsModule,
     BrowserModule,
     AppRoutingModule,
+    NgxCaptchaModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -229,7 +233,7 @@ import { CardProductComponent } from './components/card-product/card-product.com
     NzPipesModule,
   ],
   providers: [AuthService, AuthGuard,UserService,
-     { provide: NZ_I18N, useValue: en_US},
+     { provide: NZ_I18N, useValue: es_ES},
      {provide:   HTTP_INTERCEPTORS, useClass:  AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

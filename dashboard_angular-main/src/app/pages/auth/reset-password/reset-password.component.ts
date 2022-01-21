@@ -3,13 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-recovery-password',
-  templateUrl: './recovery-password.component.html',
-  styleUrls: ['./recovery-password.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
-export class RecoveryPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
 
-  
   validateForm!: FormGroup;
 
   submitForm(): void {
@@ -19,7 +18,7 @@ export class RecoveryPasswordComponent implements OnInit {
         this.validateForm.controls[i].updateValueAndValidity();
       }
 
-      // this.router.navigate(["/welcome/dashboard"]);
+      this.router.navigate(["/welcome/dashboard"]);
     }
   }
 
@@ -27,7 +26,9 @@ export class RecoveryPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required, Validators.email]],
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      remember: [true]
     });
   }
 

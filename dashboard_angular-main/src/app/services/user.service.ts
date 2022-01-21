@@ -23,12 +23,36 @@ export class UserService {
   public addUser(formData: FormData): Observable<User> {
     return this.http.post<User>(`${this.host}/user/add`, formData);
   }
+
+  public register(formData: FormData) : Observable<User> {
+    return this.http.post<User>(`${this.host}/user/register`, formData);
+  }
   
   // * update user manually
   public updateUser(formData: FormData): Observable<User> {
     return this.http.post<User>(`${this.host}/user/update`, formData);
   }
 
+  // * Get user by username
+  public getByUsername(username : string) : Observable<User> {
+    return this.http.get<User>(`${this.host}/user/find/${username}`)
+  }
+
+  // * Desactivar user
+  public desactivateByUsername(username: string): Observable<User> {
+    return this.http.delete<User>(`${this.host}/user/desactivate-profile/${username}`);
+  }
+
+  
+  // * Reset password
+  public recoveryPassword(email: string): Observable<CustomHttpRespone> {
+    return this.http.get<CustomHttpRespone>(`${this.host}/user/recovery-password/${email}`);
+  }
+
+  // * Update Profile
+  public updateProfile(username : string ,formData: any ) : Observable<User>  {
+    return this.http.post<User>(`${this.host}/user/update-profile/${username}`, formData);
+  } 
 
   // * Reset password
   public resetPassword(email: string): Observable<CustomHttpRespone> {
@@ -64,7 +88,6 @@ export class UserService {
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('username', user.username);
-    formData.append('email', user.email);
     formData.append('role', user.role);
     formData.append('profileImage', profileImage);
     formData.append('isActive', JSON.stringify(user.active));

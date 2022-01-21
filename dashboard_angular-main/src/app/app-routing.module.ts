@@ -35,7 +35,7 @@ const routes: Routes = [
      { path: "finance", component: FinanceControlComponent },
      { path: 'dashboard', pathMatch: 'full', redirectTo: '/statistics' },
     ],
-  // canActivate: [ AuthGuard ]
+  canActivate: [ AuthGuard ]
   },
   {path: 'auth', component: AuthComponent, children : [
     { path: "login", component: LoginComponent },
@@ -43,16 +43,15 @@ const routes: Routes = [
     { path: "recovery-password", component: RecoveryPasswordComponent },
     { path: 'auth', pathMatch: 'full', redirectTo: '/login' },
   ]},
-
   {path: '', component: NavbarComponent, children : [
     {path: 'home', component: HomeComponent },
     {path: 'search', component: SearchComponent },
     {path: 'product/:id', component: DetailsProductComponent },
     { path: 'my-cart' , component: ShopCartComponent },
-    { path: 'my-profile' , component: UserProfileComponent },
+    { path: 'my-profile' , component: UserProfileComponent, canActivate: [ AuthGuard ] },
     { path: "faq",  component: FaqComponent },
-    { path: 'check-delivery', component: FormShopComponent },
-    { path: 'payment', component: PaymentComponent },
+    { path: 'check-delivery', component: FormShopComponent, canActivate: [ AuthGuard ] },
+    { path: 'payment', component: PaymentComponent , canActivate: [ AuthGuard ]},
     { path: '', pathMatch: 'full', redirectTo: '/home' },
   ]},
   {path: '**', redirectTo: '',  pathMatch: 'full'},

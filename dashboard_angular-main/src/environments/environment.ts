@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:8081"
+  apiUrl: "http://localhost:8082",
+  siteKey: "6LeWvCgeAAAAAFe6vTfcy6leSolamsXODSpTyl6k"
 };
 
 /*

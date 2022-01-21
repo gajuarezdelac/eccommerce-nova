@@ -5,7 +5,7 @@
   <p class="presentacion-title"><span class="welcome">Bienvenido</span>, Ingresa tus datos para iniciar sesión: </p>
 
     <nz-form-item class="input-content">
-      <nz-form-control nzErrorTip="Please input your username!">
+      <nz-form-control nzHasFeedback nzErrorTip="Please input your username!">
         <nz-input-group nzPrefixIcon="user">
           <input type="text" nzSize="large" nz-input formControlName="username" placeholder="Username" />
         </nz-input-group>
@@ -13,12 +13,23 @@
     </nz-form-item>
 
     <nz-form-item class="input-content" > 
-      <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-form-control nzHasFeedback nzErrorTip="Please input your Password!">
         <nz-input-group nzPrefixIcon="lock">
           <input type="password" nz-input formControlName="password" placeholder="Password" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
+
+    
+    <nz-form-item class="input-content" > 
+      <nz-form-control nzErrorTip="Campo requerido!">
+        <ngx-recaptcha2 formControlName="recaptcha" #captchaElem
+        [siteKey]="siteKey"
+        formControlName="recaptcha">
+        </ngx-recaptcha2>    
+      </nz-form-control>
+    </nz-form-item>
+
     <div nz-row class="login-form-margin">
       <div nz-col [nzSpan]="12">
         <label nz-checkbox formControlName="remember">

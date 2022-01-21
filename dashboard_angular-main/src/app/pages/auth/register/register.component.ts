@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   public subcriptions : Subscription[] = [];
   public sub: Subscription = new Subscription;
   public isSpinning = false;
+  dateFormat = 'yyyy/MM/dd';
 
   constructor(
     private authenticationService : AuthService,

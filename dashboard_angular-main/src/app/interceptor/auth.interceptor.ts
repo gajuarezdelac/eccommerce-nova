@@ -28,6 +28,10 @@ export class AuthInterceptor implements HttpInterceptor {
       return HttpHandler.handle(httpRequest); 
     }
 
+    if(httpRequest.url.includes(`${this.authenticationService.host}/user/recovery-password`)){
+      return HttpHandler.handle(httpRequest); 
+    }
+
     this.authenticationService.loadToken();
     const token = this.authenticationService.getToken();
     

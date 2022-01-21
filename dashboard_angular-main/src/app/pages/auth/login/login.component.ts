@@ -8,6 +8,7 @@ import { HeaderType } from 'src/app/enum/header-type.enum';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 // import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -17,12 +18,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  public user!: User;
   public validateForm!: FormGroup;
   public subcriptions : Subscription[] = [];
   public sub: Subscription = new Subscription;
+  public siteKey = environment.siteKey;
   public isSpinning = false;
   
-
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder, 
@@ -31,10 +33,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
+      username: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
+      recaptcha: ['', Validators.required],
       remember: [true]
     });
+
+    if(this.authenticationService.isUserLoggedIn()) {
+      this.router.navigateByUrl('/dashboard/statistics');
+     }else {this.router.navigateByUrl("/auth/login");}
+
   }
   
   submitForm(): void {
@@ -60,7 +68,7 @@ export class LoginComponent implements OnInit {
           this.authenticationService.saveToken(token!);
           this.authenticationService.addUserToLocalCache(response.body!);
           this.isSpinning = false;
-          this.router.navigateByUrl('/welcome/dashboard');
+          this.router.navigateByUrl('/dashboard/statistics');
         },
         (errorResponse: HttpErrorResponse) => {
           this.isSpinning = false;
@@ -68,7 +76,11 @@ export class LoginComponent implements OnInit {
         }
       )
     );
-      
+  }
+
+    
+  ngOnDestroy(): void {
+    this.subcriptions.forEach(sub => sub.unsubscribe());
   }
 
     createMessage(type: string, message: string): void {
