@@ -111,6 +111,12 @@ registerLocaleData(en);
 
 
 import { ChartsModule } from 'ng2-charts';
+import { ProductControlComponent } from './pages/product-control/product-control.component';
+import { OrdersControlComponent } from './pages/orders-control/orders-control.component';
+import { ReviewsControlComponent } from './pages/reviews-control/reviews-control.component';
+import { InboxControlComponent } from './pages/inbox-control/inbox-control.component';
+import { FinanceControlComponent } from './pages/finance-control/finance-control.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
 
 
 @NgModule({
@@ -136,6 +142,12 @@ import { ChartsModule } from 'ng2-charts';
     ShopCartComponent,
     UserProfileComponent,
     FormShopComponent,
+    ProductControlComponent,
+    OrdersControlComponent,
+    ReviewsControlComponent,
+    InboxControlComponent,
+    FinanceControlComponent,
+    CardProductComponent,
   ],
   imports: [
     ChartsModule,

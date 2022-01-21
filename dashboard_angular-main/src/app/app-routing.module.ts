@@ -10,9 +10,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DetailsProductComponent } from './pages/details-product/details-product.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { FinanceControlComponent } from './pages/finance-control/finance-control.component';
 import { FormShopComponent } from './pages/form-shop/form-shop.component';
 import { HomeComponent } from './pages/home/home.component';
+import { InboxControlComponent } from './pages/inbox-control/inbox-control.component';
+import { OrdersControlComponent } from './pages/orders-control/orders-control.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { ProductControlComponent } from './pages/product-control/product-control.component';
+import { ReviewsControlComponent } from './pages/reviews-control/reviews-control.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ShopCartComponent } from './pages/shop-cart/shop-cart.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
@@ -20,12 +25,15 @@ import { UsersComponent } from './pages/users/users.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
-  { path: 'welcome', component: WelcomeComponent, children: [
-     { path: "payment", component: PaymentComponent },
-     { path: "dashboard", component: DashboardComponent },
-     { path: "profile", component: FavoritesComponent },
+  { path: 'dashboard', component: WelcomeComponent, children: [
+     { path: "statistics", component: DashboardComponent },
+     { path: "products", component: ProductControlComponent },
      { path: "users", component: UsersComponent },
-     { path: 'welcome', pathMatch: 'full', redirectTo: '/dashboard' },
+     { path: "orders", component: OrdersControlComponent },
+     { path: "reviews", component: ReviewsControlComponent },
+     { path: "inbox", component: InboxControlComponent },
+     { path: "finance", component: FinanceControlComponent },
+     { path: 'dashboard', pathMatch: 'full', redirectTo: '/statistics' },
     ],
   // canActivate: [ AuthGuard ]
   },
@@ -47,7 +55,7 @@ const routes: Routes = [
     { path: 'payment', component: PaymentComponent },
     { path: '', pathMatch: 'full', redirectTo: '/home' },
   ]},
-  {path: '**', redirectTo: '',     pathMatch: 'full'},
+  {path: '**', redirectTo: '',  pathMatch: 'full'},
 ];
 
 @NgModule({

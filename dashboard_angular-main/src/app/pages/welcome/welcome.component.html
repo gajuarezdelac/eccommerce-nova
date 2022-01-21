@@ -17,30 +17,30 @@
 
       <li nz-menu-item  nzTitle="Comprar" nzMatchRouter nzIcon="form">
         <i nz-icon nzType="bar-chart"> </i> 
-        <span  routerLink="/welcome/dashboard" > Dashboard </span>
+        <span  routerLink="/dashboard/statistics" > Dashboard </span>
       </li>
 
       <li nz-submenu nzOpen nzTitle="Administración" nzIcon="apartment">
         <ul>
 
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome/search"  >Inventario</a>
+            <a routerLink="/dashboard/products"  >Inventario</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/profile" >Usuarios</a>
+            <a  routerLink="/dashboard/users" >Usuarios</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/favorites" > Pedidos </a>
+            <a  routerLink="/dashboard/orders" > Pedidos </a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/favorites" > Comentarios </a>
+            <a  routerLink="/dashboard/reviews" > Comentarios </a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a  routerLink="/welcome/favorites" > Mensajes </a>
+            <a  routerLink="/dashboard/inbox" > Mensajes </a>
           </li>
 
         </ul>
@@ -49,7 +49,7 @@
       <li nz-submenu nzOpen nzTitle="Finanzas" nzIcon="shopping-cart">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>  Contabilidad y gastos </a>
+            <a  routerLink="/dashboard/finance">  Contabilidad y gastos </a>
           </li>
         </ul>
       </li>
