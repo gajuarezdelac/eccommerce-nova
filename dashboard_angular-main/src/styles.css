@@ -17,8 +17,10 @@ section {
   overflow-x: hidden;
 }
 
-
-
 td {
   cursor: pointer;
+}
+
+.breadcrumb {
+  background-color: transparent !important;
 }

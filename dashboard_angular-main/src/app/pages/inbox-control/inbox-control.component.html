@@ -1,1 +1,78 @@
-<p>inbox-control works!</p>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a data-abc="true">
+          <i class="fa fa-home"></i>
+      </a>
+  </li>
+    <li class="breadcrumb-item"> Administración </li>
+    <li class="breadcrumb-item active" aria-current="page"> Mensajes </li>
+  </ol>
+</nav>
+  
+  <br>
+  
+  
+        <form>
+  
+          <div nz-row [nzGutter]="8">
+            <div nz-col class="gutter-row" [nzSpan]="12"><div class="inner-box">
+              <nz-form-item class="input-content" > 
+                <nz-form-control nzErrorTip="Campo requerido">
+            
+                  <nz-input-group nzPrefixIcon="user">
+                    <input type="password" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+                  </nz-input-group>
+              
+          
+                </nz-form-control>
+              </nz-form-item>
+            </div></div>
+    
+            <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
+            <button class="btn btn-primary" routerLink="auth/login"><i class="bx bxs-user-circle mr-1"></i> Nuevo usuario </button>
+            </div></div>
+          </div>
+    
+        </form>
+  
+  
+      
+  
+  <nz-table #headerTable [nzData]="listOfData" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th nzRight nzAlign="center" nzWidth="100px">Acciones</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let data of headerTable.data">
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td nzRight nzAlign="center">
+            <nz-space>
+              <button nz-button nzShape="circle" nzType="text">
+                <i nz-icon nzTheme="twotone"  [nzTwotoneColor]="'#08a000'" nzType="edit"></i>
+              </button>
+              <button nz-button nzShape="circle" nzType="text">
+                <i nz-icon nzTheme="twotone" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
+              </button>
+            </nz-space>
+          </td>
+    
+        </tr>
+      </tbody>
+  </nz-table>
