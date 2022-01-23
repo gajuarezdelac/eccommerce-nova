@@ -1,4 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -9,8 +15,12 @@ export class UsersComponent implements OnInit {
 
  public listOfData: ItemData[] = [];
 
-  constructor() { }
-
+  constructor(
+    private authenticationService : AuthService,
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     const data = [];

@@ -17,7 +17,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public user!: User;
   public validateForm!: FormGroup;
-  public subcriptions : Subscription[] = [];
+  public subscriptions : Subscription[] = [];
   public isSpinning = false;
 
   constructor(
@@ -66,7 +66,7 @@ export class ResetPasswordComponent implements OnInit {
 
     this.isSpinning = true;
     let form = this.validateForm.value;
-    this.subcriptions.push(
+    this.subscriptions.push(
       this.authenticationService.resetPassword(form).subscribe(
         (response: CustomHttpRespone) => {
           this.isSpinning = false;

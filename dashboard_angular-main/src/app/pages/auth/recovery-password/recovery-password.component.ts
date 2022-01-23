@@ -18,7 +18,7 @@ export class RecoveryPasswordComponent implements OnInit {
   
   public user!: User;
   public validateForm!: FormGroup;
-  public subcriptions : Subscription[] = [];
+  public subscriptions : Subscription[] = [];
   public isSpinning = false;
 
   
@@ -53,7 +53,7 @@ export class RecoveryPasswordComponent implements OnInit {
 
     this.isSpinning = true;
     let user = this.validateForm.value;
-    this.subcriptions.push(
+    this.subscriptions.push(
       this.authenticationService.recoveryPassword(user).subscribe(
         (response: CustomHttpRespone) => {   
           this.isSpinning = false;

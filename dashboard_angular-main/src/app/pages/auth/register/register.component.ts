@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   public user!: User;
   public validateForm!: FormGroup;
-  public subcriptions : Subscription[] = [];
+  public subscriptions : Subscription[] = [];
   public isSpinning = false;
   public dateFormat = 'yyyy/MM/dd';
 
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   
       this.isSpinning = true;
       let form = this.validateForm.value;
-      this.subcriptions.push(
+      this.subscriptions.push(
         this.authenticationService.register(form).subscribe(
           (response: User) => {
           this.createMessage("sucess",  "Registrado correctamente!");

@@ -38,41 +38,55 @@
         </form>
   
   
-      
-  
-  <nz-table #headerTable [nzData]="listOfData" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Email</th>
-          
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Email</th>
-          <th nzRight nzAlign="center" nzWidth="100px">Acciones</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <tr *ngFor="let data of headerTable.data">
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
-          <td nzRight nzAlign="center">
-            <nz-space>
-              <button nz-button nzShape="circle" nzType="text">
-                <i nz-icon nzTheme="twotone"  [nzTwotoneColor]="'#08a000'" nzType="edit"></i>
-              </button>
-              <button nz-button nzShape="circle" nzType="text">
-                <i nz-icon nzTheme="twotone" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
-              </button>
-            </nz-space>
-          </td>
     
-        </tr>
-      </tbody>
+  <nz-table  
+  #fixedTable
+  #headerTable
+  [nzData]="data"
+  [nzScroll]="{ y: '240px' }"
+  nzShowPagination
+  [nzPageSizeOptions]="[10, 20, 30]"
+  nzShowSizeChanger
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="current"
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzLoading]="isLoadingTable"
+  (nzPageSizeChange)="changePageSize($event)"
+  (nzPageIndexChange)="changeCurrentPage($event)"
+  >
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th nzRight nzAlign="center" nzWidth="100px">Acciones</th>
+    </tr>
+  </thead>
+    
+  <tbody>
+    <tr *ngFor="let data of headerTable.data">
+      <td>{{ data.email }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.email }}</td>
+      <td nzRight nzAlign="center">
+        <nz-space>
+          <button nz-button nzShape="circle" nzType="text">
+            <i nz-icon nzTheme="twotone"  [nzTwotoneColor]="'#08a000'" nzType="edit"></i>
+          </button>
+          <button nz-button nzShape="circle" nzType="text">
+            <i nz-icon nzTheme="twotone" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
+          </button>
+        </nz-space>
+      </td>
+
+    </tr>
+  </tbody>
   </nz-table>

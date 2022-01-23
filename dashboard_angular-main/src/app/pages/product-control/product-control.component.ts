@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-control',
@@ -9,7 +14,12 @@ export class ProductControlComponent implements OnInit {
 
   public listOfData: ItemData[] = [];
 
-  constructor() { }
+  constructor(
+    private authenticationService : AuthService,
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private router: Router,
+    private productService: ProductService) { }
 
 
   ngOnInit(): void {

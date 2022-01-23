@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Inbox } from '../models/Inbox';
+import { Pagination } from '../models/Pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,20 @@ export class InboxService {
   // * Get list of inbox
   public getAllMessages():  Observable<Inbox[]> {
     return this.http.get<Inbox[]>(`${this.host}/inbox/list`)
+  }
+
+  
+  // * Get list of inbox
+  public getAllMessagesPaginate(pagination : Pagination):  Observable<Inbox> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pageNo: pagination.numberPage,
+        pageSize: pagination.sizePage
+      }
+    });
+
+    return this.http.get<Inbox>(`${this.host}/inbox/paginate`,{ params: params } )
   }
   
   // * Get inbox by ID
