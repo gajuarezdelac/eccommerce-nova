@@ -14,12 +14,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  
+  public user!: User;
   public validateForm!: FormGroup;
   public subcriptions : Subscription[] = [];
-  public sub: Subscription = new Subscription;
   public isSpinning = false;
-  dateFormat = 'yyyy/MM/dd';
+  public dateFormat = 'yyyy/MM/dd';
 
   constructor(
     private authenticationService : AuthService,
@@ -29,16 +28,23 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
-      username: [null, [Validators.required]],
-      numberContact: [null, [Validators.required]],
+      names: [null, [Validators.required]],
+      surnames: [null, [Validators.required]],
+      username: [null, [Validators.required, Validators.email]],
+      gender: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [null, [Validators.required]]
+      dateOfBirth: [null, [Validators.required]]
     });
+
+    if(this.authenticationService.isUserLoggedIn()) {
+      this.router.navigateByUrl("/dashboard/principal");
+    }
+
   }
 
   submitForm(): void {
+
+
     for (const i in this.validateForm.controls) {
       if (this.validateForm.controls.hasOwnProperty(i)) {
         this.validateForm.controls[i].markAsDirty();
@@ -46,27 +52,19 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-      if(!this.validateForm.valid) {
-        this.createMessage("warning", "Es necesario llenar todos los campos!");
-
-        // console.log(this.validateForm.controls.username.value);
-        if(!this.validateForm.controls.remember.valid){
-        this.createMessage("info", "Es necesario aceptar los terminos y condiciones");
-        }
-        
-        return ; 
-      }
-
-      
+    if(!this.validateForm.valid) {
+      this.createMessage("warning", "Es necesario llenar todos los campos!");
+      return ; 
+    }
+  
       this.isSpinning = true;
-      let user = this.validateForm.value;
+      let form = this.validateForm.value;
       this.subcriptions.push(
-        this.authenticationService.register(user).subscribe(
+        this.authenticationService.register(form).subscribe(
           (response: User) => {
           this.createMessage("sucess",  "Registrado correctamente!");
           this.isSpinning = false;
           this.router.navigateByUrl("/auth/login");
-          
         },
           (errorResponse: HttpErrorResponse) => {
             this.isSpinning = false;

@@ -6,6 +6,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RecoveryPasswordComponent } from './pages/auth/recovery-password/recovery-password.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DetailsProductComponent } from './pages/details-product/details-product.component';
 import { FaqComponent } from './pages/faq/faq.component';
@@ -41,6 +42,7 @@ const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
     { path: "recovery-password", component: RecoveryPasswordComponent },
+    { path: "reset-password/:token/:email", component: ResetPasswordComponent },
     { path: 'auth', pathMatch: 'full', redirectTo: '/login' },
   ]},
   {path: '', component: NavbarComponent, children : [

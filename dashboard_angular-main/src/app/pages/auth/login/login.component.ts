@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   public user!: User;
   public validateForm!: FormGroup;
   public subcriptions : Subscription[] = [];
-  public sub: Subscription = new Subscription;
   public siteKey = environment.siteKey;
   public isSpinning = false;
   
@@ -39,10 +38,11 @@ export class LoginComponent implements OnInit {
       remember: [true]
     });
 
-    if(this.authenticationService.isUserLoggedIn()) {
-      this.router.navigateByUrl('/dashboard/statistics');
-     }else {this.router.navigateByUrl("/auth/login");}
 
+    if(this.authenticationService.isUserLoggedIn()) {
+      this.router.navigateByUrl("/dashboard/principal");
+    }
+    
   }
   
   submitForm(): void {
@@ -78,16 +78,9 @@ export class LoginComponent implements OnInit {
     );
   }
 
-    
-  ngOnDestroy(): void {
-    this.subcriptions.forEach(sub => sub.unsubscribe());
-  }
-
     createMessage(type: string, message: string): void {
       this.message.create(type, message);
     }
-
-
 
 
 }

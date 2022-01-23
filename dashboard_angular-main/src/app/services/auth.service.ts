@@ -26,14 +26,16 @@ export class AuthService {
    return this.http.post<User>(`${this.host}/user/register`, user);
  }
 
-  public recoveryPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${this.host}/user/recovery-password/${email}`);
+  // * Recovery password
+  public recoveryPassword(form: FormData): Observable<CustomHttpRespone> {
+    return this.http.post<CustomHttpRespone>(`${this.host}/user/recovery-password`, form);
   }
 
   // * Reset password
-  public resetPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${this.host}/user/resetpassword/${email}`);
+  public resetPassword(form: FormData): Observable<CustomHttpRespone> {
+    return this.http.post<CustomHttpRespone>(`${this.host}/user/reset-password`, form);
   }
+
 
   public logOut(): void  {
     this.token = null;
