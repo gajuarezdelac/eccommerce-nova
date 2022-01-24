@@ -3,9 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
-
+import { Content, OrderPaginate } from 'src/app/models/OrderPaginate';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import * as XLSX from 'xlsx';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-orders-control',
@@ -14,33 +19,200 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrdersControlComponent implements OnInit {
 
+  // * Variables de la tabla
+  public pageSize: number = 10;
+  public current: number = 1;
+  public subscriptions : Subscription[] = [];
+  public total: number = 0;
+  public totalElementByPage = 0;
 
-  public listOfData: ItemData[] = [];
+  public data : Content[] = [];
+  public temp : Content[] = [];
+  public isLoadingTable = false;
+
+  // * Variables para visualizar la orden
+
+  public visibleDrawer = false;
+  public isLoadingDrawer = false;
+  public viewOrder :  Content | undefined = undefined;
+
+  // * Variables para cambiar el estatus de la orden
+
+  public visibleEditDrawer = false;
+  public isLoadingEditDrawer = false;
+
+  // * Variables para generar el reporte
+
+  public isLoadingGeneral = false;
+
 
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder,
+    private modal :  NzModalService,
     private message: NzMessageService,
     private router: Router,
     private orderService: OrderService) { }
 
 
   ngOnInit(): void {
-    const data = [];
-    for (let i = 0; i < 100; i++) {
-      data.push({
-        name: `Edward King ${i}`,
-        age: 32,
-        address: `London, Park Lane no. ${i}`
-      });
-    }
-    this.listOfData = data;
+    this.getListPaginate();
   }
 
-}
 
-interface ItemData {
-  name: string;
-  age: number;
-  address: string;
+  // ! Listado de elementos
+
+  getListPaginate() : void {
+    this.isLoadingTable = true;
+    this.subscriptions.push(
+      this.orderService.getAllOrdersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+        (response: OrderPaginate) => {
+          this.temp = response.content;
+          this.data = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+  }
+
+  changePageSize($event: number) : void {
+    console.log("Change page size: "  + $event);
+    this.pageSize = $event;
+    this.getListPaginate();
+  }
+
+  changeCurrentPage($event: number) : void {
+    console.log("Change page: "  + $event);
+    this.current = $event;
+    this.getListPaginate();
+  }
+
+  // ! Visualizar orden o pedido
+
+  getElementById(id : string) : void {
+    this.isLoadingDrawer = true;
+    this.subscriptions.push(
+      this.orderService.getOrderById(id).subscribe(
+        (response: Content) => {
+          this.viewOrder = response;
+          this.isLoadingDrawer = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingDrawer = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+  }
+
+  openViewDrawer(element : Content): void {
+    console.log(element);
+    this.getElementById(element.id);
+    this.visibleDrawer = true;
+  }
+
+  closeViewDrawer(): void {
+    this.visibleDrawer = false;
+    this.viewOrder = undefined;
+  }
+
+  // ! Editar pedido
+  openEditDrawer(element : Content): void {
+    this.getElementById(element.id);
+    this.visibleEditDrawer = true;
+  }
+  
+  closeEditDrawer(): void {
+    this.visibleEditDrawer = false;
+    this.viewOrder = undefined;
+  }
+
+
+  // ! Eliminar pedido
+
+  deleteMessageById(id : string) : void {
+    this.isLoadingGeneral = true;
+    this.subscriptions.push(
+      this.orderService.deleteOrder(id).subscribe(
+        (response: Content) => {
+          this.message.create("success",  "Se elimino de manera correcta!");
+
+          // Con esto evitamos que se quede vacio cuando aun existen registros en la página 1.
+          if(this.totalElementByPage == 1 && this.current != 1) {
+                this.current -= 1;
+          }
+
+          this.getListPaginate();
+          this.isLoadingGeneral = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingGeneral = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+  }
+
+  showDeleteConfirm(element : Content): void {
+    this.modal.confirm({
+      nzTitle: '¿Estas seguro de eliminar el mensaje?',
+      nzContent: '<b style="color: red;"> Una vez eliminado no sera posible recupearlo! </b>',
+      nzOkText: 'Eliminar',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.deleteMessageById(element.id),
+      nzCancelText: 'Cerrar',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
+  // ! Generar reporte
+
+  generateExcel(): void {
+
+    this.isLoadingGeneral = true;
+
+    this.subscriptions.push(
+      this.orderService.getAllOrders().subscribe(
+        (response: Content[]) => {
+
+          let newJson = response.map(rec => {
+            return {
+              'ID': rec.id,
+              'Asunto': rec.id,
+              'Email': rec.id,
+              'Enviado': this.getFormatedDate(rec.createAt,"MM/dd/yyyy"),
+              "Mensaje": rec.id
+            }
+          });
+      
+          const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(newJson);
+          /* generate workbook and add the worksheet */
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+          /* save to file */
+          XLSX.writeFile(wb, "Mensajes.xlsx");
+          this.isLoadingGeneral = false;
+
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingGeneral = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+  }
+
+  private getFormatedDate(date: Date, format: string) {
+    const datePipe = new DatePipe('en-US');
+    return datePipe.transform(date, format);
+  }
+
+
 }

@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Subscription } from 'rxjs';
@@ -32,16 +31,14 @@ export class InboxControlComponent implements OnInit {
 
 
   // Variables para visualizar el mensaje
+
+  
   public visibleDrawer = false;
   public isLoadingDrawer = false;
   public viewInbox :  Content | undefined = undefined;
 
   // Variables para general el reporte de excel
-  public isLoadingReport = false;
-
-
-
-
+  public isLoadingGeneral = false;
 
   constructor(
     private authenticationService : AuthService,
@@ -131,7 +128,7 @@ export class InboxControlComponent implements OnInit {
 
   
   deleteMessageById(id : string) : void {
-    this.isLoadingDrawer = true;
+    this.isLoadingGeneral = true;
     this.subscriptions.push(
       this.inboxService.deleteMessage(id).subscribe(
         (response: Content) => {
@@ -143,10 +140,10 @@ export class InboxControlComponent implements OnInit {
           }
 
           this.getListPaginate();
-          this.isLoadingDrawer = false;
+          this.isLoadingGeneral = false;
         },
         (errorResponse: HttpErrorResponse) => {
-          this.isLoadingDrawer = false;
+          this.isLoadingGeneral = false;
           this.message.create("success",  "Ha ocurrido un error!");
         }
       )
@@ -170,7 +167,7 @@ export class InboxControlComponent implements OnInit {
 
   generateExcel(): void {
 
-    this.isLoadingReport = true;
+    this.isLoadingGeneral = true;
 
 
     this.subscriptions.push(
@@ -193,21 +190,22 @@ export class InboxControlComponent implements OnInit {
           XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
           /* save to file */
           XLSX.writeFile(wb, "Mensajes.xlsx");
-          this.isLoadingReport = false;
+          this.isLoadingGeneral = false;
 
         },
         (errorResponse: HttpErrorResponse) => {
-          this.isLoadingReport = false;
+          this.isLoadingGeneral = false;
           this.message.create("error",  "Ha ocurrido un error!");
         }
       )
     );
   }
 
-  getFormatedDate(date: Date, format: string) {
+  private getFormatedDate(date: Date, format: string) {
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(date, format);
   }
+
 
 }
 

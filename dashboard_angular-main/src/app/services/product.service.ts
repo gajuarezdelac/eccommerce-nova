@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Pagination } from '../models/Pagination';
 import { Product } from '../models/Product';
+import { ProductPaginate } from '../models/ProductPaginate';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +16,30 @@ export class ProductService {
   constructor(private http: HttpClient) { }
   
    // * Get all products
-   public getAllProducts():  Observable<Product[]> {
+  public getAllProducts():  Observable<Product[]> {
     return this.http.get<Product[]>(`${this.host}/product/list`)
   }
+
+  
+  // * Get list of inbox
+  public getAllProductsPaginate(pagination : Pagination):  Observable<ProductPaginate> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pageNo: pagination.numberPage,
+        pageSize: pagination.sizePage
+      }
+    });
+
+    return this.http.get<ProductPaginate>(`${this.host}/product/paginate`,{ params: params } )
+  }
+
+
+
 
   // * Buscar listado de productos por código
   public getAllProductsByCode(code : string):  Observable<Product[]> {
     return this.http.get<Product[]>(`${this.host}/product/${code}`)
-  }
-
-  // * Traer listado de productos paginados
-  public getAllProductPaginate(code : string):  Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.host}/product/paginate`)
   }
 
   // * Get product by ID
@@ -44,7 +58,7 @@ export class ProductService {
   }
   
   // * Eliminar review
-  public eliminarProduct(id: string): Observable<Product> {
+  public deleteProduct(id: string): Observable<Product> {
     return this.http.delete<Product>(`${this.host}/product/${id}`);
   }
 

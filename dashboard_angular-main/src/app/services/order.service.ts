@@ -22,7 +22,7 @@ export class OrderService {
   
   
   // * Get list of inbox
-  public getAllMessagesPaginate(pagination : Pagination):  Observable<OrderPaginate> {
+  public getAllOrdersPaginate(pagination : Pagination):  Observable<OrderPaginate> {
 
     const params = new HttpParams({
       fromObject: {
@@ -31,10 +31,8 @@ export class OrderService {
       }
     });
 
-    return this.http.get<OrderPaginate>(`${this.host}/inbox/paginate`,{ params: params } )
+    return this.http.get<OrderPaginate>(`${this.host}/order/paginate`,{ params: params } )
   }
-
-
 
    // * Get list of inbox
    public getOrdersByUser(userId : string):  Observable<Order[]> {
@@ -43,7 +41,7 @@ export class OrderService {
   
   // * Get inbox by ID
   public getOrderById(id : string) : Observable<Order> {
-      return this.http.get<Order>(`${this.host}/order/view/${id}`)
+      return this.http.get<Order>(`${this.host}/order/${id}`)
   }
 
   // * Crear orden
@@ -58,7 +56,7 @@ export class OrderService {
   
   // * Delete inbox
   public deleteOrder(id: string): Observable<Order> {
-    return this.http.delete<Order>(`${this.host}/order/delete/${id}`);
+    return this.http.delete<Order>(`${this.host}/order/${id}`);
   }
 
 

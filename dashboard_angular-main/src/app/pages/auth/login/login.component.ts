@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
 
     if(this.authenticationService.isUserLoggedIn()) {
-      this.router.navigateByUrl("/dashboard/principal");
+      this.router.navigateByUrl("/dashboard/statistics");
     }
     
   }

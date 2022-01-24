@@ -1,4 +1,7 @@
 
+<nz-spin [nzSpinning]="isLoadingGeneral">
+
+  
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
@@ -30,49 +33,125 @@
             </nz-form-item>
           </div></div>
   
+      
           <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
-          <button class="btn btn-primary" routerLink="auth/login"><i class="bx bxs-user-circle mr-1"></i> Nuevo usuario </button>
-          </div></div>
+            <button class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </button>
+            </div></div>
+        
+
         </div>
   
       </form>
 
 
     
-
-<nz-table #headerTable [nzData]="listOfData" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>Email</th>
+      <nz-table  
+      #fixedTable
+      #headerTable
+      [nzData]="data"
+      [nzScroll]="{ y: '240px' }"
+      nzShowPagination
+      [nzPageSizeOptions]="[10, 20, 30]"
+      nzShowSizeChanger
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="current"
+      [nzFrontPagination]="false"
+      [nzTotal]="total"
+      [nzLoading]="isLoadingTable"
+      (nzPageSizeChange)="changePageSize($event)"
+      (nzPageIndexChange)="changeCurrentPage($event)"
+      >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Asunto</th>
+          <th>Enviado</th>
+          <th>Email</th>
+          <th nzRight nzAlign="center" nzWidth="140px">Acciones</th>
+        </tr>
+      </thead>
         
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>Email</th>
-        <th nzRight nzAlign="center" nzWidth="100px">Acciones</th>
-      </tr>
-    </thead>
+      <tbody>
+        <tr *ngFor="let data of headerTable.data">
+          <td>{{ data.username }}</td>
+          <td>{{ data.username }}</td>
+          <td>{{ data.username }}</td>
+          <td>{{ data.username }}</td>
+          <td nzRight nzAlign="center">
+            <nz-space>
+              <button nz-button nzShape="circle" nzType="text">
+                <i nz-icon nzTheme="twotone"  (click)="openViewDrawer(data)" [nzTwotoneColor]="'#08a000'" nzType="eye"></i>
+              </button>
+
+              <button nz-button nzShape="circle" nzType="text">
+                <i nz-icon nzTheme="twotone"  (click)="openEditDrawer(data)" [nzTwotoneColor]="'#a31600'" nzType="edit"></i>
+              </button>
+
+              <button nz-button nzShape="circle" nzType="text">
+                <i nz-icon nzTheme="twotone"  (click)="showDeleteConfirm(data)" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
+              </button>
+
+            </nz-space>
+          </td>
     
-    <tbody>
-      <tr *ngFor="let data of headerTable.data">
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-        <td nzRight nzAlign="center">
-          <nz-space>
-            <button nz-button nzShape="circle" nzType="text">
-              <i nz-icon nzTheme="twotone"  [nzTwotoneColor]="'#08a000'" nzType="edit"></i>
-            </button>
-            <button nz-button nzShape="circle" nzType="text">
-              <i nz-icon nzTheme="twotone" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
-            </button>
-          </nz-space>
-        </td>
+        </tr>
+      </tbody>
+      </nz-table>
+</nz-spin>
+
+  <!-- View drawer -->
+
+  <nz-drawer
+  [nzWidth]="540"
+  [nzClosable]="false"
+  [nzVisible]="visibleEditDrawer"
+  nzPlacement="right"
+  nzTitle="Editar usuario"
+  (nzOnClose)="closeEditDrawer()"
+>
+  <ng-container *nzDrawerContent>
+   <nz-spin [nzSpinning]="isLoadingDrawer">
   
-      </tr>
-    </tbody>
-</nz-table>
+    <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewElement?.username}}">
+      <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewElement?.username}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2">  </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewElement?.username}} </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
+        {{ viewElement?.username }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+   </nz-spin>
+  </ng-container>
+</nz-drawer>
+
+<!-- Edit drawer -->
+
+<nz-drawer
+[nzWidth]="540"
+[nzClosable]="false"
+[nzVisible]="visibleDrawer"
+nzPlacement="right"
+nzTitle="Mensaje"
+(nzOnClose)="closeViewDrawer()"
+>
+<ng-container *nzDrawerContent>
+ <nz-spin [nzSpinning]="isLoadingDrawer">
+
+  <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewElement?.username}}">
+    <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewElement?.username}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2">  </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewElement?.username}} </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
+      {{ viewElement?.username }}
+    </nz-descriptions-item>
+  </nz-descriptions>
+
+ </nz-spin>
+</ng-container>
+</nz-drawer>
+
+
+
+
+

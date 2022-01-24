@@ -25,7 +25,7 @@ export class UserService {
 
   
   // * Get list of reviews paginate
-  public getAllReviewsPaginate(pagination : Pagination):  Observable<UserPaginate> {
+  public getAllUsersPaginate(pagination : Pagination):  Observable<UserPaginate> {
 
     const params = new HttpParams({
       fromObject: {
@@ -34,7 +34,7 @@ export class UserService {
       }
     });
 
-    return this.http.get<UserPaginate>(`${this.host}/review/paginate`,{ params: params } )
+    return this.http.get<UserPaginate>(`${this.host}/user/paginate`,{ params: params } )
   }
 
 
