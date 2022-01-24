@@ -2,6 +2,7 @@ package com.course.altanto.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Orders;
@@ -21,5 +22,7 @@ public interface IOrdersService {
 	Orders viewOrderById(String id) throws ExceptionGeneric;
 	
 	List<Orders> getAllOrders();
+	
+	Page<Orders> searchOrders(int pageNo, int pageSize);
 		
 }

@@ -2,6 +2,7 @@ package com.course.altanto.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.altanto.entity.Orders;
@@ -52,14 +54,21 @@ public class OrderController {
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
+    @GetMapping("/paginate") 
+	public ResponseEntity<Page<Orders>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+		Page<Orders> response = service.searchOrders(pageNo, pageSize);
+		return new ResponseEntity<>(response, HttpStatus.OK);	
+	}
+    
     @PostMapping("/create")
     public ResponseEntity<Orders> createOrder(@RequestBody Orders request) {
     	Orders response = service.createOrder(request);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
-    @PutMapping("/change-status/{status}/{id}")
-    public ResponseEntity<Orders> changeStatus(@PathVariable("status") int status, @PathVariable("id") String id) {
+    @PutMapping("/change-status")
+    public ResponseEntity<Orders> changeStatus(@RequestParam("status") int status, @RequestParam("id") String id) {
     	Orders response = service.updateOrder(status, id);
     	return new ResponseEntity<>(response, HttpStatus.OK);    	
     }

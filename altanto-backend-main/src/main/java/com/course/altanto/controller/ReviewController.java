@@ -2,6 +2,7 @@ package com.course.altanto.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.altanto.entity.Review;
@@ -32,6 +34,13 @@ public class ReviewController {
 	public ResponseEntity<List<Review>> getAllReviews() {
 		List<Review> response = service.getAllReviews();
 		return new ResponseEntity<List<Review>>(response, HttpStatus.OK);
+	}
+	
+    @GetMapping("/paginate") 
+	public ResponseEntity<Page<Review>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+		Page<Review> response = service.getAllReviewsPaginate(pageNo, pageSize);
+		return new ResponseEntity<>(response, HttpStatus.OK);	
 	}
 	
 	@GetMapping("/{id}")

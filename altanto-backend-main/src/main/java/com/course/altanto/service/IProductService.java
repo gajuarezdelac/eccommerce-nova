@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.course.altanto.entity.Product;
-import com.course.altanto.entity.dto.ProductDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.exception.NotAnImageFileException;
 

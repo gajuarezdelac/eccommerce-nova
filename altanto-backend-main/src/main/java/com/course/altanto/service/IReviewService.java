@@ -2,6 +2,7 @@ package com.course.altanto.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Review;
@@ -12,6 +13,8 @@ import com.course.altanto.exception.ExceptionGeneric;
 public interface IReviewService {
 	
 	List<Review> getAllReviews();
+	
+	Page<Review> getAllReviewsPaginate(int pageNo, int pageSize);
 	
 	List<Review> getReviewsByProduct(String codeProd);
 	

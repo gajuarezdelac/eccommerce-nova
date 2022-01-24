@@ -1,9 +1,11 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../models/custom-http-response';
+import { Pagination } from '../models/Pagination';
 import { User } from '../models/User';
+import { UserPaginate } from '../models/UserPaginate';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,25 @@ export class UserService {
     return this.http.get<User[]>(`${this.host}/user/list`)
   }
   
+  // * Get all users paginate
+
+  
+  // * Get list of reviews paginate
+  public getAllReviewsPaginate(pagination : Pagination):  Observable<UserPaginate> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pageNo: pagination.numberPage,
+        pageSize: pagination.sizePage
+      }
+    });
+
+    return this.http.get<UserPaginate>(`${this.host}/review/paginate`,{ params: params } )
+  }
+
+
+
+
   // * Add user manually
   public addUser(formData: FormData): Observable<User> {
     return this.http.post<User>(`${this.host}/user/add`, formData);

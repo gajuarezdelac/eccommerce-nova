@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Review;
@@ -83,6 +86,13 @@ public class ReviewServiceImpl implements IReviewService{
 			 throw new ExceptionGeneric("No se encontro el review");
 		}
 		return element;
+	}
+
+	@Override
+	public Page<Review> getAllReviewsPaginate(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);   
+		Page<Review> response = reviewRepository.findAll(pageable);		  
+		return response;
 	}
 
 

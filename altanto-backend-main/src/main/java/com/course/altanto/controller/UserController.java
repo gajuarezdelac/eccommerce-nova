@@ -19,6 +19,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ import com.course.altanto.entity.HttpResponse;
 import com.course.altanto.entity.User;
 import com.course.altanto.entity.UserPrincipal;
 import com.course.altanto.entity.dto.RecoveryPasswordDTO;
+import com.course.altanto.entity.dto.ResetPasswordDTO;
 import com.course.altanto.entity.dto.UserDTO;
 import com.course.altanto.exception.EmailExistException;
 import com.course.altanto.exception.EmailNotFoundException;
@@ -140,19 +142,26 @@ public class UserController {
 	        List<User> users = userService.getUsers();
 	        return new ResponseEntity<>(users, OK);
 	    }
+	    
+	    @GetMapping("/paginate") 
+		public ResponseEntity<Page<User>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+	            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+			Page<User> response = userService.getAllUsersPaginate(pageNo, pageSize);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
+		}
 
-	    @GetMapping("/recovery-password/{email}")
-	    public ResponseEntity<HttpResponse> recoveryPassword(@PathVariable("email") String email) throws MessagingException, EmailNotFoundException {
-	        userService.recoveryPassword(email);
-	        return response(OK, EMAIL_SENT + email);
+	    @PostMapping("/recovery-password")
+	    public ResponseEntity<HttpResponse> recoveryPassword(@RequestBody RecoveryPasswordDTO request) throws MessagingException, EmailNotFoundException {
+	        userService.recoveryPassword(request.getEmail());
+	        return response(OK, EMAIL_SENT + request.getEmail());
 	    }
 	    
-	    @PostMapping("/reset-password/{token}")
-	    public ResponseEntity<HttpResponse> resetPassword(@PathVariable("token") String token,@RequestBody RecoveryPasswordDTO response) throws MessagingException, EmailNotFoundException, ExceptionGeneric {
-	    	userService.resetPassword(response.getNewPassword(), response.getEmail(), token);
+	    @PostMapping("/reset-password")
+	    public ResponseEntity<HttpResponse> resetPassword(@RequestBody ResetPasswordDTO request) throws MessagingException, EmailNotFoundException, ExceptionGeneric {
+	    	userService.resetPassword(request.getPassword(), request.getEmail(), request.getToken());
 	    	 return response(OK, PASSWORD_RESET);
 	    }
-
+	    
 	    @DeleteMapping("/delete/{username}")
 //	    @PreAuthorize("hasAnyAuthority('user:delete')")
 	    public ResponseEntity<HttpResponse> deleteUser(@PathVariable("username") String username) throws IOException {

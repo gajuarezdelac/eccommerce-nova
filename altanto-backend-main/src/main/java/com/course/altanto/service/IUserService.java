@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,8 @@ public interface IUserService {
 	    User register(String firstName, String lastName, String username, String password, String gender, Date dateOfBirth) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException;
 
 	    List<User> getUsers();
+	    
+	    Page<User> getAllUsersPaginate(int pageNo, int pageSize);
 
 	    User findUserByUsername(String username);
   

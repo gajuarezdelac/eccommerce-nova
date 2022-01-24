@@ -18,14 +18,14 @@ export class Content {
     email: string;
     subject: string;
     content: string;
-    createdAt: any;
+    createdAt: Date;
 
     constructor() {
         this.id = '';
         this.email = '';
         this.subject = '';
         this.content = '';
-        this.createdAt ='';
+        this.createdAt = new Date();
     }
 }
 

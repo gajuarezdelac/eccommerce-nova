@@ -46,7 +46,7 @@ public class EmailService {
         message.setRecipients(TO, InternetAddress.parse(email, false));
         message.setRecipients(CC, InternetAddress.parse(CC_EMAIL, false));
         message.setSubject(EMAIL_SUBJECT);
-        message.setText("Hola " + firstName + ", \n \n Restablece tu contraseña en la siguiente url:  http://localhost:4200/reset-password/" + token  + "\n \n Nova Support");
+        message.setText("Hola " + firstName + ", \n \n Restablece tu contraseña en la siguiente url:  http://localhost:4200/auth/reset-password/" + token  +   "/"  + email +  "\n \n Nova Support");
         message.setSentDate(new Date());
         message.saveChanges();
         return message;

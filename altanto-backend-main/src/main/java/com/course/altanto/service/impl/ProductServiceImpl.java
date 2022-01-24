@@ -159,8 +159,6 @@ public class ProductServiceImpl implements IProductService {
 		return list;
 	}
 	
-	
-
 	private File saveImage(String codeProd, File entity,MultipartFile profileImage) throws IOException, NotAnImageFileException {
          if (profileImage != null) {
             

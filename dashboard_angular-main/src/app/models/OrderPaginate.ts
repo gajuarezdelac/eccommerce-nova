@@ -2,9 +2,11 @@ export interface Content {
     id: string;
     codeProd: string;
     userId: string;
-    calf: number;
-    message: string;
+    amount: number;
+    listProducts: string[];
+    status: number;
     createAt: any;
+    editAt?: any;
 }
 
 export interface Sort {
@@ -28,7 +30,7 @@ export interface Sort2 {
     unsorted: boolean;
 }
 
-export interface Review {
+export interface OrderPaginate {
     content: Content[];
     pageable: Pageable;
     last: boolean;

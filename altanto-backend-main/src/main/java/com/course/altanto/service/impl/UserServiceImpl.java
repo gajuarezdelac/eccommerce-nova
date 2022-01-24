@@ -40,6 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -349,8 +352,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	        
 	        String token = generatePassword();
 	        user.setToken(token);
-	        user.setExpireToken(expireToken);
-	        user.setPassword(encodePassword(token));	        
+	        user.setExpireToken(expireToken);	        
 	        userRepository.save(user);
 	        
 	        LOGGER.info("Token generate: " + token);
@@ -364,7 +366,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		return element;
 	}
 
+	@Override
+	public Page<User> getAllUsersPaginate(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);   
+		Page<User> response = userRepository.findAll(pageable);		  
+		return response;
+	}
 
-	
-	
 }

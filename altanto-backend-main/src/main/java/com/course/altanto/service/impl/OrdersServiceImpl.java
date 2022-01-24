@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Orders;
@@ -73,6 +76,13 @@ public class OrdersServiceImpl implements IOrdersService{
 			 throw new ExceptionGeneric("No existe la orden");
 		}
 		return element;
+	}
+
+	@Override
+	public Page<Orders> searchOrders(int pageNo, int pageSize) {
+		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
+		  Page<Orders> response = ordersRepository.findAll(pageable);		  
+		return response;
 	}
 	
 }

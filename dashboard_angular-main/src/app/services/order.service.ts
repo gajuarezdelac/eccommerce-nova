@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../models/Order';
+import { OrderPaginate } from '../models/OrderPaginate';
+import { Pagination } from '../models/Pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,22 @@ export class OrderService {
    public getAllOrders():  Observable<Order[]> {
     return this.http.get<Order[]>(`${this.host}/order/list`)
   }
+  
+  
+  // * Get list of inbox
+  public getAllMessagesPaginate(pagination : Pagination):  Observable<OrderPaginate> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pageNo: pagination.numberPage,
+        pageSize: pagination.sizePage
+      }
+    });
+
+    return this.http.get<OrderPaginate>(`${this.host}/inbox/paginate`,{ params: params } )
+  }
+
+
 
    // * Get list of inbox
    public getOrdersByUser(userId : string):  Observable<Order[]> {
