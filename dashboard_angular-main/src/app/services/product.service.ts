@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pagination } from '../models/Pagination';
+import { PaginationProduct } from '../models/PaginationProduct';
 import { Product } from '../models/Product';
 import { ProductPaginate } from '../models/ProductPaginate';
 
@@ -22,12 +23,16 @@ export class ProductService {
 
   
   // * Get list of inbox
-  public getAllProductsPaginate(pagination : Pagination):  Observable<ProductPaginate> {
+  public getAllProductsPaginate(pagination : PaginationProduct):  Observable<ProductPaginate> {
 
     const params = new HttpParams({
       fromObject: {
         pageNo: pagination.numberPage,
-        pageSize: pagination.sizePage
+        pageSize: pagination.sizePage,
+        codeProd: pagination.codeProd,
+        description: pagination.description,
+        name: pagination.name,
+        category: pagination.category
       }
     });
 
@@ -35,11 +40,14 @@ export class ProductService {
   }
 
 
-
-
   // * Buscar listado de productos por código
   public getAllProductsByCode(code : string):  Observable<Product[]> {
     return this.http.get<Product[]>(`${this.host}/product/${code}`)
+  }
+
+  // * List of products by ID´s
+  public getAllProductsById(list : any) : Observable<Product[]> {
+    return this.http.post<Product[]>(`${this.host}/product/list-id`, list)
   }
 
   // * Get product by ID

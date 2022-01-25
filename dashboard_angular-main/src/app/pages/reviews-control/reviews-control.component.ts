@@ -59,8 +59,9 @@ export class ReviewsControlComponent implements OnInit {
   ngOnInit(): void {
 
     this.validateForm = this.fb.group({
-      email: [''],
+      codeProd: [''],
       message: [''],
+      email: [''],
     });
 
     this.getListPaginate();
@@ -77,9 +78,8 @@ export class ReviewsControlComponent implements OnInit {
 
     this.isLoadingTable = true;
     let form = this.validateForm.value;
-
     this.subscriptions.push(
-      this.reviewService.getAllReviewsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+      this.reviewService.getAllReviewsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,   codeProd: form.codeProd ,message: form.message ,userId: form.email }).subscribe(
         (response: Review) => {
           this.temp = response.content;
           this.data = response.content;
@@ -100,7 +100,7 @@ export class ReviewsControlComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.reviewService.getAllReviewsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+      this.reviewService.getAllReviewsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize, codeProd: this.validateForm.value["codeProd"] ,message: this.validateForm.value["message"] ,userId: this.validateForm.value["email"] }).subscribe(
         (response: Review) => {
           this.temp = response.content;
           this.data = response.content;
@@ -166,7 +166,6 @@ export class ReviewsControlComponent implements OnInit {
       this.visibleEditDrawer = false;
       this.viewElement = undefined;
     }
-  
   
     // ! Eliminar pedido
   

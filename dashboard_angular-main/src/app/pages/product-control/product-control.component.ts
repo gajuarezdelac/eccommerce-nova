@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
@@ -44,8 +44,10 @@ export class ProductControlComponent implements OnInit {
   public isLoadingEditDrawer = false;
 
   // * Variables para generar el reporte
-
   public isLoadingGeneral = false;
+
+  // * Variables para realizar el filtrado de busqueda
+  public validateForm!: FormGroup;
 
   constructor(
     private authenticationService: AuthService,
@@ -57,16 +59,63 @@ export class ProductControlComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      codeProd: [''],
+      description: [''],
+      name: [''],
+      category: ['']
+    });
+
    this.getListPaginate();
   }
 
+
+  // ! Search 
+
+  submitForm(): void {    
+    for (const i in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+    }
+
+    if(!this.validateForm.valid) {
+      return ; 
+    }
+
+
+    if(this.current >= 1) {
+      this.current = 1;
+    }
+
+  
+    this.isLoadingTable = true;
+    let form = this.validateForm.value;
+
+    this.subscriptions.push(
+      this.productService.getAllProductsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,  codeProd: form.codeProd ,description: form.description ,name: form.name, category: form.category}).subscribe(
+        (response: ProductPaginate) => {
+          this.temp = response.content;
+          this.data = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );    
+  }
+  
   
   // ! Listado de registros para llenar la tabla 
-
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.getAllProductsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+      this.productService.getAllProductsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,   codeProd: this.validateForm.value["codeProd"] ,description: this.validateForm.value["description"] ,name: this.validateForm.value["name"], category: this.validateForm.value["category"] }).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.data = response.content;

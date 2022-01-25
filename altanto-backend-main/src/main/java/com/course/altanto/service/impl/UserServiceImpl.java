@@ -367,9 +367,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public Page<User> getAllUsersPaginate(int pageNo, int pageSize) {
+	public Page<User> getAllUsersPaginate(int pageNo, int pageSize, String username, String names, String surnames) {
 		Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		Page<User> response = userRepository.findAll(pageable);		  
+		Page<User> response = userRepository.searchByFilters(username, names, surnames, pageable);	  
 		return response;
 	}
 

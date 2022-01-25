@@ -45,13 +45,13 @@ public class ReviewServiceImpl implements IReviewService{
 
 	@Override
 	public Review addReview(ReviewDTO request) {
-		
+
 		Review element  = new Review();
 		element.setCalf(request.getCalf());
 		element.setCodeProd(request.getCodeProd());
 		element.setMessage(request.getMessage());
 		element.setUserId(request.getUserId());
-		element.setCreateAt(new Date());
+		element.setCreatedAt(new Date());
 		reviewRepository.save(element);
 		
 		return element;
@@ -63,7 +63,7 @@ public class ReviewServiceImpl implements IReviewService{
 		Review element = validateReviewExist(id);
 		element.setCalf(request.getCalf());
 		element.setMessage(request.getMessage());
-		element.setCreateAt(new Date());
+		element.setCreatedAt(new Date());
 		reviewRepository.save(element);
 		
 		return element;
@@ -89,11 +89,13 @@ public class ReviewServiceImpl implements IReviewService{
 	}
 
 	@Override
-	public Page<Review> getAllReviewsPaginate(int pageNo, int pageSize) {
+	public Page<Review> getAllReviewsPaginate(int pageNo, int pageSize, String codeProd, String message, String userId) {
 		Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		Page<Review> response = reviewRepository.findAll(pageable);		  
+		Page<Review> response = reviewRepository.searchByFilters(codeProd, message, userId, pageable);		  
 		return response;
 	}
+	
+	
 
 
 }

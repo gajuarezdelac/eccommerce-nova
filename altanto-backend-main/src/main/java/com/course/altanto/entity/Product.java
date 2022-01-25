@@ -53,8 +53,6 @@ public class Product implements Serializable {
 	@Column(nullable = false)
 	private double price;
 	
-	private Date createAt;
-
 	private int discount;
 	
 	private String category;
@@ -66,6 +64,9 @@ public class Product implements Serializable {
 	@ManyToMany(targetEntity = File.class,cascade = CascadeType.ALL)
 	private List<File> images;
 	
+	private Date createdAt;
 	
-		
+	private Date editAt;
+	
+	
 }

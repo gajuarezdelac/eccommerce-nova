@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Pagination } from '../models/Pagination';
+import { PaginationReview } from '../models/PaginationReview';
 import { Review, Content } from '../models/Review';
 
 @Injectable({
@@ -22,12 +22,15 @@ export class ReviewService {
 
 
   // * Get list of reviews paginate
-  public getAllReviewsPaginate(pagination : Pagination):  Observable<Review> {
+  public getAllReviewsPaginate(pagination : PaginationReview):  Observable<Review> {
 
     const params = new HttpParams({
       fromObject: {
         pageNo: pagination.numberPage,
-        pageSize: pagination.sizePage
+        pageSize: pagination.sizePage,
+        codeProd: pagination.codeProd,
+        message: pagination.message,
+        userId: pagination.userId
       }
     });
 

@@ -1,6 +1,5 @@
 export interface Content {
     id: string;
-    codeProd: string;
     userId: string;
     amount: number;
     listProducts: string[];

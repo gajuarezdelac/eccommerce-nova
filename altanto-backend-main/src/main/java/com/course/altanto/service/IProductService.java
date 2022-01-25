@@ -15,7 +15,7 @@ import com.course.altanto.exception.NotAnImageFileException;
 public interface IProductService {
 
 	// View products
-	Page<Product> search(int pageNo, int pageSize, String sortBy, String sortDir);
+	Page<Product> search(int pageNo, int pageSize,String codeProd, String description,String name,String category);
 
 	List<Product> getAllProducts();
 
@@ -29,5 +29,8 @@ public interface IProductService {
 	Product deleteProductById(String id) throws ExceptionGeneric;
 
 	List<Product> getPorductByCodeProd(String codeProd) throws ExceptionGeneric;
+	
+	List<Product> getProductsByOrder(List<String> ids);
+	
 
 }

@@ -31,9 +31,7 @@
 
 
     }
-
-
-    
+ 
     export class Image {
         id: string;
         routeFile: string;

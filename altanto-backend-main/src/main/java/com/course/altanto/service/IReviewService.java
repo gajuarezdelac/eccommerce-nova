@@ -14,7 +14,7 @@ public interface IReviewService {
 	
 	List<Review> getAllReviews();
 	
-	Page<Review> getAllReviewsPaginate(int pageNo, int pageSize);
+	Page<Review> getAllReviewsPaginate(int pageNo, int pageSize, String codeProd, String message, String userId);
 	
 	List<Review> getReviewsByProduct(String codeProd);
 	

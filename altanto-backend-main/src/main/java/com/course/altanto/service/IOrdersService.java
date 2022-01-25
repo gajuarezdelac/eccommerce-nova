@@ -23,6 +23,6 @@ public interface IOrdersService {
 	
 	List<Orders> getAllOrders();
 	
-	Page<Orders> searchOrders(int pageNo, int pageSize);
+	Page<Orders> searchOrders(int pageNo, int pageSize, String id, String userId, String dateBegin, String dateFinish);
 		
 }

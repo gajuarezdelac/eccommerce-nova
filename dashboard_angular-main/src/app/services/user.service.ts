@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../models/custom-http-response';
 import { Pagination } from '../models/Pagination';
+import { PaginationUser } from '../models/PaginationUser';
 import { User } from '../models/User';
 import { UserPaginate } from '../models/UserPaginate';
 
@@ -21,16 +22,16 @@ export class UserService {
     return this.http.get<User[]>(`${this.host}/user/list`)
   }
   
-  // * Get all users paginate
-
-  
   // * Get list of reviews paginate
-  public getAllUsersPaginate(pagination : Pagination):  Observable<UserPaginate> {
+  public getAllUsersPaginate(pagination : PaginationUser):  Observable<UserPaginate> {
 
     const params = new HttpParams({
       fromObject: {
         pageNo: pagination.numberPage,
-        pageSize: pagination.sizePage
+        pageSize: pagination.sizePage,
+        names: pagination.names,
+        surnames: pagination.surnames,
+        username: pagination.username,
       }
     });
 
@@ -59,8 +60,6 @@ export class UserService {
   public desactivateByUsername(username: string): Observable<User> {
     return this.http.delete<User>(`${this.host}/user/desactivate-profile/${username}`);
   }
-
-  
 
   // * Update Profile
   public updateProfile(username : string ,formData: any ) : Observable<User>  {
@@ -94,8 +93,8 @@ export class UserService {
   public createUserFormDate(loggedInUsername: string  | null, user: User, profileImage: File): FormData {
     const formData = new FormData();
     formData.append('currentUsername', loggedInUsername!);
-    formData.append('firstName', user.firstName);
-    formData.append('lastName', user.lastName);
+    formData.append('firstName', user.names);
+    formData.append('lastName', user.surnames);
     formData.append('username', user.username);
     formData.append('role', user.role);
     formData.append('profileImage', profileImage);

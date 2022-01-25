@@ -50,6 +50,10 @@ export class RecoveryPasswordComponent implements OnInit {
         this.validateForm.controls[i].updateValueAndValidity();
       }
     }
+    
+    if(!this.validateForm.valid) {
+      return ; 
+    }
 
     this.isSpinning = true;
     let user = this.validateForm.value;

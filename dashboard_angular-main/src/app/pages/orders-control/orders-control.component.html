@@ -16,26 +16,29 @@
   <form
   nz-form
   [nzLayout]="'vertical'"
+  [formGroup]="validateForm" 
+  class="login-form" 
+  (ngSubmit)="submitForm()"
   >  
     <div nz-row [nzGutter]="24">
-      <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">
+      <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
         <nz-form-item class="input-content" > 
-          <nz-form-label [nzSpan]="6" nzFor="email"> Asunto </nz-form-label>
+          <nz-form-label [nzSpan]="6" nzFor="email"> ID </nz-form-label>
           <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+            <nz-input-group nzPrefixIcon="audit">
+              <input type="text" nz-input formControlName="id" placeholder="Busqueda por username, nombre o apellidos" />
             </nz-input-group>
 
           </nz-form-control>
         </nz-form-item>
       </div></div>
 
-      <div nz-col class="gutter-row" align="right"  [nzSpan]="8"><div class="inner-box">            
+      <div nz-col class="gutter-row" align="right"  [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
-          <nz-form-label [nzSpan]="6" nzFor="email"> Mensaje </nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+          <nz-form-label [nzSpan]="6" nzFor="email"> Email </nz-form-label>
+          <nz-form-control >
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="userId" placeholder="Busqueda por username, nombre o apellidos" />
             </nz-input-group>
 
           </nz-form-control>
@@ -43,23 +46,47 @@
       </div></div>
 
       
-      <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">            
+      <div nz-col class="gutter-row"  [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
-          <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+          <nz-form-label [nzSpan]="6" nzFor="email"> De </nz-form-label>
           <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
-            </nz-input-group>
-
+            <nz-date-picker
+            [nzDisabledDate]="disabledStartDate"
+            nzShowTime
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            formControlName="dateBegin"
+            nzPlaceHolder="Fecha de inicio"
+            (nzOnOpenChange)="handleStartOpenChange($event)"
+          ></nz-date-picker>
+         
           </nz-form-control>
         </nz-form-item>
       </div></div>
-        </div>
+
+
+
+      <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">            
+        <nz-form-item class="input-content" > 
+          <nz-form-label [nzSpan]="6" nzFor="email"> Al </nz-form-label>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-date-picker
+            #endDatePicker
+            [nzDisabledDate]="disabledEndDate"
+            nzShowTime
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            formControlName="dateFinish"
+            nzPlaceHolder="Fecha fin"
+            (nzOnOpenChange)="handleEndOpenChange($event)"
+          ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div></div>  
+      </div>
       
           <div nz-row [nzGutter]="8">
 
             <div nz-col class="gutter-row" align="left"  [nzSpan]="12"><div class="inner-box">            
-            <button class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </button>
+            <a class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </a>
             </div></div>
 
             <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
@@ -94,9 +121,10 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Asunto</th>
-            <th>Enviado</th>
             <th>Email</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Estatus</th>
             <th nzRight nzAlign="center" nzWidth="140px">Acciones</th>
           </tr>
         </thead>
@@ -104,9 +132,10 @@
         <tbody>
           <tr *ngFor="let data of headerTable.data">
             <td>{{ data.id }}</td>
-            <td>{{ data.id }}</td>
+            <td>{{ data.userId }}</td>
+            <td>${{ data.amount }}</td>
             <td>{{ data.createdAt | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ data.id }}</td>
+            <td>{{ data.status }}</td>
             <td nzRight nzAlign="center">
               <nz-space>
                 <button nz-button nzShape="circle" nzType="text">
@@ -117,7 +146,6 @@
                   <i nz-icon nzTheme="twotone"  (click)="openEditDrawer(data)" [nzTwotoneColor]="'#a31600'" nzType="edit"></i>
                 </button>
 
-
                 <button nz-button nzShape="circle" nzType="text">
                   <i nz-icon nzTheme="twotone"  (click)="showDeleteConfirm(data)"  [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
                 </button>
@@ -127,10 +155,7 @@
           </tr>
         </tbody>
         </nz-table>
-
 </nz-spin>
-
-      
 
     <!-- View drawer -->
 
@@ -139,21 +164,39 @@
     [nzClosable]="false"
     [nzVisible]="visibleDrawer"
     nzPlacement="right"
-    nzTitle="Mensaje"
+    nzTitle="Detalle de la orden"
     (nzOnClose)="closeViewDrawer()"
   >
     <ng-container *nzDrawerContent>
      <nz-spin [nzSpinning]="isLoadingDrawer">
     
-      <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewOrder?.id}}">
-        <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewOrder?.id}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewOrder?.id}} </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
-          {{ viewOrder?.id }}
-        </nz-descriptions-item>
-      </nz-descriptions>
+      <nz-tabset>
+        <nz-tab [nzTitle]="titleTemplate1">
+          <ng-template #titleTemplate1>
+            <i nz-icon [nzType]="'audit'"></i>
+            Detalle
+          </ng-template>
+
+          <nz-descriptions [nzColumn]="2" nzTitle="Orden: #{{viewOrder?.id}}">
+            <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{viewOrder?.userId}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Monto: " [nzSpan]="2"> {{viewOrder?.amount}} </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Estatus: " [nzSpan]="2"> {{viewOrder?.status}} </nz-descriptions-item>
+          </nz-descriptions>
+
+        </nz-tab>
   
+  
+        <nz-tab [nzTitle]="titleTemplate2">
+          <ng-template #titleTemplate2>
+            <i nz-icon [nzType]="'barcode'"></i>
+            Articulos
+          </ng-template>
+          Nombre del tab 2
+        </nz-tab>
+      </nz-tabset>
+  
+    
   
      </nz-spin>
     </ng-container>
@@ -162,7 +205,6 @@
 
   <!-- Edit drawer -->
  
-  
   <nz-drawer
   [nzWidth]="540"
   [nzClosable]="false"
@@ -177,21 +219,26 @@
     <nz-tabset>
       <nz-tab [nzTitle]="titleTemplate1">
         <ng-template #titleTemplate1>
-          <i nz-icon [nzType]="'android'"></i>
-          Nombre del tab 1
+          <i nz-icon [nzType]="'audit'"></i>
+          Detalle
         </ng-template>
-        Nombre del tab 1
-      </nz-tab>
 
+        <nz-descriptions [nzColumn]="2" nzTitle="Orden: #{{viewOrder?.id}}">
+          <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{viewOrder?.userId}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Monto: " [nzSpan]="2"> {{viewOrder?.amount}} </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Estatus: " [nzSpan]="2"> {{viewOrder?.status}} </nz-descriptions-item>
+        </nz-descriptions>
+
+      </nz-tab>
 
       <nz-tab [nzTitle]="titleTemplate2">
         <ng-template #titleTemplate2>
-          <i nz-icon [nzType]="'android'"></i>
-          Nombre del tab 2
+          <i nz-icon [nzType]="'barcode'"></i>
+          Articulos
         </ng-template>
         Nombre del tab 2
       </nz-tab>
-
     </nz-tabset>
 
    </nz-spin>

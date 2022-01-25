@@ -1,6 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from 'src/app/services/auth.service';
@@ -47,6 +47,13 @@ export class UsersComponent implements OnInit {
   // * Variables genericas  
   public isLoadingGeneral = false;
 
+  // * Variables para agregar un usuario  
+  @ViewChild('f') myForm: NgForm | undefined;
+
+  // * Variables para realizar el filtrado
+  public validateForm!: FormGroup;
+ public selectedValue = null;
+
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder,
@@ -56,17 +63,48 @@ export class UsersComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
+    
+    this.validateForm = this.fb.group({
+      username: [''],
+      names: [''],
+      surnames: [''],
+    });
 
     this.getListPaginate();
   }
 
+    
+    // ! Busqueda 
+    submitForm(): void {
 
+      if(this.current >= 1) {
+        this.current = 1;
+      }
+  
+      this.isLoadingTable = true;
+      let form = this.validateForm.value;
+      this.subscriptions.push(
+        this.userService.getAllUsersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,names:form.names,username: form.username,surnames:form.surnames }).subscribe(
+          (response: UserPaginate) => {
+            this.temp = response.content;
+            this.data = response.content;
+            this.total = response.totalElements;
+            this.totalElementByPage = response.numberOfElements;
+            this.isLoadingTable = false;
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.isLoadingTable = false;
+            this.message.create("error",  "Ha ocurrido un error!");
+          }
+        )
+      );    
+    }
+  
     // ! Listado de registros para llenar la tabla 
-
     getListPaginate() : void {
       this.isLoadingTable = true;
       this.subscriptions.push(
-        this.userService.getAllUsersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+        this.userService.getAllUsersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize, names: this.validateForm.value["names"], username: this.validateForm.value["username"],surnames: this.validateForm.value["surnames"]}).subscribe(
           (response: UserPaginate) => {
             this.temp = response.content;
             this.data = response.content;

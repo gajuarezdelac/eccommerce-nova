@@ -55,9 +55,9 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
-	public Page<Product> search(int pageNo, int pageSize, String sortBy, String sortDir) {
+	public Page<Product> search(int pageNo, int pageSize,String codeProd, String  description, String  name, String  category) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Product> posts = productRepository.findAll(pageable);		  
+		  Page<Product> posts = productRepository.searchByFilters(codeProd, description, name, category, pageable);		  
 		return posts;
 	}
 	
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements IProductService {
 		element.setSize(size);
 		element.setCategory(category);
 		element.setTypeGarment(typeGarment);
-		element.setCreateAt(new Date());
+		element.setCreatedAt(new Date());
 		
 		// Validamos que todos los archivos adjuntados sean de tipo imagen o descendientes de este.
 		for(MultipartFile file : images) {
@@ -188,6 +188,12 @@ public class ProductServiceImpl implements IProductService {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(PRODUCT_IMAGE_PATH + username + "/"
         + username + DOT + JPG_EXTENSION).toUriString();
     }
+
+	@Override
+	public List<Product> getProductsByOrder(List<String> ids) {
+		List<Product> response = productRepository.findAllById(ids);
+		return response;
+	}
 	
 
 }

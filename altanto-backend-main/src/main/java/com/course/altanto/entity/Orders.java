@@ -33,9 +33,6 @@ public class Orders implements Serializable {
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
-
-	@Column(nullable = false)
-	private String codeProd;
 		
 	@Column(nullable = false)
 	private String userId;
@@ -46,7 +43,7 @@ public class Orders implements Serializable {
 	
 	private int status;
 	
-	private Date createAt;
+	private Date createdAt;
 	
 	private Date EditAt;
 	

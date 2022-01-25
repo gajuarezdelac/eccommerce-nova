@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Order } from '../models/Order';
 import { OrderPaginate } from '../models/OrderPaginate';
 import { Pagination } from '../models/Pagination';
+import { PaginationOrder } from '../models/PaginationOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,16 @@ export class OrderService {
   
   
   // * Get list of inbox
-  public getAllOrdersPaginate(pagination : Pagination):  Observable<OrderPaginate> {
+  public getAllOrdersPaginate(pagination : PaginationOrder):  Observable<OrderPaginate> {
 
     const params = new HttpParams({
       fromObject: {
         pageNo: pagination.numberPage,
-        pageSize: pagination.sizePage
+        pageSize: pagination.sizePage,
+        id: pagination.id,
+        userId: pagination.userId,
+        dateBegin: pagination.dateBegin,
+        dateFinish: pagination.dateFinish
       }
     });
 

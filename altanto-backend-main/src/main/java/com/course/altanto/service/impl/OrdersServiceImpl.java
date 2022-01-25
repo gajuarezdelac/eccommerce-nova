@@ -28,12 +28,11 @@ public class OrdersServiceImpl implements IOrdersService{
 	@Override
 	public Orders createOrder(Orders request) {
 		Orders element = new Orders();
-		element.setCodeProd(request.getCodeProd());
 		element.setAmount(request.getAmount());
 		element.setUserId(request.getUserId());
 		element.setStatus(request.getStatus());
 		element.setListProducts(request.getListProducts());
-		element.setCreateAt(new Date());
+		element.setCreatedAt(new Date());
 		ordersRepository.save(element);
 		return element;
 	}
@@ -79,10 +78,12 @@ public class OrdersServiceImpl implements IOrdersService{
 	}
 
 	@Override
-	public Page<Orders> searchOrders(int pageNo, int pageSize) {
+	public Page<Orders> searchOrders(int pageNo, int pageSize,String id, String userId, String dateBegin, String dateFinish) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Orders> response = ordersRepository.findAll(pageable);		  
+		  Page<Orders> response = ordersRepository.searchByFilters(id, userId, dateBegin, dateFinish, pageable);  
 		return response;
 	}
+	
+	
 	
 }

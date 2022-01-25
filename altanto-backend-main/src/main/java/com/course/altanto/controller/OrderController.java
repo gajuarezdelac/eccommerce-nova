@@ -37,7 +37,7 @@ public class OrderController {
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Orders> getOrderById(@PathVariable(value = "id") String id) throws ExceptionGeneric {
+	public ResponseEntity<Orders> getOrderById(@PathVariable("id") String id) throws ExceptionGeneric {
 		Orders response = service.viewOrderById(id);
 		return new ResponseEntity<Orders>(response, HttpStatus.OK);
 	}
@@ -56,8 +56,13 @@ public class OrderController {
     
     @GetMapping("/paginate") 
 	public ResponseEntity<Page<Orders>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
-		Page<Orders> response = service.searchOrders(pageNo, pageSize);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "id", defaultValue = "", required = false) String id,
+            @RequestParam(value = "userId", defaultValue = "", required = false) String userId,
+            @RequestParam(value = "dateBegin", defaultValue = "2021-01-01 23:59:00", required = false) String dateBegin,
+            @RequestParam(value = "dateFinish", defaultValue = "2022-12-31 23:59:00", required = false) String dateFinish
+			) {
+		Page<Orders> response = service.searchOrders(pageNo, pageSize, id, userId, dateBegin, dateFinish);
 		return new ResponseEntity<>(response, HttpStatus.OK);	
 	}
     
@@ -73,6 +78,6 @@ public class OrderController {
     	return new ResponseEntity<>(response, HttpStatus.OK);    	
     }
     
-       
-	
+    
+    
 }

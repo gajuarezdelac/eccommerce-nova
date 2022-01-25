@@ -39,8 +39,6 @@ export class ResetPasswordComponent implements OnInit {
     if(this.authenticationService.isUserLoggedIn()) {
       this.router.navigateByUrl("/dashboard/principal");
     }
-
-
   }
 
   submitForm(): void {
@@ -52,9 +50,7 @@ export class ResetPasswordComponent implements OnInit {
       }
     }
 
-    
     if(!this.validateForm.valid) {
-      this.createMessage("warning", "Es necesario llenar todos los campos!");
       return ; 
     }
 

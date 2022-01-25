@@ -38,8 +38,12 @@ public class ReviewController {
 	
     @GetMapping("/paginate") 
 	public ResponseEntity<Page<Review>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
-		Page<Review> response = service.getAllReviewsPaginate(pageNo, pageSize);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "codeProd", defaultValue = "", required = false) String codeProd,
+            @RequestParam(value = "message", defaultValue = "", required = false) String message,
+            @RequestParam(value = "userId", defaultValue = "", required = false) String userId
+			) {
+		Page<Review> response = service.getAllReviewsPaginate(pageNo, pageSize, codeProd, message, userId);
 		return new ResponseEntity<>(response, HttpStatus.OK);	
 	}
 	

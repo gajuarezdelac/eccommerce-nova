@@ -2,7 +2,6 @@
 export class Order {
 
     id: string;
-    codeProd: string;
     userId: string;
     amount: number;
     listProducts: string[];
@@ -12,7 +11,6 @@ export class Order {
 
     constructor() {
         this.id = '';
-        this.codeProd = ''
         this.userId = ''
         this.amount = 0;
         this.listProducts = [];

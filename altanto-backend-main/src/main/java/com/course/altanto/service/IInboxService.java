@@ -19,6 +19,11 @@ public interface IInboxService {
 	 
 	 Inbox deleteInboxById(String id) throws ExceptionGeneric;
 	 
-	 Page<Inbox> search(int pageNo, int pageSize);
+	 Page<Inbox> search(int pageNo, int pageSize, String subject, String content, String email);
+	 
+	 
+	 
+	 
+	 
 	 
 }

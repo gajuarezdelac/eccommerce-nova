@@ -4,3 +4,10 @@
     margin: 0 auto;
 }
 
+a.btn-success {
+    color: #ffff;
+}
+
+a.btn-success:hover {
+    color: rgb(224, 221, 221);
+}

@@ -145,8 +145,11 @@ public class UserController {
 	    
 	    @GetMapping("/paginate") 
 		public ResponseEntity<Page<User>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-	            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
-			Page<User> response = userService.getAllUsersPaginate(pageNo, pageSize);
+	            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+	            @RequestParam(value = "username", defaultValue = "", required = false) String username,
+	            @RequestParam(value = "names", defaultValue = "", required = false) String names,
+	            @RequestParam(value = "surnames", defaultValue = "", required = false) String surnames) {
+			Page<User> response = userService.getAllUsersPaginate(pageNo, pageSize, username, names, surnames);
 			return new ResponseEntity<>(response, HttpStatus.OK);	
 		}
 

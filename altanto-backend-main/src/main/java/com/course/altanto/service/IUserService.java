@@ -26,7 +26,7 @@ public interface IUserService {
 
 	    List<User> getUsers();
 	    
-	    Page<User> getAllUsersPaginate(int pageNo, int pageSize);
+	    Page<User> getAllUsersPaginate(int pageNo, int pageSize, String username, String names, String surnames);
 
 	    User findUserByUsername(String username);
   

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,13 +43,22 @@ public class ProductController {
 		List<Product> response = service.getAllProducts();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	@PostMapping("/list-id")
+	public ResponseEntity<List<Product>> listByIds(@RequestBody List<String> request) {
+		List<Product> response = service.getProductsByOrder(request);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@GetMapping("/paginate")
-	public ResponseEntity<Page<Product>> getPageable(   @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+	public ResponseEntity<Page<Product>> getPageable(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
-		Page<Product> response = service.search(pageNo, pageSize, sortBy, sortDir);
+            @RequestParam(value = "codeProd", defaultValue = "", required = false) String codeProd,
+            @RequestParam(value = "description", defaultValue = "", required = false) String description,
+            @RequestParam(value = "name", defaultValue = "", required = false) String name,
+            @RequestParam(value = "category", defaultValue = "", required = false) String category
+            ) {
+		Page<Product> response = service.search(pageNo, pageSize, codeProd, description, name, category);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
@@ -58,8 +68,6 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	
-
 	@PostMapping("/add")
 	public ResponseEntity<Product> addProduct(@RequestParam("codeProd") String codeProd,
 			                                  @RequestParam("name") String name,

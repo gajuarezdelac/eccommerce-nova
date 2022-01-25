@@ -14,7 +14,6 @@
     </ol>
   </nav>
     
-
     <form
     nz-form
     [nzLayout]="'vertical'"
@@ -25,22 +24,22 @@
       <div nz-row [nzGutter]="24">
         <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">
           <nz-form-item class="input-content" > 
-            <nz-form-label [nzSpan]="6" nzFor="email"> Asunto </nz-form-label>
-            <nz-form-control nzErrorTip="Campo requerido">
-              <nz-input-group nzPrefixIcon="search">
-                <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+            <label>Cod. Producto </label>
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="audit">
+                <input type="text" nz-input formControlName="codeProd" placeholder="Escribe el código de producto..." />
               </nz-input-group>
   
             </nz-form-control>
           </nz-form-item>
         </div></div>
   
-        <div nz-col class="gutter-row" align="right"  [nzSpan]="8"><div class="inner-box">            
+        <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">            
           <nz-form-item class="input-content" > 
-            <nz-form-label [nzSpan]="6" nzFor="email"> Mensaje </nz-form-label>
-            <nz-form-control nzErrorTip="Campo requerido">
-              <nz-input-group nzPrefixIcon="search">
-                <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+            <label> Mensaje </label>
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="container">
+                <input type="text" nz-input formControlName="message" placeholder="Escribe las palabras claves del mensaje..." />
               </nz-input-group>
   
             </nz-form-control>
@@ -50,12 +49,11 @@
         
         <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">            
           <nz-form-item class="input-content" > 
-            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control nzErrorTip="Campo requerido">
-              <nz-input-group nzPrefixIcon="search">
-                <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+            <label> Email </label>
+            <nz-form-control >
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="email" placeholder="Escribe el email del usuario..." />
               </nz-input-group>
-  
             </nz-form-control>
           </nz-form-item>
         </div></div>
@@ -98,28 +96,28 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Asunto</th>
-              <th>Enviado</th>
-              <th>Email</th>
+              <th>Código de producto</th>
+              <th>Usuario</th>
+              <th>Fecha</th>
               <th nzRight nzAlign="center" nzWidth="140px">Acciones</th>
             </tr>
           </thead>
             
           <tbody>
             <tr *ngFor="let data of headerTable.data">
-              <td>{{ data.id }}</td>
-              <td>{{ data.id }}</td>
+              <td>{{ data.message }}</td>
+              <td>{{ data.codeProd }}</td>
+              <td>{{ data.userId }}</td>
               <td>{{ data.createdAt | date: 'dd/MM/yyyy' }}</td>
-              <td>{{ data.id }}</td>
               <td nzRight nzAlign="center">
                 <nz-space>
                   <button nz-button nzShape="circle" nzType="text">
                     <i nz-icon nzTheme="twotone"  (click)="openViewDrawer(data)" [nzTwotoneColor]="'#08a000'" nzType="eye"></i>
                   </button>
-  
+<!--   
                   <button nz-button nzShape="circle" nzType="text">
                     <i nz-icon nzTheme="twotone"  (click)="openEditDrawer(data)" [nzTwotoneColor]="'#a31600'" nzType="edit"></i>
-                  </button>
+                  </button> -->
   
                   <button nz-button nzShape="circle" nzType="text">
                     <i nz-icon nzTheme="twotone"  (click)="showDeleteConfirm(data)" [nzTwotoneColor]="'#a31600'" nzType="delete"></i>
@@ -139,7 +137,7 @@
     <!-- View drawer -->
 
     <nz-drawer
-    [nzWidth]="540"
+    [nzWidth]="340"
     [nzClosable]="false"
     [nzVisible]="visibleDrawer"
     nzPlacement="right"
@@ -149,12 +147,13 @@
     <ng-container *nzDrawerContent>
      <nz-spin [nzSpinning]="isLoadingDrawer">
     
-      <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewElement?.id}}">
-        <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewElement?.id}}</nz-descriptions-item>
+      <nz-descriptions [nzColumn]="2" nzTitle="Enviado por: {{viewElement?.userId}}">
+        <nz-descriptions-item nzTitle="Código de producto" [nzSpan]="2">{{viewElement?.codeProd}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewElement?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewElement?.id}} </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Calificación " [nzSpan]="2"> {{viewElement?.calf}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
-          {{ viewElement?.id }}
+          {{ viewElement?.message }}
         </nz-descriptions-item>
       </nz-descriptions>
   

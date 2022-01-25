@@ -43,8 +43,11 @@ public class InboxController {
 	
 	@GetMapping("/paginate") 
 	public ResponseEntity<Page<Inbox>> paginate(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
-		Page<Inbox> response = service.search(pageNo, pageSize);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "subject", defaultValue = "", required = false) String subject,
+            @RequestParam(value = "content", defaultValue = "", required = false) String content,
+            @RequestParam(value = "email", defaultValue = "", required = false) String email) {
+		Page<Inbox> response = service.search(pageNo, pageSize, subject, content, email);
 		return new ResponseEntity<>(response, HttpStatus.OK);	
 	}
 	

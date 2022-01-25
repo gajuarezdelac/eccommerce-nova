@@ -66,9 +66,9 @@ public class InboxServiceImpl implements IInboxService{
 	}
 
 	@Override
-	public Page<Inbox> search(int pageNo, int pageSize) {
+	public Page<Inbox> search(int pageNo, int pageSize, String subject, String content, String email) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Inbox> response = inboxRepository.findAll(pageable);		  
+		  Page<Inbox> response = inboxRepository.searchIboxByFilters(subject, content, email, pageable);	  
 		return response;
 	}
 	

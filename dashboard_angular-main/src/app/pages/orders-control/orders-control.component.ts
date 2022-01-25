@@ -1,6 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
+import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-orders-control',
@@ -45,6 +47,8 @@ export class OrdersControlComponent implements OnInit {
 
   public isLoadingGeneral = false;
 
+  //  Variables para realizar el filtrado de busqueda
+  public validateForm!: FormGroup;
 
   constructor(
     private authenticationService : AuthService,
@@ -54,18 +58,92 @@ export class OrdersControlComponent implements OnInit {
     private router: Router,
     private orderService: OrderService) { }
 
-
   ngOnInit(): void {
+
+    this.validateForm = this.fb.group({
+      id: [''],
+      userId: [''],
+      dateBegin: ['2021-01-01 23:59:00', [Validators.required]],
+      dateFinish: ['2022-12-31 23:59:00', [Validators.required]]
+    });
+
     this.getListPaginate();
   }
 
+  startValue: Date | null = null;
+  endValue: Date | null = null;
+
+  @ViewChild('endDatePicker') endDatePicker!: NzDatePickerComponent;
+
+  disabledStartDate = (startValue: Date): boolean => {
+    if (!startValue || !this.endValue) {
+      return false;
+    }
+    return startValue.getTime() > this.endValue.getTime();
+  };
+
+  disabledEndDate = (endValue: Date): boolean => {
+    if (!endValue || !this.startValue) {
+      return false;
+    }
+    return endValue.getTime() <= this.startValue.getTime();
+  };
+
+  handleStartOpenChange(open: boolean): void {
+    if (!open) {
+      this.endDatePicker.open();
+    }
+    console.log('handleStartOpenChange', open);
+  }
+
+  handleEndOpenChange(open: boolean): void {
+    console.log('handleEndOpenChange', open);
+  }
+
+  // ! Search 
+
+  submitForm(): void {    
+    for (const i in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+    }
+
+    if(!this.validateForm.valid) {
+      return ; 
+    }
+
+    if(this.current >= 1) {
+      this.current = 1;
+    }
+
+    this.isLoadingTable = true;
+    let form = this.validateForm.value;
+
+    this.subscriptions.push(
+      this.orderService.getAllOrdersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,  id: form.id ,userId: form.userId ,dateBegin: moment(form.dateBegin).utc().format('YYYY-MM-DD HH:MM:SS'), dateFinish: moment(form.dateFinish).utc().format('YYYY-MM-DD HH:MM:SS') }).subscribe(
+        (response: OrderPaginate) => {
+          this.temp = response.content;
+          this.data = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );    
+  }
 
   // ! Listado de elementos
 
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.orderService.getAllOrdersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+      this.orderService.getAllOrdersPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize, id: this.validateForm.value["id"] ,userId: this.validateForm.value["userId"] ,dateBegin: moment(this.validateForm.value["dateBegin"]).utc().format('YYYY-MM-DD HH:MM:SS'), dateFinish: moment(this.validateForm.value["dateFinish"]).utc().format('YYYY-MM-DD HH:MM:SS') }).subscribe(
         (response: OrderPaginate) => {
           this.temp = response.content;
           this.data = response.content;
@@ -123,6 +201,7 @@ export class OrdersControlComponent implements OnInit {
   }
 
   // ! Editar pedido
+
   openEditDrawer(element : Content): void {
     this.getElementById(element.id);
     this.visibleEditDrawer = true;
@@ -132,6 +211,8 @@ export class OrdersControlComponent implements OnInit {
     this.visibleEditDrawer = false;
     this.viewOrder = undefined;
   }
+
+
 
 
   // ! Eliminar pedido

@@ -1,30 +1,32 @@
 export class User {
-    public userId: string;
-    public firstName: string;
-    public lastName: string;
-    public username: string;
-    public lastLoginDate: Date | null;
-    public lastLoginDateDisplay: Date | null;
-    public joinDate: Date | null;
-    public profileImageUrl: string;
-    public active: boolean;
-    public notLocked: boolean;
-    public role: string;
-    public authorities: [];
-    public numberPhone?: any;
-    public token?: any;
-    public expireToken?: any;
-    public location?: any;
+        
+        names: string;
+        surnames: string;
+        username: string;
+        gender: string;
+        dateOfBirth: any;
+        numberPhone?: any;
+        role: string;
+        token: string;
+        expireToken?: number;
+        profileImageUrl: string;
+        joinDate: any;
+        authorities: string[];
+        location?: any;
+        lastLoginDate: any;
+        lastLoginDateDisplay: any;
+        active: boolean;
+        notLocked: boolean;
 
 
     constructor() {
-      this.userId = '';
-      this.firstName = '';
-      this.lastName = '';
+      this.names = '';
+      this.surnames = '';
       this.username = '';
       this.numberPhone = 0;
       this.token = '';
-      this.expireToken = '';
+      this.expireToken = 0;
+      this.gender = '';
       this.location = '';
       this.lastLoginDate = null;
       this.lastLoginDateDisplay = null;
