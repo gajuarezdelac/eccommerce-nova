@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -44,6 +44,8 @@ export class ReviewsControlComponent implements OnInit {
   // * Variables genericas  
   public isLoadingGeneral = false;
 
+  // * Variables para realizar el filtrado de busqueda
+  public validateForm!: FormGroup;
 
   constructor(
     private authenticationService : AuthService,
@@ -55,9 +57,43 @@ export class ReviewsControlComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.validateForm = this.fb.group({
+      email: [''],
+      message: [''],
+    });
+
     this.getListPaginate();
   }
 
+
+  // ! Search
+
+  submitForm(): void {
+
+    if(this.current >= 1) {
+      this.current = 1;
+    }
+
+    this.isLoadingTable = true;
+    let form = this.validateForm.value;
+
+    this.subscriptions.push(
+      this.reviewService.getAllReviewsPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+        (response: Review) => {
+          this.temp = response.content;
+          this.data = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );    
+  }
 
   // ! Listado de registros para llenar la tabla 
 
@@ -186,7 +222,7 @@ export class ReviewsControlComponent implements OnInit {
               'ID': rec.id,
               'Asunto': rec.id,
               'Email': rec.id,
-              'Enviado': this.getFormatedDate(rec.createAt,"MM/dd/yyyy"),
+              'Enviado': this.getFormatedDate(rec.createdAt,"MM/dd/yyyy"),
               "Mensaje": rec.id
             }
           });

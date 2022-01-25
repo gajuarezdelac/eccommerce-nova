@@ -6,7 +6,7 @@
         cantd: number;
         size: string;
         price: number;
-        createAt: string;
+        createdAt: string;
         discount: number;
         category: string;
         rating: number;
@@ -21,7 +21,7 @@
             this.cantd = 0;
             this.size = '';
             this.price = 0;
-            this.createAt = '';
+            this.createdAt = '';
             this.discount = 0;
             this.category = '';
             this.rating = 0;

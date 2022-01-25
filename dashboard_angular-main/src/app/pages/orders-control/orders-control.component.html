@@ -105,7 +105,7 @@
           <tr *ngFor="let data of headerTable.data">
             <td>{{ data.id }}</td>
             <td>{{ data.id }}</td>
-            <td>{{ data.createAt | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ data.createdAt | date: 'dd/MM/yyyy' }}</td>
             <td>{{ data.id }}</td>
             <td nzRight nzAlign="center">
               <nz-space>
@@ -147,7 +147,7 @@
     
       <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewOrder?.id}}">
         <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewOrder?.id}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewOrder?.id}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
           {{ viewOrder?.id }}

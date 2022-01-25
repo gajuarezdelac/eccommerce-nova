@@ -7,7 +7,7 @@ export class Order {
     amount: number;
     listProducts: string[];
     status: number;
-    createAt: string;
+    createdAt: string;
     editAt?: any;
 
     constructor() {
@@ -17,7 +17,7 @@ export class Order {
         this.amount = 0;
         this.listProducts = [];
         this.status = 0;
-        this.createAt = '';
+        this.createdAt = '';
         this.editAt = '';
     }
     

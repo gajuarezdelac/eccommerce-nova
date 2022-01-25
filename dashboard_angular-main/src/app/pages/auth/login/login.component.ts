@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       remember: [true]
     });
 
-
     if(this.authenticationService.isUserLoggedIn()) {
       this.router.navigateByUrl("/dashboard/statistics");
     }

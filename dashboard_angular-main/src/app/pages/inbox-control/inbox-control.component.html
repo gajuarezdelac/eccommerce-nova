@@ -12,31 +12,32 @@
   </ol>
 </nav>
   
-       
-       
+      
   <form
   nz-form
   [nzLayout]="'vertical'"
+  [formGroup]="validateForm" 
+  class="login-form" 
+  (ngSubmit)="submitForm()"
   >  
     <div nz-row [nzGutter]="24">
-      <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">
+      <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
         <nz-form-item class="input-content" > 
           <nz-form-label [nzSpan]="6" nzFor="email"> Asunto </nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+          <nz-form-control nzErrorTip="Campo obligatorio">
+            <nz-input-group nzPrefixIcon="container">
+              <input type="text" nz-input formControlName="subject" placeholder="Busqueda por asunto..." />
             </nz-input-group>
-
           </nz-form-control>
         </nz-form-item>
       </div></div>
 
-      <div nz-col class="gutter-row" align="right"  [nzSpan]="8"><div class="inner-box">            
+      <div nz-col class="gutter-row"  [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
-          <nz-form-label [nzSpan]="6" nzFor="email"> Mensaje </nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+          <nz-form-label [nzSpan]="6" nzFor="content"> Mensaje </nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="inbox">
+              <input type="text" nz-input formControlName="content" placeholder="Busqueda por mensaje..." />
             </nz-input-group>
 
           </nz-form-control>
@@ -44,18 +45,31 @@
       </div></div>
 
       
-      <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">            
+      <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
           <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
-            <nz-input-group nzPrefixIcon="search">
-              <input type="text" nz-input formControlName="password" placeholder="Busqueda por username, nombre o apellidos" />
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="text" nz-input formControlName="email" placeholder="Busqueda por email...." />
             </nz-input-group>
 
           </nz-form-control>
         </nz-form-item>
       </div></div>
+
+      
+      <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">            
+        <nz-form-item class="input-content" > 
+          <nz-form-label [nzSpan]="6" nzFor="email"></nz-form-label>
+          <nz-form-control>
+            <button class="btn btn-primary"> <i class="fas fa-search"></i>  Realizar busqueda </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div></div>
         </div>
+
+      </form>     
+
       
           <div nz-row [nzGutter]="8">
 
@@ -63,12 +77,10 @@
             <button class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </button>
             </div></div>
 
-            <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
-              <button class="btn btn-primary"> <i class="fas fa-search"></i>  Realizar busqueda </button>
+            <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">          
               </div></div>
           </div>
 
-        </form>     
 
         <br>
   

@@ -187,7 +187,7 @@ export class OrdersControlComponent implements OnInit {
               'ID': rec.id,
               'Asunto': rec.id,
               'Email': rec.id,
-              'Enviado': this.getFormatedDate(rec.createAt,"MM/dd/yyyy"),
+              'Enviado': this.getFormatedDate(rec.createdAt,"MM/dd/yyyy"),
               "Mensaje": rec.id
             }
           });

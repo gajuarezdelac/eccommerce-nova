@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -30,15 +30,17 @@ export class InboxControlComponent implements OnInit {
   public isLoadingTable = false;
 
 
-  // Variables para visualizar el mensaje
-
-  
+  // Variables para visualizar el mensaje  
   public visibleDrawer = false;
   public isLoadingDrawer = false;
   public viewInbox :  Content | undefined = undefined;
 
   // Variables para general el reporte de excel
   public isLoadingGeneral = false;
+
+  //  Variables para realizar el filtrado de busqueda
+  public validateForm!: FormGroup;
+
 
   constructor(
     private authenticationService : AuthService,
@@ -51,12 +53,48 @@ export class InboxControlComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.authenticationService.isUserLoggedIn()) {
-      this.getListPaginate();
-    } else {
-       this.router.navigateByUrl("/auth/login");
-    } 
+    this.validateForm = this.fb.group({
+      subject: [''],
+      content: [''],
+      email: ['']
+    });
 
+    this.getListPaginate();
+    
+
+  }
+
+
+  // ! Search 
+
+  submitForm(): void {
+
+    if(this.current >= 1) {
+      this.current = 1;
+    }
+
+    this.isLoadingTable = true;
+    let form = this.validateForm.value;
+
+    this.subscriptions.push(
+      this.inboxService.getAllMessagesPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize,  subject: form.subject ,content: form.content ,email: form.email }).subscribe(
+        (response: Inbox) => {
+          this.temp = response.content;
+          this.data = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+
+
+    
+    
   }
 
 
@@ -65,7 +103,7 @@ export class InboxControlComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.inboxService.getAllMessagesPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize }).subscribe(
+      this.inboxService.getAllMessagesPaginate({ numberPage: (this.current - 1), sizePage: this.pageSize, subject: this.validateForm.value["subject"] ,content: this.validateForm.value["content"] ,email: this.validateForm.value["email"] }).subscribe(
         (response: Inbox) => {
           this.temp = response.content;
           this.data = response.content;
@@ -205,6 +243,12 @@ export class InboxControlComponent implements OnInit {
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(date, format);
   }
+
+  
+  createMessage(type: string, message: string): void {
+    this.message.create(type, message);
+  }
+
 
 
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Inbox, Content } from '../models/Inbox';
 import { Pagination } from '../models/Pagination';
+import { PaginationInbox } from '../models/PaginationInbox';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,15 @@ export class InboxService {
 
   
   // * Get list of inbox
-  public getAllMessagesPaginate(pagination : Pagination):  Observable<Inbox> {
+  public getAllMessagesPaginate(pagination : PaginationInbox):  Observable<Inbox> {
 
     const params = new HttpParams({
       fromObject: {
         pageNo: pagination.numberPage,
-        pageSize: pagination.sizePage
+        pageSize: pagination.sizePage,
+        subject: pagination.subject,
+        content: pagination.content,
+        email: pagination.email
       }
     });
 

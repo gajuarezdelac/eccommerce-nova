@@ -4,7 +4,7 @@ export interface Content {
     userId: string;
     calf: number;
     message: string;
-    createAt: any;
+    createdAt: any;
 }
 
 export interface Sort {

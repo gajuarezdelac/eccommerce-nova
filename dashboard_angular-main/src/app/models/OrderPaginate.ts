@@ -5,7 +5,7 @@ export interface Content {
     amount: number;
     listProducts: string[];
     status: number;
-    createAt: any;
+    createdAt: any;
     editAt?: any;
 }
 

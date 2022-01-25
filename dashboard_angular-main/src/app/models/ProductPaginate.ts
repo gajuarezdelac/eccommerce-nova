@@ -13,7 +13,7 @@ export interface Content {
     cantd: number;
     size: string;
     price: number;
-    createAt: any;
+    createdAt: any;
     discount: number;
     category: string;
     rating: number;

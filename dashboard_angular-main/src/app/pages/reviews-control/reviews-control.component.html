@@ -18,6 +18,9 @@
     <form
     nz-form
     [nzLayout]="'vertical'"
+    [formGroup]="validateForm" 
+    class="login-form" 
+    (ngSubmit)="submitForm()"
     >  
       <div nz-row [nzGutter]="24">
         <div nz-col class="gutter-row" [nzSpan]="8"><div class="inner-box">
@@ -61,7 +64,7 @@
             <div nz-row [nzGutter]="8">
   
               <div nz-col class="gutter-row" align="left"  [nzSpan]="12"><div class="inner-box">            
-              <button class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </button>
+              <a class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </a>
               </div></div>
   
               <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
@@ -106,7 +109,7 @@
             <tr *ngFor="let data of headerTable.data">
               <td>{{ data.id }}</td>
               <td>{{ data.id }}</td>
-              <td>{{ data.createAt | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ data.createdAt | date: 'dd/MM/yyyy' }}</td>
               <td>{{ data.id }}</td>
               <td nzRight nzAlign="center">
                 <nz-space>
@@ -148,7 +151,7 @@
     
       <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewElement?.id}}">
         <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewElement?.id}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewElement?.createAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewElement?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewElement?.id}} </nz-descriptions-item>
         <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
           {{ viewElement?.id }}
@@ -174,7 +177,7 @@
    <nz-spin [nzSpinning]="isLoadingDrawer">
     <nz-descriptions [nzColumn]="2" nzTitle="Asunto: {{viewElement?.id}}">
       <nz-descriptions-item nzTitle="Enviado por " [nzSpan]="2">{{viewElement?.id}}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewElement?.createAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewElement?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
       <nz-descriptions-item nzTitle="ID " [nzSpan]="2"> {{viewElement?.id}} </nz-descriptions-item>
       <nz-descriptions-item nzTitle="Mensaje" [nzSpan]="2">
         {{ viewElement?.id }}
