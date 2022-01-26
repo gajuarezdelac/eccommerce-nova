@@ -40,8 +40,6 @@ export class ProductControlComponent implements OnInit {
 
   // * Variables para cambiar el estatus de la orden
 
-  public visibleEditDrawer = false;
-  public isLoadingEditDrawer = false;
 
   // * Variables para generar el reporte
   public isLoadingGeneral = false;
@@ -50,12 +48,25 @@ export class ProductControlComponent implements OnInit {
   public validateForm!: FormGroup;
 
   // * Variables para agregar un nuevo producto  
+  public createForm! : FormGroup;
   @ViewChild('f') myForm: NgForm | undefined;
   public visibleCreateDrawer = false;
+  public isLoadingCreateDrawer = false;
 
   // * Variables para editar un producto
 
+  public editForm! : FormGroup;
+  @ViewChild('e') editNgForm: NgForm | undefined;
+  public visibleEditDrawer = false;
+  public isLoadingEditDrawer = false;
+
+
+  // ! Subir imagenes
+  public files: any[] = [];
+  public filePath: string = '';
+ 
   
+
 
 
 
@@ -73,6 +84,29 @@ export class ProductControlComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+
+    this.createForm = this.fb.group({
+      code: ['', Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      category: ['', Validators.required],
+      typeGarment: ['', Validators.required],
+      discount: ['', Validators.required],
+      shortDescription: ['', Validators.required],
+    });
+
+    
+    this.editForm = this.fb.group({
+      code: ['', Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      category: ['', Validators.required],
+      typeGarment: ['', Validators.required],
+      discount: ['', Validators.required],
+      shortDescription: ['', Validators.required],
+    });
+
     this.validateForm = this.fb.group({
       codeProd: [''],
       description: [''],
@@ -185,16 +219,6 @@ export class ProductControlComponent implements OnInit {
       this.viewElement = undefined;
     }
   
-    // ! Editar pedido
-    openEditDrawer(element : Content): void {
-      this.getElementById(element.id);
-      this.visibleEditDrawer = true;
-    }
-    
-    closeEditDrawer(): void {
-      this.visibleEditDrawer = false;
-      this.viewElement = undefined;
-    }
   
   
     // ! Eliminar pedido
@@ -235,7 +259,42 @@ export class ProductControlComponent implements OnInit {
     }
 
 
-    // ! Editar 
+    // ! Crear
+
+    createSubmit () {
+
+      for (const i in this.createForm.controls) {
+        if (this.createForm.controls.hasOwnProperty(i)) {
+          this.createForm.controls[i].markAsDirty();
+          this.createForm.controls[i].updateValueAndValidity();
+        }
+      }
+  
+      if(!this.createForm.valid) {
+        return ; 
+      }
+
+      this.isLoadingCreateDrawer = true;
+      let form = this.createForm.value;
+      const formData = this.productService.createFormDate('', form, '');      
+      this.subscriptions.push(
+        this.productService.createProduct(formData).subscribe(
+          (response: Product) => {
+            this.getListPaginate();
+            this.message.create("success",  "Usuario creado de manera correcta!");
+            this.closeCreateDrawer();
+            this.createForm.reset();
+            this.isLoadingCreateDrawer = false;
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.isLoadingCreateDrawer = false;
+            this.message.create("error",  errorResponse.error.message);
+          }
+        )
+      );
+    }
+    
+    
     openCreateDrawer(): void {
       this.visibleCreateDrawer = true;
     }
@@ -244,6 +303,114 @@ export class ProductControlComponent implements OnInit {
       this.visibleCreateDrawer = false;
     }
   
+
+      // ! Editar pedido
+
+      editSubmit() {
+
+        
+      for (const i in this.editForm.controls) {
+        if (this.editForm.controls.hasOwnProperty(i)) {
+          this.editForm.controls[i].markAsDirty();
+          this.editForm.controls[i].updateValueAndValidity();
+        }
+      }
+  
+      if(!this.editForm.valid) {
+        return ; 
+      }
+
+      this.isLoadingEditDrawer = true;
+
+
+
+
+
+      }
+
+      openEditDrawer(element : Content): void {
+        this.getElementById(element.id);
+        this.visibleEditDrawer = true;
+      }
+      
+      closeEditDrawer(): void {
+        this.visibleEditDrawer = false;
+        this.viewElement = undefined;
+      }
+    
+
+
+      // ! Upload multiple images
+
+        /**
+   * on file drop handler
+   */
+   onFileDropped($event : any) {
+    console.log($event);
+    // this.prepareFilesList($event);
+  }
+
+  /**
+   * handle file from browsing
+   */
+   fileBrowseHandler(files : any) {
+    let list = files.target.files;
+    this.prepareFilesList(list);
+  }
+
+   /**
+   * Delete file from files list
+   * @param index (File index)
+   */
+     deleteFile(index: number) {
+      this.files.splice(index, 1);
+    }
+
+    /**
+   * Simulate the upload process
+   */
+  uploadFilesSimulator(index: number) {
+    setTimeout(() => {
+      if (index === this.files.length) {
+        return;
+      } else {
+        const progressInterval = setInterval(() => {
+          if (this.files[index].progress === 100) {
+            clearInterval(progressInterval);
+            this.uploadFilesSimulator(index + 1);
+          } else {
+            this.files[index].progress += 5;
+          }
+        },50);
+      }
+    }, 100);
+  }
+  
+  /**
+   * Simulate the upload process
+   * @param file (File select)
+   */
+  viewFile(e : any) {    
+    let file = new Blob([e], {type: e.type})
+    var fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+  }
+  
+   /**
+   * Convert Files list to normal array list
+   * @param files (Files List)
+   */
+    prepareFilesList(files: Array<any>) {
+      for (const item of files) {
+        item.progress = 0;
+        this.files.push(item);
+      }
+      this.uploadFilesSimulator(0);
+    }
+
+
+
+
     // ! Generar reporte
 
     

@@ -28,8 +28,6 @@
             this.typeGarment = '';
             this.images = [];
         }
-
-
     }
  
     export class Image {
