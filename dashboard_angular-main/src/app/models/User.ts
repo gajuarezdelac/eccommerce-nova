@@ -15,8 +15,10 @@ export class User {
         location?: any;
         lastLoginDate: any;
         lastLoginDateDisplay: any;
-        active: boolean;
-        notLocked: boolean;
+        isActive: boolean;
+        isNonLocked: boolean;
+        notLocked : boolean;
+        active : boolean;
 
 
     constructor() {
@@ -28,13 +30,16 @@ export class User {
       this.expireToken = 0;
       this.gender = '';
       this.location = '';
+      this.dateOfBirth = new Date();
       this.lastLoginDate = null;
       this.lastLoginDateDisplay = null;
       this.joinDate = null;
       this.profileImageUrl = '';
-      this.active = false;
-      this.notLocked = false;
+      this.isActive = false;
+      this.isNonLocked = false;
       this.role = '';
+      this.notLocked = false;
+      this.active = false;
       this.authorities = [];
     }
   

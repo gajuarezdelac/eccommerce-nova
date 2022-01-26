@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -90,17 +91,22 @@ export class UserService {
     return [];
   }
 
-  public createUserFormDate(loggedInUsername: string  | null, user: User, profileImage: File): FormData {
+  public createUserFormDate(loggedInUsername: string  | null, user: User, profileImage: any): FormData {
     const formData = new FormData();
     formData.append('currentUsername', loggedInUsername!);
-    formData.append('firstName', user.names);
-    formData.append('lastName', user.surnames);
+    formData.append('names', user.names);
+    formData.append('surnames', user.surnames);
     formData.append('username', user.username);
     formData.append('role', user.role);
-    formData.append('profileImage', profileImage);
-    formData.append('isActive', JSON.stringify(user.active));
-    formData.append('isNonLocked', JSON.stringify(user.notLocked));
+    formData.append('gender', user.gender);
+    formData.append('dateOfBirth', new Date(user.dateOfBirth).toString());
+    // formData.append('profileImage', profileImage);
+    formData.append('isActive', JSON.stringify(user.isActive));
+    formData.append('isNonLocked', JSON.stringify(user.isNonLocked));
     return formData;
   }
+
+
+  
 
 }

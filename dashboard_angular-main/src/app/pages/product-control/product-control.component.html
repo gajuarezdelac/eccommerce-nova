@@ -12,8 +12,6 @@
     </ol>
   </nav>
   
-    
-    
   <form
   nz-form
   [nzLayout]="'vertical'"
@@ -73,7 +71,11 @@
       
           <div nz-row [nzGutter]="8">
             <div nz-col class="gutter-row" align="left"  [nzSpan]="12"><div class="inner-box">            
-            <a class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </a>
+              <nz-space>
+                <a *nzSpaceItem class="btn btn-success" (click)="generateExcel()" ><i class="fas fa-file-excel"></i>  Generar </a>
+                <a *nzSpaceItem class="btn btn-primary" (click)="openCreateDrawer()" > <i class="fas fa-plus"></i> Nuevo producto </a>  
+              </nz-space>
+    
             </div></div>
 
             <div nz-col class="gutter-row" align="right"  [nzSpan]="12"><div class="inner-box">            
@@ -246,7 +248,106 @@
   </ng-container>
 </nz-drawer>
 
-<!-- View producto modal -->
+<!-- create producto modal -->
+
+
+
+<nz-drawer
+[nzBodyStyle]="{ overflow: 'auto' }"
+[nzMaskClosable]="false"
+[nzWidth]="720"
+[nzVisible]="visibleCreateDrawer"
+nzTitle="Crear nuevo usuario"
+[nzFooter]="footerTpl"
+(nzOnClose)="closeCreateDrawer()"
+>
+
+<form 
+nz-form 
+*nzDrawerContent
+[nzLayout]="'vertical'"
+class="login-form" 
+>
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="please enter user name" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="24">
+      <nz-form-item>
+        <nz-form-label>Description</nz-form-label>
+        <nz-form-control>
+          <textarea
+            nz-input
+            placeholder="please enter url description"
+            [nzAutosize]="{ minRows: 4, maxRows: 4 }"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<ng-template #footerTpl>
+  <div style="float: right">
+    <button nz-button style="margin-right: 8px;" (click)="closeCreateDrawer()">Cancel</button>
+    <button nz-button nzType="primary" (click)="closeCreateDrawer()">Submit</button>
+  </div>
+</ng-template>
+</nz-drawer>
 
 
 

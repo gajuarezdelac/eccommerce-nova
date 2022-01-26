@@ -139,7 +139,6 @@ export class OrdersControlComponent implements OnInit {
   }
 
   // ! Listado de elementos
-
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(

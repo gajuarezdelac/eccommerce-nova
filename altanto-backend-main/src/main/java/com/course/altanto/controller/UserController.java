@@ -92,30 +92,28 @@ public class UserController {
 	   }
 	   
 	   @PostMapping("/add")
-	    public ResponseEntity<User> addNewUser(@RequestParam("firstName") String firstName,
-	                                           @RequestParam("lastName") String lastName,
+	    public ResponseEntity<User> addNewUser(@RequestParam("names") String firstName,
+	                                           @RequestParam("surnames") String lastName,
 	                                           @RequestParam("username") String username,
 	                                           @RequestParam("role") String role,
 	                                           @RequestParam("gender") String gender,
-	                                           @RequestParam("birth") Date dateOfBirth,
-	                                           @RequestParam("isActive") String isActive,
+	                                           @RequestParam("dateOfBirth") Date dateOfBirth,
 	                                           @RequestParam("isNonLocked") String isNonLocked,
 	                                           @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
 	    	
 	    	
-	    
-	        User newUser = userService.addNewUser(firstName, lastName, username, role, gender, dateOfBirth, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+	        User newUser = userService.addNewUser(firstName, lastName, username, role, gender, dateOfBirth, Boolean.parseBoolean(isNonLocked), profileImage);
 	        return new ResponseEntity<>(newUser, OK);
 	    }
 
 	    @PostMapping("/update")
 	    public ResponseEntity<User> update(@RequestParam("currentUsername") String currentUsername,
-	                                       @RequestParam("firstName") String firstName,
-	                                       @RequestParam("lastName") String lastName,
+	                                       @RequestParam("names") String firstName,
+	                                       @RequestParam("surnames") String lastName,
 	                                       @RequestParam("username") String username,
 	                                       @RequestParam("role") String role,
 	                                       @RequestParam("gender") String gender,
-                                           @RequestParam("birth") Date dateOfBirth,
+                                           @RequestParam("dateOfBirth") Date dateOfBirth,
 	                                       @RequestParam("isActive") String isActive,
 	                                       @RequestParam("isNonLocked") String isNonLocked,
 	                                       @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {

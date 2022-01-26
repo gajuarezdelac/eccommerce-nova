@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
@@ -48,6 +48,20 @@ export class ProductControlComponent implements OnInit {
 
   // * Variables para realizar el filtrado de busqueda
   public validateForm!: FormGroup;
+
+  // * Variables para agregar un nuevo producto  
+  @ViewChild('f') myForm: NgForm | undefined;
+  public visibleCreateDrawer = false;
+
+  // * Variables para editar un producto
+
+  
+
+
+
+
+
+
 
   constructor(
     private authenticationService: AuthService,
@@ -109,6 +123,7 @@ export class ProductControlComponent implements OnInit {
       )
     );    
   }
+  
   
   
   // ! Listado de registros para llenar la tabla 
@@ -217,6 +232,16 @@ export class ProductControlComponent implements OnInit {
         nzCancelText: 'Cerrar',
         nzOnCancel: () => console.log('Cancel')
       });
+    }
+
+
+    // ! Editar 
+    openCreateDrawer(): void {
+      this.visibleCreateDrawer = true;
+    }
+  
+    closeCreateDrawer(): void {
+      this.visibleCreateDrawer = false;
     }
   
     // ! Generar reporte

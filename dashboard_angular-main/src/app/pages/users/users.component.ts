@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/models/User';
 import { CustomHttpRespone } from 'src/app/models/custom-http-response';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 
 @Component({
@@ -39,20 +40,31 @@ export class UsersComponent implements OnInit {
   public isLoadingDrawer = false;
   public viewElement :  User | undefined = undefined;
 
-  // * Variables para cambiar el estatus de la orden
-
-  public visibleEditDrawer = false;
-  public isLoadingEditDrawer = false;
 
   // * Variables genericas  
   public isLoadingGeneral = false;
+  public dateFormat = 'yyyy/MM/dd';
+
 
   // * Variables para agregar un usuario  
   @ViewChild('f') myForm: NgForm | undefined;
+  public createForm!: FormGroup;
+  public visibleCreateDrawer = false;
+  public isLoadingCreateDrawer = false;
+
+
+  // * Variables para editar un usuario
+  @ViewChild('e') editNgForm: NgForm | undefined;
+  public editForm!: FormGroup;
+  public visibleEditDrawer = false;
+  public isLoadingEditDrawer = false;
+  public currentUsername : string | undefined = ''
+
 
   // * Variables para realizar el filtrado
   public validateForm!: FormGroup;
- public selectedValue = null;
+ 
+
 
   constructor(
     private authenticationService : AuthService,
@@ -64,6 +76,27 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.editForm = this.fb.group({
+      names: ['', Validators.required],
+      surnames: ['', Validators.required],
+      username: ['', Validators.required],
+      role: ['', Validators.required],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      isActive: [null],
+      isNonLocked: [null],
+    });
+
+    this.createForm = this.fb.group({
+      names: ['', Validators.required],
+      surnames: ['', Validators.required],
+      username: ['', Validators.required],
+      role: ['', Validators.required],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      isNonLocked: [true],
+    });
+
     this.validateForm = this.fb.group({
       username: [''],
       names: [''],
@@ -71,9 +104,8 @@ export class UsersComponent implements OnInit {
     });
 
     this.getListPaginate();
-  }
+   }
 
-    
     // ! Busqueda 
     submitForm(): void {
 
@@ -114,7 +146,7 @@ export class UsersComponent implements OnInit {
           },
           (errorResponse: HttpErrorResponse) => {
             this.isLoadingTable = false;
-            this.message.create("error",  "Ha ocurrido un error!");
+            this.message.create("error",  errorResponse.error.message);
           }
         )
       );
@@ -139,11 +171,14 @@ export class UsersComponent implements OnInit {
         this.userService.getByUsername(id).subscribe(
           (response: User) => {
             this.viewElement = response;
+
+            console.log(response);
+            console.log(this.viewElement);
             this.isLoadingDrawer = false;
           },
           (errorResponse: HttpErrorResponse) => {
             this.isLoadingDrawer = false;
-            this.message.create("error",  "Ha ocurrido un error!");
+            this.message.create("error",  errorResponse.error.message);
           }
         )
       );
@@ -160,19 +195,8 @@ export class UsersComponent implements OnInit {
       this.viewElement = undefined;
     }
   
-    // ! Editar pedido
-    openEditDrawer(element : Content): void {
-      this.getElementById(element.username);
-      this.visibleEditDrawer = true;
-    }
-    
-    closeEditDrawer(): void {
-      this.visibleEditDrawer = false;
-      this.viewElement = undefined;
-    }
   
-  
-    // ! Eliminar pedido
+    // ! Eliminar usuario
   
     deleteMessageById(id : string) : void {
       this.isLoadingGeneral = true;
@@ -196,7 +220,7 @@ export class UsersComponent implements OnInit {
         )
       );
     }
-  
+
     showDeleteConfirm(element : Content): void {
       this.modal.confirm({
         nzTitle: '¿Estas seguro de eliminar el mensaje?',
@@ -209,6 +233,106 @@ export class UsersComponent implements OnInit {
         nzOnCancel: () => console.log('Cancel')
       });
     }
+
+    // ! Editar usuario
+
+    editSubmit() {
+
+      for (const i in this.editForm.controls) {
+        if (this.editForm.controls.hasOwnProperty(i)) {
+          this.editForm.controls[i].markAsDirty();
+          this.editForm.controls[i].updateValueAndValidity();
+        }
+      }
+  
+      if(!this.editForm.valid) {
+        return ; 
+      }
+
+      this.isLoadingEditDrawer = true;
+
+
+
+      let form = this.editForm.value;
+      const formData = this.userService.createUserFormDate(this.currentUsername!, form, '');
+     
+      this.subscriptions.push(
+        this.userService.updateUser(formData).subscribe(
+          (response: User) => {            
+            this.getListPaginate();
+            this.message.create("success",  "Usuario editado de manera correcta!");
+            this.closeEditDrawer();
+            this.isLoadingEditDrawer = false;
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.isLoadingEditDrawer = false;
+            this.message.create("error",  errorResponse.error.message);
+          }
+        )
+      );
+ 
+    }
+
+    openEditDrawer(element : Content): void {
+      this.getElementById(element.username);
+      this.currentUsername = element.username;
+      this.visibleEditDrawer = true;
+    }
+    
+    closeEditDrawer(): void {
+      this.visibleEditDrawer = false;
+      this.viewElement = undefined;
+      this.currentUsername = undefined;
+    }
+
+    // ! Crear usuario
+
+    createSubmit() {
+
+      for (const i in this.createForm.controls) {
+        if (this.createForm.controls.hasOwnProperty(i)) {
+          this.createForm.controls[i].markAsDirty();
+          this.createForm.controls[i].updateValueAndValidity();
+        }
+      }
+  
+      if(!this.createForm.valid) {
+        return ; 
+      }
+
+      this.isLoadingCreateDrawer = true;
+      let form = this.createForm.value;
+      const formData = this.userService.createUserFormDate('', form, '');
+
+
+      this.subscriptions.push(
+        this.userService.addUser(formData).subscribe(
+          (response: User) => {
+            this.getListPaginate();
+            this.message.create("success",  "Usuario creado de manera correcta!");
+            this.closeCreateDrawer();
+            this.createForm.reset();
+            this.isLoadingCreateDrawer = false;
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.isLoadingCreateDrawer = false;
+            this.message.create("error",  errorResponse.error.message);
+          }
+        )
+      );
+ 
+  
+
+    }
+
+    openCreateDrawer(): void {
+      this.visibleCreateDrawer = true;
+    }
+  
+    closeCreateDrawer(): void {
+      this.visibleCreateDrawer = false;
+    }
+    
   
     // ! Generar reporte
 
@@ -247,9 +371,9 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  private getFormatedDate(date: Date, format: string) {
+  private getFormatedDate(date: Date) {
     const datePipe = new DatePipe('en-US');
-    return datePipe.transform(date, format);
+    return datePipe.transform(date, 'yyyy/MM/dd');
   }
 
 

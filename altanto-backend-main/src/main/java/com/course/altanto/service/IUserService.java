@@ -34,7 +34,7 @@ public interface IUserService {
 	    
 	    User updateProfile(String currentUsername, UserDTO request) throws UserNotFoundException;
 
-	    User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,  boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException;
+	    User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,  boolean isNonLocked, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException;
 
 	    User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String role, String gender, Date dateOfBirth, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 

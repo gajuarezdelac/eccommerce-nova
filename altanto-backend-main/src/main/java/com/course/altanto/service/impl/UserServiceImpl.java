@@ -137,11 +137,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	
 	@Override
 	public User addNewUser(String firstName, String lastName, String username,  String role, String gender, Date dateOfBirth,
-			boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException,
+			boolean isNonLocked, MultipartFile profileImage) throws UserNotFoundException,
 			UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
 		
 		
-		 validateNewUsernameAndEmail(EMPTY, username);
+		  validateNewUsernameAndEmail(EMPTY, username);
 		  User user = new User();
 	      String password = generatePassword();
 	      System.out.println(password);
@@ -152,7 +152,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	      user.setPassword(encodePassword(password));
 	      user.setGender(gender);
 	      user.setDateOfBirth(dateOfBirth);
-	      user.setActive(isActive);
+	      user.setActive(true);
 	      user.setNotLocked(isNonLocked);
 	      user.setRole(getRoleEnumName(role).name());
 	      user.setAuthorities(getRoleEnumName(role).getAuthorities());
