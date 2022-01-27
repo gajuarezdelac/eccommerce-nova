@@ -18,7 +18,6 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
 
-  public user!: User;
   public validateForm!: FormGroup;
   public subcriptions : Subscription[] = [];
   public siteKey = environment.siteKey;

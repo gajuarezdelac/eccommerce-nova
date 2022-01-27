@@ -2,13 +2,13 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img class="d-block w-100" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dw456efb2d/JERSEYSCLAUSURACHARLY_2022_686.jpg?sw=1920&sh=686&sm=fit" alt="First slide">
+        <img class="d-block w-100 eleme-c" (click)="navigate('keywords')" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dw456efb2d/JERSEYSCLAUSURACHARLY_2022_686.jpg?sw=1920&sh=686&sm=fit" alt="First slide">
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dwacbdee45/ALTERNOS_AAA_2021_2021_686.jpg?sw=1920&sh=686&sm=fit" alt="Second slide">
+        <img class="d-block w-100 eleme-c" (click)="navigate('keywords')" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dwacbdee45/ALTERNOS_AAA_2021_2021_686.jpg?sw=1920&sh=686&sm=fit" alt="Second slide">
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dwd48275b3/ROPADEGIGINAC_PROMO_GIGNAC2021_686.jpg?sw=1920&sh=686&sm=fit" alt="Third slide">
+        <img class="d-block w-100 eleme-c" (click)="navigate('keywords')" src="https://www.charly.com/dw/image/v2/BCQM_PRD/on/demandware.static/-/Library-Sites-charly-content-global/default/dwd48275b3/ROPADEGIGINAC_PROMO_GIGNAC2021_686.jpg?sw=1920&sh=686&sm=fit" alt="Third slide">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -22,16 +22,15 @@
   </div>
   
   
-  
-  
+
   <section class="category">
   
     <h1 class="heading"> shop by <span>category</span> </h1>
   
     <div class="box-container">
   
-        <div class="box">
-            <img src="https://img.ltwebstatic.com/images3_ach/2022/01/10/16417990219f561b052a2bce344b5fb6be7dbd67b7.jpg" alt="">
+        <div class="box eleme-c"  (click)="navigate('Hombres')">
+            <img src="https://media.istockphoto.com/photos/mens-suits-on-hangers-in-different-colors-picture-id887360960?k=20&m=887360960&s=612x612&w=0&h=N0k2yX9noV6kNgpmKbcSXaLOl2x8Mbt_lyppAmfhNcA=" alt="">
             <div class="content">
                 <span>upto 50% off</span>
                 <h3>for womans</h3>
@@ -39,8 +38,8 @@
             </div>
         </div>
   
-        <div class="box">
-            <img src="https://img.ltwebstatic.com/images3_ach/2021/11/03/163592787974fb86856cda663a2dac9e5ec45e9b62.jpg" alt="">
+        <div class="box eleme-c" (click)="navigate('Hombres')">
+            <img src="https://media.istockphoto.com/photos/women-clothes-hanging-on-hangers-clothing-rails-fashion-design-picture-id916092484?k=20&m=916092484&s=170667a&w=0&h=fCTqyrRn5e-dSDv8BPKHcv4HYZ0u4nJbxB89GYcwZ1A=" alt="">
             <div class="content">
                 <span>upto 50% off</span>
                 <h3>for mans</h3>
@@ -48,8 +47,8 @@
             </div>
         </div>
   
-      <div class="box">
-          <img src="https://img.ltwebstatic.com/images3_ach/2022/01/10/1641798996256001c19738fc65a1a573b96605cc8a.jpg" alt="">
+      <div class="box eleme-c" (click)="navigate('Hombres')">
+          <img src="https://www.shopise.com/wp-content/uploads/ngg_featured/Children-clothes-%E2%80%93-Dos-and-Don%E2%80%99ts-for-parents.png" alt="">
           <div class="content">
               <span>upto 50% off</span>
               <h3>for mans</h3>
@@ -57,10 +56,9 @@
           </div>
       </div>  
     </div>
-  
   </section>
   
-  
+<!--   
   <section class="pt-2 pb-2">
   
     <h1 class="heading"> shop by <span>category</span> </h1>
@@ -123,7 +121,8 @@
                               
                                     <div class="buy d-flex justify-content-between align-items-center">
                                       <div class="price text-success"><h5 class="mt-4">$125</h5></div>
-                                          <a routerLink="product/ASSS" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Ver mas detalle</a>
+                                          <button (click)="viewDetails('prodcuto###')" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Ver mas detalle</button>
+                                          
                                     </div>
                                   </div>
                                 </div>
@@ -213,20 +212,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
                                     <p class="card-text">
                                       The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-                                    <!-- <div class="options d-flex flex-fill">
-                                       <select class="custom-select mr-1">
-                                          <option selected>Color</option>
-                                          <option value="1">Green</option>
-                                          <option value="2">Blue</option>
-                                          <option value="3">Red</option>
-                                      </select>
-                                      <select class="custom-select ml-1">
-                                          <option selected>Size</option>
-                                          <option value="1">41</option>
-                                          <option value="2">42</option>
-                                          <option value="3">43</option>
-                                      </select>
-                                    </div> -->
+                                
                                     <div class="buy d-flex justify-content-between align-items-center">
                                       <div class="price text-success"><h5 class="mt-4">$125</h5></div>
                                        <a routerLink="product/ASSS" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Ver mas detalle</a>
@@ -244,8 +230,197 @@
       </div>
   </div>
   </section>
+   -->
+
+   <div class="container pb-5 mb-sm-1">
+
+    
+    <h1 class="heading"> shop by <span>category</span> </h1>
   
+    
+    <!-- Categories grid-->
+    <div class="row">
+        <!-- Category-->
+        <div class="col-md-4 col-sm-6">
+            <div class="card border-0 mb-grid-gutter">
+                <a class="card-img-tiles" href="shop-style1-ls.html">
+                    <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+                    <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+                </a>
+                <div class="card-body border mt-n1 py-4 text-center">
+                    <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="card border-0 mb-grid-gutter">
+              <a class="card-img-tiles" href="shop-style1-ls.html">
+                  <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+                  <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+              </a>
+              <div class="card-body border mt-n1 py-4 text-center">
+                  <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 mb-grid-gutter">
+            <a class="card-img-tiles" href="shop-style1-ls.html">
+                <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+                <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+            </a>
+            <div class="card-body border mt-n1 py-4 text-center">
+                <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <div class="card border-0 mb-grid-gutter">
+          <a class="card-img-tiles" href="shop-style1-ls.html">
+              <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+              <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+          </a>
+          <div class="card-body border mt-n1 py-4 text-center">
+              <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="card border-0 mb-grid-gutter">
+        <a class="card-img-tiles" href="shop-style1-ls.html">
+            <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+            <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+        </a>
+        <div class="card-body border mt-n1 py-4 text-center">
+            <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-4 col-sm-6">
+  <div class="card border-0 mb-grid-gutter">
+      <a class="card-img-tiles" href="shop-style1-ls.html">
+          <div class="main-img"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+          <div class="thumblist"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7d651f55-de96-4916-8062-82a72c7a1a6a/calzado-de-running-de-carretera-air-zoom-vomero-16-wvdS5m.png" alt="Clothing"></div>
+      </a>
+      <div class="card-body border mt-n1 py-4 text-center">
+          <h2 class="h5 mb-1">Clothing</h2><span class="d-block mb-3 font-size-xs text-muted">Starting from <span class="font-weight-semibold">$49.99</span></span><a class="btn btn-pill btn-outline-primary btn-sm" href="shop-style1-ls.html">Shop clothing</a>
+      </div>
+  </div>
+</div>
+
+ 
+      </div>
+</div>
   
+
+
+<div class="container-ct">
+  <h3 class="h3"> Temporadas  </h3>
+  <div class="row">
+      <div class="col-md-3 col-sm-6">
+          <div class="product-grid9">
+              <div class="product-image9">
+                  <a href="#">
+                    <img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+                    <img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+      
+                  </a>
+                  <a href="#" class="fa fa-search product-full-view"></a>
+              </div>
+              <div class="product-content">
+                  <ul class="rating">
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                  </ul>
+                  <h3 class="title"><a href="#">Women's Top</a></h3>
+                  <div class="price"> $12.60 - $40.53</div>
+                  <a class="add-to-cart" href="">VIEW PRODUCTS</a>
+              </div>
+          </div>
+      </div> 
+      <div class="col-md-3 col-sm-6">
+          <div class="product-grid9">
+              <div class="product-image9">
+                  <a href="#">
+                    <img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+                    <img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+      
+                  </a>
+                  <a href="#" class="fa fa-search product-full-view"></a>
+              </div>
+              <div class="product-content">
+                  <ul class="rating">
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star disable"></li>
+                      <li class="fa fa-star disable"></li>
+                  </ul>
+                  <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                  <div class="price"> $10.20 </div>
+                  <a class="add-to-cart" href="">READ MORE</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="product-grid9">
+              <div class="product-image9">
+                  <a href="#">
+                    <img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+                    <img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+      
+                  </a>
+                  <a href="#" class="fa fa-search product-full-view"></a>
+              </div>
+              <div class="product-content">
+                  <ul class="rating">
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                  </ul>
+                  <h3 class="title"><a href="#">Women's Top</a></h3>
+                  <div class="price"> $12.60 - $40.53</div>
+                  <a class="add-to-cart" href="">VIEW PRODUCTS</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+          <div class="product-grid9">
+              <div class="product-image9">
+                  <a href="#">
+                    <img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+                    <img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+                  </a>
+                  <a href="#" class="fa fa-search product-full-view"></a>
+              </div>
+              <div class="product-content">
+                  <ul class="rating">
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                      <li class="fa fa-star"></li>
+                  </ul>
+                  <h3 class="title"><a href="#">Women's Top</a></h3>
+                  <div class="price"> $12.60 - $40.53</div>
+                  <a class="add-to-cart" href="">VIEW PRODUCTS</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+  
+
   <section class="service">
   
     <div class="box-container">
@@ -298,5 +473,5 @@
           <span class="notice__copy"  >I agree to my email address being stored and uses to recieve monthly newsletter.</span>
       </div>
   </div> -->
-  
+
   

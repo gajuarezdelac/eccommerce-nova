@@ -1,6 +1,18 @@
 .layout {
   min-height: 100vh;
 }
+
+
+
+a.btn {
+  color: #ffff;
+}
+
+a.btn:hover {
+  color: rgb(224, 221, 221);
+}
+
+
 .menu-sidebar {
   position: relative;
   z-index: 10;
@@ -21,7 +33,6 @@
 .avatar-user {
   cursor: pointer;
   margin: 0px 20px 0px 0px;
-  background-color: #9d8114;
   color: white;
 }
 

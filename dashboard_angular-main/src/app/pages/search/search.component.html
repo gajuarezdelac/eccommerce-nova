@@ -6,9 +6,9 @@
 <div class="card">
 	<article class="filter-group">
 		<header class="card-header">
-			<a routerLink="/product/1" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+			<a  data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Product type</h6>
+				<h6 class="title"> Buscar </h6>
 			</a>
 		</header>
 		<div class="filter-content collapse show" id="collapse_1" style="">
@@ -21,16 +21,6 @@
 				  </div>
 				</div>
 				</form>
-				
-				<ul class="list-menu">
-				<li><a href="#">People  </a></li>
-				<li><a href="#">Watches </a></li>
-				<li><a href="#">Cinema  </a></li>
-				<li><a href="#">Clothes  </a></li>
-				<li><a href="#">Home items </a></li>
-				<li><a href="#">Animals</a></li>
-				<li><a href="#">People </a></li>
-				</ul>
 
 			</div> <!-- card-body.// -->
 		</div>
@@ -39,44 +29,86 @@
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Brands </h6>
+				<h6 class="title">Categoria </h6>
 			</a>
 		</header>
+		
 		<div class="filter-content collapse show" id="collapse_2" style="">
 			<div class="card-body">
 				<label class="custom-control custom-checkbox">
 				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Mercedes  
+				  <div class="custom-control-label">Deportiva  
 				  	<b class="badge badge-pill badge-light float-right">120</b>  </div>
 				</label>
 				<label class="custom-control custom-checkbox">
 				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Toyota 
+				  <div class="custom-control-label">Interior
 				  	<b class="badge badge-pill badge-light float-right">15</b>  </div>
 				</label>
 				<label class="custom-control custom-checkbox">
 				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Mitsubishi 
+				  <div class="custom-control-label">Etiqueta 
 				  	<b class="badge badge-pill badge-light float-right">35</b> </div>
 				</label>
 				<label class="custom-control custom-checkbox">
 				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Nissan 
+				  <div class="custom-control-label">Formal 
 				  	<b class="badge badge-pill badge-light float-right">89</b> </div>
 				</label>
 				<label class="custom-control custom-checkbox">
 				  <input type="checkbox" class="custom-control-input">
-				  <div class="custom-control-label">Honda 
+				  <div class="custom-control-label">Informal 
 				  	<b class="badge badge-pill badge-light float-right">30</b>  </div>
 				</label>
-	</div> <!-- card-body.// -->
+	        </div>
 		</div>
+
+
+
+
+	</article> <!-- filter-group .// -->
+
+
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_C" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Clasificación </h6>
+			</a>
+		</header>
+		
+		<div class="filter-content collapse show" id="collapse_C" style="">
+			<div class="card-body">
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label"> Hombres  
+				  	<b class="badge badge-pill badge-light float-right">120</b>  </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label"> Mujeres
+				  	<b class="badge badge-pill badge-light float-right">15</b>  </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label"> Niños 
+				  	<b class="badge badge-pill badge-light float-right">35</b> </div>
+				</label>
+				<label class="custom-control custom-checkbox">
+				  <input type="checkbox" checked="" class="custom-control-input">
+				  <div class="custom-control-label"> Todos 
+				  	<b class="badge badge-pill badge-light float-right">89</b> </div>
+				</label>
+	        </div>
+		</div>
+
+
 	</article> <!-- filter-group .// -->
 	<article class="filter-group">
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Price range </h6>
+				<h6 class="title">Rango de precios </h6>
 			</a>
 		</header>
 		<div class="filter-content collapse show" id="collapse_3" style="">
@@ -84,11 +116,11 @@
 				<input type="range" class="custom-range" min="0" max="100" name="">
 				<div class="form-row">
 				<div class="form-group col-md-6">
-				  <label>Min</label>
+				  <label>Minimo</label>
 				  <input class="form-control" placeholder="$0" type="number">
 				</div>
 				<div class="form-group text-right col-md-6">
-				  <label>Max</label>
+				  <label>Maximo</label>
 				  <input class="form-control" placeholder="$1,0000" type="number">
 				</div>
 				</div> <!-- form-row.// -->
@@ -96,11 +128,11 @@
 			</div><!-- card-body.// -->
 		</div>
 	</article> <!-- filter-group .// -->
-	<article class="filter-group">
+	<!-- <article class="filter-group">
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Sizes </h6>
+				<h6 class="title"> Tallas </h6>
 			</a>
 		</header>
 		<div class="filter-content collapse show" id="collapse_4" style="">
@@ -124,37 +156,33 @@
 			    <input type="checkbox">
 			    <span class="btn btn-light"> XXL </span>
 			  </label>
-		</div><!-- card-body.// -->
 		</div>
-	</article> <!-- filter-group .// -->
+		</div>
+	</article>  -->
 	<article class="filter-group">
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">More filter </h6>
+				<h6 class="title"> Tipo de prenda </h6>
 			</a>
 		</header>
 		<div class="filter-content collapse in" id="collapse_5" style="">
 			<div class="card-body">
 				<label class="custom-control custom-radio">
 				  <input type="radio" name="myfilter_radio" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Any condition</div>
+				  <div class="custom-control-label"> Calzado </div>
 				</label>
 
 				<label class="custom-control custom-radio">
 				  <input type="radio" name="myfilter_radio" class="custom-control-input">
-				  <div class="custom-control-label">Brand new </div>
+				  <div class="custom-control-label"> Ropa </div>
 				</label>
 
 				<label class="custom-control custom-radio">
 				  <input type="radio" name="myfilter_radio" class="custom-control-input">
-				  <div class="custom-control-label">Used items</div>
+				  <div class="custom-control-label"> Accesorios </div>
 				</label>
 
-				<label class="custom-control custom-radio">
-				  <input type="radio" name="myfilter_radio" class="custom-control-input">
-				  <div class="custom-control-label">Very old</div>
-				</label>
 			</div><!-- card-body.// -->
 		</div>
 	</article> <!-- filter-group .// -->
@@ -182,178 +210,317 @@
 </header><!-- sect-heading -->
 
 <div class="row">
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-				<span class="badge badge-danger"> NEW </span>
-								<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-					
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-				
-
-				<div class="fix-height">
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-						<del class="price-old">$1980</del>
-					</div> <!-- price-wrap.// -->
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-discount-label">-12%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+				<div class="price">
+					$17.60
+					<span>$20.00</span>
 				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-							<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				
-				
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-
-				<div class="fix-height">
-				
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-					</div> <!-- price-wrap.// -->
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
 				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>	
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
-
-
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-							<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				
-				
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-
-				<div class="fix-height">
-				
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-					</div> <!-- price-wrap.// -->
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
 				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>	
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
 
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-							<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				
-				
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-
-				<div class="fix-height">
-				
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-					</div> <!-- price-wrap.// -->
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-discount-label">-12%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+				<div class="price">
+					$17.60
+					<span>$20.00</span>
 				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>	
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-discount-label">-12%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+				<div class="price">
+					$17.60
+					<span>$20.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-discount-label">-12%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+				<div class="price">
+					$17.60
+					<span>$20.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="product-grid4">
+			<div class="product-image4">
+				<a href="#">
+					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
+					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+	  
+				</a>
+				<ul class="social">
+					<li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
+				</ul>
+				<span class="product-new-label">New</span>
+				<span class="product-discount-label">-10%</span>
+			</div>
+			<div class="product-content">
+				<h3 class="title"><a href="#">Women's Black Top</a></h3>
+				<div class="price">
+					$14.40
+					<span>$16.00</span>
+				</div>
+				<a class="add-to-cart" href="">Mas detalle</a>
+			</div>
+		</div>
+	</div>
 
 	
 
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-							<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" routerLink="/product/1"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				
-				
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-
-				<div class="fix-height">
-				
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-					</div> <!-- price-wrap.// -->
-				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>	
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
-
-	
-
-	
-
-	<div class="col-md-4">
-		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-							<img src="https://cdn1.coppel.com/images/catalog/pr/8265332-1.jpg" class="img-fluid">
-				<a class="btn-overlay" routerLink="/product/1"><i class="fa fa-search-plus"></i> Quick view</a>
-			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
-				
-				
-				<h4 class="card-title">Vans Sk8-Hi MTE Shoes</h4>
-				<h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
-				<p class="card-text">
-				  The Vans All-Weather MTE Collection features footwear and apparel designed to withstand the elements whilst still looking cool.             </p>
-
-				<div class="fix-height">
-				
-					<div class="price-wrap mt-2">
-						<span class="price">$1280</span>
-					</div> <!-- price-wrap.// -->
-				</div>
-				<a routerLink="/product/1" class="btn btn-block btn-primary">Ver mas detalle </a>	
-			</figcaption>
-		</figure>
-	</div> <!-- col.// -->
-
-	
 
 	
 </div> <!-- row end.// -->
 
+<div class="pagination">
+<nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination> 
+</div>
 
-<nav class="mt-4" aria-label="Page navigation sample">
-  <ul class="pagination">
-    <li class="page-item disabled"><a class="page-link" routerLink="/product/1">Previous</a></li>
-    <li class="page-item active"><a class="page-link" routerLink="/product/1">1</a></li>
-    <li class="page-item"><a class="page-link" routerLink="/product/1">2</a></li>
-    <li class="page-item"><a class="page-link" routerLink="/product/1">3</a></li>
-    <li class="page-item"><a class="page-link" routerLink="/product/1">Next</a></li>
-  </ul>
-</nav>
 
 	</main>
 	</div>

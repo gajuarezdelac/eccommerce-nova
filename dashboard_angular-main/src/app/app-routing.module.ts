@@ -54,6 +54,7 @@ const routes: Routes = [
     { path: "faq",  component: FaqComponent },
     { path: 'check-delivery', component: FormShopComponent, canActivate: [ AuthGuard ] },
     { path: 'payment', component: PaymentComponent , canActivate: [ AuthGuard ]},
+    { path: 'favorites', component: FavoritesComponent , canActivate: [ AuthGuard ]},
     { path: '', pathMatch: 'full', redirectTo: '/home' },
   ]},
   {path: '**', redirectTo: '',  pathMatch: 'full'},

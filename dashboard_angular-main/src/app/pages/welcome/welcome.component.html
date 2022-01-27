@@ -81,8 +81,12 @@
         </span> 
         
        <span class="avatar">
-        <span class="user-text"> Bienvenido, <strong>Gabriel Adrian Juarez de la Cruz </strong>  </span>
-        <nz-avatar  class="avatar-user" nzText="GA"></nz-avatar>
+        <nz-space>
+          <a *nzSpaceItem class="btn btn-primary"  routerLink="/my-profile" > <i class="fas fa-user-shield"></i> Mi perfil </a>
+          <a *nzSpaceItem class="btn btn-danger avatar-user"  (click)="onLogOut()" > <i class="fas fa-sign-out-alt"></i> Salir </a> 
+          <!-- <nz-avatar *nzSpaceItem class="avatar-user" nzText="GA"></nz-avatar>  -->
+        </nz-space>
+
        </span> 
        
       </div>

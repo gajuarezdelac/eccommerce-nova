@@ -1,3 +1,18 @@
+
+.layout {
+  min-height: 100vh;
+}
+
+
+
+a.avatar-user {
+  color: #ffff;
+}
+
+a.avatar-user:hover {
+  color: rgb(224, 221, 221);
+}
+
 .btn .bx {
     vertical-align: inherit;
     margin-top: -3px;
