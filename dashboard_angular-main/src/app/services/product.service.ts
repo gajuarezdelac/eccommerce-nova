@@ -61,8 +61,8 @@ export class ProductService {
   }
 
   // * Actualizar producto por ID
-  public updateProduct(id : string , formData: any): Observable<Product> {
-    return this.http.put<Product>(`${this.host}/product/update/${id}`, formData);
+  public updateProduct( formData: any): Observable<Product> {
+    return this.http.put<Product>(`${this.host}/product/update`, formData);
   }
   
   // * Eliminar review
@@ -71,18 +71,19 @@ export class ProductService {
   }
 
   
-  public createFormDate(currentElement: string  | null, element: Product, images : any): FormData {
+  public createFormDate(currentElement: string  | null, element: Product): FormData {
     const formData = new FormData();
-    formData.append('currentUsername', currentElement!);
+    formData.append('id', currentElement!);
     formData.append('codeProd', element.code);
     formData.append('name', element.name);
-    formData.append('description', element.name);
-    formData.append('cant', element.name);
-    formData.append('price', element.name);
-    formData.append('discount', element.name);
-    formData.append('category', element.name);
-    formData.append('typeGarment', element.name);
-    formData.append('size', element.name);
+    formData.append('description', element.shortDescription);
+    formData.append('cant', element.cantd);
+    formData.append('price', element.price);
+    formData.append('discount', element.discount);
+    formData.append('category', element.category);
+    formData.append('typeGarment', element.typeGarment);
+    formData.append('typeClothing', element.typeClothing);
+    formData.append('size', element.size);
     return formData;
   }
 

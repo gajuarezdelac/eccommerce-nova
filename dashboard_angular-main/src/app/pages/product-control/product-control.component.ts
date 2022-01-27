@@ -59,21 +59,12 @@ export class ProductControlComponent implements OnInit {
   @ViewChild('e') editNgForm: NgForm | undefined;
   public visibleEditDrawer = false;
   public isLoadingEditDrawer = false;
+  public currentId : string | undefined= undefined;
 
 
   // ! Subir imagenes
   public files: any[] = [];
-  public filePath: string = '';
  
-  
-
-
-
-
-
-
-
-
   constructor(
     private authenticationService: AuthService,
     private fb: FormBuilder,
@@ -82,9 +73,7 @@ export class ProductControlComponent implements OnInit {
     private router: Router,
     private productService: ProductService) { }
 
-
   ngOnInit(): void {
-
 
     this.createForm = this.fb.group({
       code: ['', Validators.required],
@@ -92,19 +81,25 @@ export class ProductControlComponent implements OnInit {
       price: ['', Validators.required],
       category: ['', Validators.required],
       typeGarment: ['', Validators.required],
+      typeClothing: ['', Validators.required],
       discount: ['', Validators.required],
       shortDescription: ['', Validators.required],
+      size: ['', Validators.required],
+      cantd: ['', Validators.required],
     });
-
     
     this.editForm = this.fb.group({
+      id: ['', Validators.required],
       code: ['', Validators.required],
       name: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [0, Validators.required],
       category: ['', Validators.required],
       typeGarment: ['', Validators.required],
-      discount: ['', Validators.required],
+      typeClothing: ['', Validators.required],
+      discount: [0, Validators.required],
       shortDescription: ['', Validators.required],
+      size: ['', Validators.required],
+      cantd: [0, Validators.required],
     });
 
     this.validateForm = this.fb.group({
@@ -274,9 +269,28 @@ export class ProductControlComponent implements OnInit {
         return ; 
       }
 
-      this.isLoadingCreateDrawer = true;
+      // Validando imagenes
+      this.isLoadingCreateDrawer = true;      
       let form = this.createForm.value;
-      const formData = this.productService.createFormDate('', form, '');      
+      let totalSize = 0;
+      const formData = this.productService.createFormDate('', form); 
+      this.files.forEach(file => {
+        formData.append('images', file, file.name)
+        totalSize += file.size;
+      })
+
+      if(totalSize/1024/1024 >= 9.99) {
+        this.message.create("warning",  "Las imagenes son demasiado grandes");
+        this.isLoadingCreateDrawer = false;     
+        return;
+      }
+  
+      if(this.files.length < 3) {
+          this.message.create("warning",  "Es necesario agregar por lo minimo 3 imagenes");
+          this.isLoadingCreateDrawer = false;     
+          return;
+      }
+    
       this.subscriptions.push(
         this.productService.createProduct(formData).subscribe(
           (response: Product) => {
@@ -284,6 +298,7 @@ export class ProductControlComponent implements OnInit {
             this.message.create("success",  "Usuario creado de manera correcta!");
             this.closeCreateDrawer();
             this.createForm.reset();
+            this.files = [];
             this.isLoadingCreateDrawer = false;
           },
           (errorResponse: HttpErrorResponse) => {
@@ -293,7 +308,6 @@ export class ProductControlComponent implements OnInit {
         )
       );
     }
-    
     
     openCreateDrawer(): void {
       this.visibleCreateDrawer = true;
@@ -321,7 +335,24 @@ export class ProductControlComponent implements OnInit {
       }
 
       this.isLoadingEditDrawer = true;
+      
+      let form = this.editForm.value;
+      const formData = this.productService.createFormDate(this.currentId!, form); 
 
+      this.subscriptions.push(
+        this.productService.updateProduct(formData).subscribe(
+          (response: Product) => {
+            this.getListPaginate();
+            this.message.create("success",  "Usuario actualizado de manera correcta!");
+            this.closeEditDrawer();
+            this.isLoadingEditDrawer = false;
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.isLoadingEditDrawer = false;
+            this.message.create("error",  errorResponse.error.message);
+          }
+        )
+      );
 
 
 
@@ -330,12 +361,14 @@ export class ProductControlComponent implements OnInit {
 
       openEditDrawer(element : Content): void {
         this.getElementById(element.id);
+        this.currentId = element.id;
         this.visibleEditDrawer = true;
       }
       
       closeEditDrawer(): void {
         this.visibleEditDrawer = false;
         this.viewElement = undefined;
+        this.currentId = undefined;
       }
     
 
@@ -408,6 +441,10 @@ export class ProductControlComponent implements OnInit {
       this.uploadFilesSimulator(0);
     }
 
+
+    handleOk() {
+
+    }
 
 
 

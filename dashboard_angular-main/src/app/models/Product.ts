@@ -3,14 +3,15 @@
         code: string;
         name: string;
         shortDescription: string;
-        cantd: number;
+        cantd: any;
         size: string;
-        price: number;
+        price: any;
         createdAt: string;
-        discount: number;
+        discount: any;
         category: string;
-        rating: number;
+        rating: any;
         typeGarment: string;
+        typeClothing : string;
         images: Image[];
 
         constructor() {
@@ -26,6 +27,7 @@
             this.category = '';
             this.rating = 0;
             this.typeGarment = '';
+            this.typeClothing = '';
             this.images = [];
         }
     }

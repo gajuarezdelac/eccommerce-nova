@@ -146,54 +146,90 @@
 </nz-spin>
 
 
-    <!-- View drawer -->
+<!-- View product -->
 
-    <nz-drawer
-    [nzWidth]="540"
-    [nzClosable]="false"
-    [nzVisible]="visibleDrawer"
-    nzPlacement="right"
-    nzTitle="Producto #20203"
-    (nzOnClose)="closeViewDrawer()"
-  >
-    <ng-container *nzDrawerContent>
-     <nz-spin [nzSpinning]="isLoadingDrawer">
+<nz-modal [nzStyle]="{ top: '20px', width: '900px' }"    [(nzVisible)]="visibleDrawer" nzTitle="Historial" (nzOnCancel)="closeViewDrawer()" (nzOnOk)="handleOk()">
+   
+   
+  <nz-spin [nzSpinning]="true">
+    <ng-container *nzModalContent>
+        
+      <nz-tabset [nzTabBarExtraContent]="extraTemplate">
+        <nz-tab [nzTitle]="'Información'"> 
+        
+          <nz-descriptions nzTitle="Información basica" [nzSize]="'small'"  >
+            <nz-descriptions-item nzTitle="N° Serie"> dkdkd  </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Marca">     ArticleView && ArticleView.mark   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Estatus">
+              <nz-badge nzStatus="success" nzText="Libre"></nz-badge>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Modelo">   ArticleView && ArticleView.model   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Categoria">     ArticleView && ArticleView.serialNumber    </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Hecho en">     ArticleView && ArticleView.manufacturingPlace    </nz-descriptions-item>
+  
+            
+            <nz-descriptions-item nzTitle="Estado">    ArticleView && ArticleView.serialNumber    </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="¿Tiene factura?">    ArticleView && ArticleView.serialNumber   </nz-descriptions-item>
+  
+            <nz-descriptions-item nzTitle="Año">   ArticleView && ArticleView.serialNumber   </nz-descriptions-item>
+  
+            <nz-descriptions-item nzTitle="Fecha de adquisición">     ArticleView && ArticleView.acquisitionDate  </nz-descriptions-item>
+  
+          </nz-descriptions>
+  
+          <nz-descriptions nzTitle="Otro datos" [nzSize]="'small'"  >
+            <nz-descriptions-item nzTitle="Status" [nzSpan]="3">     ArticleView && ArticleView.description   </nz-descriptions-item>
+          </nz-descriptions>
+  
+          
+        </nz-tab>
+  
+        <nz-tab [nzTitle]="'Documentos'"> 
+        
+          
+        </nz-tab>
+  
+  
+        <nz-tab [nzTitle]="'Historial'"> 
+        
+  
+  <!-- Hstorial -->
+  <div id="history">
+  </div>
+          
+        </nz-tab>
+  
+      </nz-tabset>
+      <ng-template #extraTemplate>
+      
+        
+     <nz-space> 
     
-      <nz-tabset>
-        <nz-tab [nzTitle]="titleTemplate1">
-          <ng-template #titleTemplate1>
-            <i nz-icon [nzType]="'android'"></i>
-            Nombre del tab 1
-          </ng-template>
-          Nombre del tab 1
-        </nz-tab>
+      <button *nzSpaceItem nz-button nzType="primary">
+        <i nz-icon nzType="star-o" nzTheme="outline"></i>
+        Visualizar imagenes
+      </button>
+    </nz-space>
+      
+      
+      
   
   
-        <nz-tab [nzTitle]="titleTemplate2">
-          <ng-template #titleTemplate2>
-            <i nz-icon [nzType]="'android'"></i>
-            Nombre del tab 2
-          </ng-template>
-          Nombre del tab 2
-        </nz-tab>
+  
+      </ng-template>
   
   
-        <nz-tab [nzTitle]="titleTemplate3">
-          <ng-template #titleTemplate3>
-            <i nz-icon [nzType]="'android'"></i>
-            Nombre del tab 3
-          </ng-template>
-          Nombre del tab 3
-        </nz-tab>
-      </nz-tabset>  
-     </nz-spin>
     </ng-container>
-  </nz-drawer>
+  
+  
+  </nz-spin>
+      </nz-modal>
+
 
 
   <!-- Edit drawer -->
  
-  <nz-drawer
+<nz-drawer
 [nzBodyStyle]="{ overflow: 'auto' }"
 [nzMaskClosable]="false"
 [nzWidth]="720"
@@ -210,19 +246,35 @@ id="ngForm"
 nz-form
 [formGroup]="editForm"
 class="login-form"
-(ngSubmit)="createSubmit()"
+(ngSubmit)="editSubmit()"
 [nzLayout]="'vertical'"
 >
 
 <nz-spin [nzSpinning]="isLoadingCreateDrawer">
 <nz-tabset>
   <nz-tab [nzTitle]="titleTemplate1">
-    <ng-template #titleTemplate1>
+    
+  <ng-template #titleTemplate1>
       <i nz-icon [nzType]="'audit'"></i>
       Inf. general
-    </ng-template>
+  </ng-template>
 
   <div nz-row [nzGutter]="8">
+    
+    <div hidden="true" nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label nzRequired> Código de producto </nz-form-label>
+        <nz-form-control nzErrorTip="Campo requerido">
+          <input
+            nz-input
+            formControlName="id"
+            [(ngModel)]="viewElement && viewElement!.id"
+            placeholder="please enter user name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Código de producto </nz-form-label>
@@ -230,6 +282,7 @@ class="login-form"
           <input
             nz-input
             formControlName="code"
+            [(ngModel)]="viewElement && viewElement!.code"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -237,11 +290,12 @@ class="login-form"
     </div>
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label nzRequired> Código de producto </nz-form-label>
+        <nz-form-label nzRequired> Nombre del producto </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
           <input
             nz-input
-            formControlName="code"
+            formControlName="name"
+            [(ngModel)]="viewElement && viewElement!.name"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -252,11 +306,13 @@ class="login-form"
   <div nz-row [nzGutter]="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label nzRequired> Código de producto </nz-form-label>
+        <nz-form-label nzRequired> Precio </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
           <input
+            type="number"
             nz-input
-            formControlName="code"
+            formControlName="price"
+            [(ngModel)]="viewElement && viewElement!.price"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -264,11 +320,13 @@ class="login-form"
     </div>
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label nzRequired> Código de producto </nz-form-label>
+        <nz-form-label nzRequired> Descuento </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
           <input
+           type="number"
             nz-input
-            formControlName="code"
+            formControlName="discount"
+            [(ngModel)]="viewElement && viewElement!.discount"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -277,30 +335,49 @@ class="login-form"
   </div>
 
   <div nz-row [nzGutter]="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired> Código de producto </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
-          <input
-            nz-input
-            formControlName="code"
-            placeholder="please enter user name"
-          />
+          <nz-form-label nzRequired> Categoria </nz-form-label>
+          <nz-select nz-input formControlName="category" 
+          [(ngModel)]="viewElement && viewElement!.category">
+            <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
+            <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
+            <nz-option nzValue="Etiqueta" nzLabel="Etiqueta"></nz-option>
+            <nz-option nzValue="Informal" nzLabel="Informal"></nz-option>
+            <nz-option nzValue="Trabajo" nzLabel="Trabajo"></nz-option>
+            <nz-option nzValue="Uniformes" nzLabel="Uniformes"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired> Código de producto </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
-          <input
-            nz-input
-            formControlName="code"
-            placeholder="please enter user name"
-          />
+          <nz-form-label nzRequired> Clasificación </nz-form-label>
+          <nz-select nz-input formControlName="typeGarment" [(ngModel)]="viewElement && viewElement!.typeGarment">
+            <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
+            <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
+            <nz-option nzValue="children" nzLabel="Niños"></nz-option>
+            <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
+
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
+          <nz-select nz-input formControlName="typeClothing" [(ngModel)]="viewElement && viewElement!.typeClothing">
+            <nz-option nzValue="calzado" nzLabel="Calzado"></nz-option>
+            <nz-option nzValue="ropa" nzLabel="Ropa"></nz-option>
+            <nz-option nzValue="accesorios" nzLabel="Accesorios"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
   </div>
 
   <div nz-row [nzGutter]="8">
@@ -312,14 +389,13 @@ class="login-form"
             nz-input
             formControlName="shortDescription"
             placeholder="please enter url description"
+            [(ngModel)]="viewElement && viewElement!.shortDescription"
             [nzAutosize]="{ minRows: 4, maxRows: 4 }"
           ></textarea>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
-
-
   </nz-tab>
 
 
@@ -328,17 +404,48 @@ class="login-form"
       <i nz-icon [nzType]="'gold'"></i>
       Cantidad
     </ng-template>
-    Nombre del tab 2
+    <div nz-row [nzGutter]="8">
+    
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-form-label nzRequired> Talla </nz-form-label>
+            <nz-select nz-input formControlName="size" 
+            [(ngModel)]="viewElement && viewElement!.size">
+              <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
+              <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
+              <nz-option nzValue="children" nzLabel="Niños"></nz-option>
+              <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired> Cantidad </nz-form-label>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <input
+              type="number"
+              nz-input
+              formControlName="cantd"
+              [(ngModel)]="viewElement && viewElement!.cantd"
+              placeholder="please enter user name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    
+    <nz-divider nzDashed [nzText]="text">
+      <ng-template #text>
+        Otros datos
+      </ng-template>
+    </nz-divider>
+
   </nz-tab>
 
-
-  <nz-tab [nzTitle]="titleTemplate3">
-    <ng-template #titleTemplate3>
-      <i nz-icon [nzType]="'folder-view'"></i>
-      Imagenes
-    </ng-template>
-    Nombre del tab 3
-  </nz-tab>
 
 </nz-tabset>
 </nz-spin>
@@ -412,7 +519,7 @@ class="login-form"
         <nz-form-control nzErrorTip="Campo requerido">
           <input
             nz-input
-            formControlName="code"
+            formControlName="name"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -426,8 +533,9 @@ class="login-form"
         <nz-form-label nzRequired> Precio </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
           <input
+            type="number"
             nz-input
-            formControlName="code"
+            formControlName="price"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -438,8 +546,9 @@ class="login-form"
         <nz-form-label nzRequired> Descuento </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
           <input
+           type="number"
             nz-input
-            formControlName="code"
+            formControlName="discount"
             placeholder="please enter user name"
           />
         </nz-form-control>
@@ -448,30 +557,48 @@ class="login-form"
   </div>
 
   <div nz-row [nzGutter]="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
-          <input
-            nz-input
-            formControlName="code"
-            placeholder="please enter user name"
-          />
+          <nz-form-label nzRequired> Categoria </nz-form-label>
+          <nz-select nz-input formControlName="category">
+            <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
+            <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
+            <nz-option nzValue="Etiqueta" nzLabel="Etiqueta"></nz-option>
+            <nz-option nzValue="Informal" nzLabel="Informal"></nz-option>
+            <nz-option nzValue="Trabajo" nzLabel="Trabajo"></nz-option>
+            <nz-option nzValue="Uniformes" nzLabel="Uniformes"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired> Categoria </nz-form-label>
         <nz-form-control nzErrorTip="Campo requerido">
-          <input
-            nz-input
-            formControlName="code"
-            placeholder="please enter user name"
-          />
+          <nz-form-label nzRequired> Clasificación </nz-form-label>
+          <nz-select nz-input formControlName="typeGarment">
+            <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
+            <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
+            <nz-option nzValue="children" nzLabel="Niños"></nz-option>
+            <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
+
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
+          <nz-select nz-input formControlName="typeClothing">
+            <nz-option nzValue="calzado" nzLabel="Calzado"></nz-option>
+            <nz-option nzValue="ropa" nzLabel="Ropa"></nz-option>
+            <nz-option nzValue="accesorios" nzLabel="Accesorios"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
   </div>
 
   <div nz-row [nzGutter]="8">
@@ -499,7 +626,46 @@ class="login-form"
       <i nz-icon [nzType]="'gold'"></i>
       Cantidad
     </ng-template>
-    Nombre del tab 2
+
+    <div nz-row [nzGutter]="8">
+    
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-form-label nzRequired> Talla </nz-form-label>
+            <nz-select nz-input formControlName="size">
+              <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
+              <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
+              <nz-option nzValue="children" nzLabel="Niños"></nz-option>
+              <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired> Cantidad </nz-form-label>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <input
+              type="number"
+              nz-input
+              formControlName="cantd"
+              placeholder="please enter user name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+  
+    </div>
+
+    <nz-divider nzDashed [nzText]="text">
+      <ng-template #text>
+        Otros datos
+      </ng-template>
+    </nz-divider>
+    
+
   </nz-tab>
 
 
@@ -511,12 +677,29 @@ class="login-form"
 
     <div class="files-upload-element">
       <div class="container-p" appDnd (fileDropped)="onFileDropped($event)" >
-        <input class="file-mul" type="file" #fileDropRef id="fileDropRef" multiple  (change)="fileBrowseHandler($event)" />
+        <input class="file-mul" accept="image/png, image/gif, image/jpeg" type="file" #fileDropRef id="fileDropRef" multiple  (change)="fileBrowseHandler($event)" />
         <h3>Arrastra y suelta archivos aquí </h3>
         <h3>ó</h3>
         <button type="button" class="btn btn-primary"> Buscar archivos </button>
       </div>
     </div>
+
+    <br />
+
+    <nz-list nzBordered  nzFooter="Adjunta unicamente imagenes">
+      <nz-list-item *ngFor="let item of files">
+        <span>
+          <nz-space>
+            <a *nzSpaceItem class="btn btn-primary" (click)="viewFile(item)" > <i class="fas fa-eye"></i> </a>
+            <a *nzSpaceItem class="btn btn-danger" (click)="deleteFile(item)"> <i class="fas fa-trash"></i> </a>  
+          </nz-space>
+        </span>
+        {{ item.name }}
+      </nz-list-item>
+    </nz-list>
+
+
+
 
 
   </nz-tab>
