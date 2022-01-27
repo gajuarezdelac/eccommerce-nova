@@ -158,44 +158,35 @@
         <nz-tab [nzTitle]="'Información'"> 
         
           <nz-descriptions nzTitle="Información basica" [nzSize]="'small'"  >
-            <nz-descriptions-item nzTitle="N° Serie"> dkdkd  </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Marca">     ArticleView && ArticleView.mark   </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Estatus">
+            <nz-descriptions-item nzTitle="Nombre"> {{viewElement && viewElement.name}}  </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Codigo Prod.">     {{viewElement && viewElement.code}}  </nz-descriptions-item>
+            <!-- <nz-descriptions-item nzTitle="Estatus">
               <nz-badge nzStatus="success" nzText="Libre"></nz-badge>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Modelo">   ArticleView && ArticleView.model   </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Categoria">     ArticleView && ArticleView.serialNumber    </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Hecho en">     ArticleView && ArticleView.manufacturingPlace    </nz-descriptions-item>
+            </nz-descriptions-item> -->
+            <nz-descriptions-item nzTitle="Cant.">   {{viewElement && viewElement.cantd}}  </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Size">     {{viewElement && viewElement.size}}    </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Price">     {{viewElement && viewElement.price}}    </nz-descriptions-item>
   
             
-            <nz-descriptions-item nzTitle="Estado">    ArticleView && ArticleView.serialNumber    </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="¿Tiene factura?">    ArticleView && ArticleView.serialNumber   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Descuento">  %{{viewElement && viewElement.discount}}   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Categoria">    {{viewElement && viewElement.category}}   </nz-descriptions-item>
   
-            <nz-descriptions-item nzTitle="Año">   ArticleView && ArticleView.serialNumber   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Rating">   {{viewElement && viewElement.rating}}  </nz-descriptions-item>
   
-            <nz-descriptions-item nzTitle="Fecha de adquisición">     ArticleView && ArticleView.acquisitionDate  </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tipo de prenda">     {{viewElement && viewElement.typeGarment}}  </nz-descriptions-item>
   
+            <nz-descriptions nzTitle="Otro datos" [nzSize]="'small'"  >
+              <nz-descriptions-item nzTitle="Description" [nzSpan]="3">     {{viewElement && viewElement.shortDescription}}   </nz-descriptions-item>
+            </nz-descriptions>
+
           </nz-descriptions>
   
           <nz-descriptions nzTitle="Otro datos" [nzSize]="'small'"  >
-            <nz-descriptions-item nzTitle="Status" [nzSpan]="3">     ArticleView && ArticleView.description   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Clasificación" [nzSpan]="3">     {{viewElement && viewElement.typeClothing}}   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Creado:" [nzSpan]="3">     {{viewElement && viewElement.createdAt | date: 'dd/MM/yyyy'}}   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Creado:" [nzSpan]="3">     {{viewElement && viewElement.id }}   </nz-descriptions-item>
           </nz-descriptions>
   
-          
-        </nz-tab>
-  
-        <nz-tab [nzTitle]="'Documentos'"> 
-        
-          
-        </nz-tab>
-  
-  
-        <nz-tab [nzTitle]="'Historial'"> 
-        
-  
-  <!-- Hstorial -->
-  <div id="history">
-  </div>
           
         </nz-tab>
   
@@ -205,7 +196,7 @@
         
      <nz-space> 
     
-      <button *nzSpaceItem nz-button nzType="primary">
+      <button *nzSpaceItem nz-button nzType="primary" (click)="viewImages()">
         <i nz-icon nzType="star-o" nzTheme="outline"></i>
         Visualizar imagenes
       </button>

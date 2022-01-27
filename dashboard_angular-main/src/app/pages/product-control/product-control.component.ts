@@ -11,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
-
+import { NzImageService } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-product-control',
@@ -60,6 +60,7 @@ export class ProductControlComponent implements OnInit {
   public visibleEditDrawer = false;
   public isLoadingEditDrawer = false;
   public currentId : string | undefined= undefined;
+  public imagesById : any = [];
 
 
   // ! Subir imagenes
@@ -69,6 +70,7 @@ export class ProductControlComponent implements OnInit {
     private authenticationService: AuthService,
     private fb: FormBuilder,
     private modal: NzModalService,
+    private nzImageService: NzImageService,
     private message: NzMessageService,
     private router: Router,
     private productService: ProductService) { }
@@ -78,14 +80,14 @@ export class ProductControlComponent implements OnInit {
     this.createForm = this.fb.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [0, Validators.required],
       category: ['', Validators.required],
       typeGarment: ['', Validators.required],
       typeClothing: ['', Validators.required],
-      discount: ['', Validators.required],
+      discount: [0, Validators.required],
       shortDescription: ['', Validators.required],
       size: ['', Validators.required],
-      cantd: ['', Validators.required],
+      cantd: [0, Validators.required],
     });
     
     this.editForm = this.fb.group({
@@ -194,6 +196,18 @@ export class ProductControlComponent implements OnInit {
         this.productService.getProductById(id).subscribe(
           (response: Product) => {
             this.viewElement = response;
+
+            this.imagesById = response.images.map(rec => {
+              return {
+                src: rec.routeFile,
+                width: '500px',
+                height: '400px',
+                alt: 'ng-zorro'
+              }
+            });
+
+
+
             this.isLoadingDrawer = false;
           },
           (errorResponse: HttpErrorResponse) => {
@@ -203,6 +217,11 @@ export class ProductControlComponent implements OnInit {
         )
       );
     }
+
+    
+  viewImages(): void {
+    this.nzImageService.preview(this.imagesById, { nzZoom: 1.5, nzRotate: 0 });
+  }
   
     openViewDrawer(element : Content): void {
       this.getElementById(element.id);
@@ -212,6 +231,7 @@ export class ProductControlComponent implements OnInit {
     closeViewDrawer(): void {
       this.visibleDrawer = false;
       this.viewElement = undefined;
+      this.imagesById = [];
     }
   
   
@@ -335,7 +355,6 @@ export class ProductControlComponent implements OnInit {
       }
 
       this.isLoadingEditDrawer = true;
-      
       let form = this.editForm.value;
       const formData = this.productService.createFormDate(this.currentId!, form); 
 
