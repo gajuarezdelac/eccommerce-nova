@@ -21,7 +21,19 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.host}/product/list`)
   }
 
-  
+  // * Search products
+  public searchProducts(pagination : Pagination) :  Observable<ProductPaginate> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pageNo: pagination.numberPage,
+        pageSize: pagination.sizePage
+      }
+    });
+
+    return this.http.get<ProductPaginate>(`${this.host}/product/search`)
+  } 
+
   // * Get list of inbox
   public getAllProductsPaginate(pagination : PaginationProduct):  Observable<ProductPaginate> {
 

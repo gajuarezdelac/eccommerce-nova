@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +18,10 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authenticationService : AuthService,
+    private productService : ProductService,
     private fb: FormBuilder,
     private message: NzMessageService,
-    private router: Router,) { }
+    private router: Router) { }
 
   ngOnInit(): void {
 

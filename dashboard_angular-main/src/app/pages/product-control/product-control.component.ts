@@ -62,7 +62,6 @@ export class ProductControlComponent implements OnInit {
   public currentId : string | undefined= undefined;
   public imagesById : any = [];
 
-
   // ! Subir imagenes
   public files: any[] = [];
  
@@ -118,6 +117,7 @@ export class ProductControlComponent implements OnInit {
   // ! Search 
 
   submitForm(): void {    
+ 
     for (const i in this.validateForm.controls) {
       if (this.validateForm.controls.hasOwnProperty(i)) {
         this.validateForm.controls[i].markAsDirty();

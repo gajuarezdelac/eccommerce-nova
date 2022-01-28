@@ -61,6 +61,8 @@ public class Product implements Serializable {
 	
 	private String typeGarment;
 	
+	private String typeClothing;
+	
 	@ManyToMany(targetEntity = File.class,cascade = CascadeType.ALL)
 	private List<File> images;
 	

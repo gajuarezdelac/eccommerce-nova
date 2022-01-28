@@ -57,7 +57,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public Page<Product> search(int pageNo, int pageSize,String codeProd, String  description, String  name, String  category) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Product> posts = productRepository.searchByFilters(codeProd, description, name, category, pageable);		  
+		  Page<Product> posts = productRepository.searchByFilters(codeProd, description, name, category, pageable);
 		return posts;
 	}
 	
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Override
 	public Product newProduct(String codeProd, String name, String description, int cant, String size, double price,
-			int discount, String category, String typeGarment, List<MultipartFile> images) throws NotAnImageFileException, IOException {
+			int discount, String category, String typeGarment,String typeClothing, List<MultipartFile> images) throws NotAnImageFileException, IOException {
 
 		List<File> list = new ArrayList<>();
 		Product element = new Product();
@@ -89,6 +89,7 @@ public class ProductServiceImpl implements IProductService {
 		element.setSize(size);
 		element.setCategory(category);
 		element.setTypeGarment(typeGarment);
+		element.setTypeClothing(typeClothing);
 		element.setCreatedAt(new Date());
 		
 		// Validamos que todos los archivos adjuntados sean de tipo imagen o descendientes de este.
@@ -193,6 +194,13 @@ public class ProductServiceImpl implements IProductService {
 	public List<Product> getProductsByOrder(List<String> ids) {
 		List<Product> response = productRepository.findAllById(ids);
 		return response;
+	}
+
+	@Override
+	public Page<Product> searchEC(int pageNo, int pageSize) {
+		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
+		  Page<Product> response = productRepository.search(pageable);
+	      return response;
 	}
 	
 

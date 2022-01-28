@@ -69,23 +69,31 @@ export class AuthService {
    return this.token;
  }
 
+ public isUserLoggedIn(): boolean {
+  this.loadToken();
+  console.log(this.token);
 
-  public isUserLoggedIn(): boolean {
-   this.loadToken();
-   if (this.token != null && this.token !== ''){
-     if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
-       if (!this.jwtHelper.isTokenExpired(this.token)) {
-         this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
-         return true;
-       }
-     }
-   } else {
-     this.logOut();
-     return false;
-   }
-   console.log("Pero que ha pasado!!!")
-   return false;
- }
+
+  if (this.token != null && this.token !== ''){
+  
+    console.log(this.jwtHelper.decodeToken(this.token).sub);
+    
+
+    if (this.jwtHelper.decodeToken(this.token).sub != null) {
+      if (!this.jwtHelper.isTokenExpired(this.token)) {
+        this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
+        return true;
+      }else{
+        this.logOut();
+        return false;
+      }
+    }
+  } else {
+    this.logOut();
+    return false;
+  }
+  return false;
+}
 
 
 

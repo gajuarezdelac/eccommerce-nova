@@ -14,13 +14,16 @@ import com.course.altanto.exception.NotAnImageFileException;
 @Component
 public interface IProductService {
 
-	// View products
-	Page<Product> search(int pageNo, int pageSize,String codeProd, String description,String name,String category);
+	// View products 
+	Page<Product> searchEC(int pageNo, int pageSize); 
+	
+	// View products ADMIN
+	Page<Product> search(int pageNo, int pageSize,String codeProd, String  description, String  name, String  category);
 
 	List<Product> getAllProducts();
 
 	Product newProduct(String codeProd, String name, String description, int cant, String size, double price,
-			int discount, String category, String typeGarment, List<MultipartFile> images) throws NotAnImageFileException, IOException;
+			int discount, String category, String typeGarment, String typeClothing, List<MultipartFile> images) throws NotAnImageFileException, IOException;
 
 	Product editProduct(String id, String name, String description, int cant, String size, double price,int discount) throws ExceptionGeneric;
 

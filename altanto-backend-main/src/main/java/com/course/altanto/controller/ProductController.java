@@ -49,14 +49,25 @@ public class ProductController {
 		List<Product> response = service.getProductsByOrder(request);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/search")
+	public ResponseEntity<Page<Product>> searchEC(
+			    @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+			    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+		
+		Page<Product> response = service.searchEC(pageNo, pageSize);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@GetMapping("/paginate")
-	public ResponseEntity<Page<Product>> getPageable(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(value = "codeProd", defaultValue = "", required = false) String codeProd,
-            @RequestParam(value = "description", defaultValue = "", required = false) String description,
-            @RequestParam(value = "name", defaultValue = "", required = false) String name,
-            @RequestParam(value = "category", defaultValue = "", required = false) String category
+	public ResponseEntity<Page<Product>> getPageable(
+			    @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+			    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+	            @RequestParam(value = "codeProd", defaultValue = "", required = false) String codeProd,
+	            @RequestParam(value = "description", defaultValue = "", required = false) String description,
+	            @RequestParam(value = "name", defaultValue = "", required = false) String name,
+	            @RequestParam(value = "category", defaultValue = "", required = false) String category
             ) {
 		Page<Product> response = service.search(pageNo, pageSize, codeProd, description, name, category);
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -78,14 +89,15 @@ public class ProductController {
 			                                  @RequestParam("discount") int discount,
 			                                  @RequestParam("category") String category,
 			                                  @RequestParam("typeGarment") String typeGarment,
+			                                  @RequestParam("typeClothing") String typeClothing,
 			                                  @RequestParam("images") List<MultipartFile> images) throws NotAnImageFileException, IOException {
 		
-		Product response = service.newProduct(codeProd,name, description, cant, size, price, discount, category, typeGarment, images);
+		Product response = service.newProduct(codeProd, name, description, cant, size, price, discount, category, typeGarment, typeClothing, images);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	@PutMapping("/update/{id}")
-	public ResponseEntity<Product> addProduct(@PathVariable("id") String id, 
+	@PutMapping("/update")
+	public ResponseEntity<Product> addProduct(@RequestParam("id") String id, 
 			                                  @RequestParam("name") String name,
                                               @RequestParam("description") String description,
                                               @RequestParam("cant") int cant,

@@ -17,7 +17,13 @@ import { Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Sing
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    
+    private authenticationService : AuthService,
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private router: Router
+  ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
    }

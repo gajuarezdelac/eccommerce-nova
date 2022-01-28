@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
     private fb: FormBuilder,
     private message: NzMessageService,
     private router: Router,
+    private cartService : CartService
   ) { }
 
   ngOnInit(): void {
