@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
 import { FileUploadStatus } from 'src/app/models/file-upload-status';
+import { Order } from 'src/app/models/Order';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -36,13 +38,19 @@ export class UserProfileComponent implements OnInit {
   public isLoadingEdit = false;
   public isLoadingView = false;
 
+  // Variables para el listado de ordenes
+  public isLoadingOrders = false;
+
+  // Variables para el listado de ordenes
+  public isLoadingDelete = false;
+
   constructor(
     private authenticationService: AuthService,
     private fb: FormBuilder,
     private message: NzMessageService,
     private router: Router,
     private userService: UserService,
-    
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +69,6 @@ export class UserProfileComponent implements OnInit {
       username: ['', Validators.required],
       gender: ['', Validators.required],
       state: ['', Validators.required],
-      dateOfBirth: [null, Validators.required],
       numberPhone: [null, Validators.required]
     });
   }
@@ -69,11 +76,13 @@ export class UserProfileComponent implements OnInit {
   
   get f() { return this.editForm.controls; }
 
+  // ! Get user by username
   getUerByUsername() {
     this.isLoadingView = true;
     this.subscriptions.push(
       this.userService.getByUsername(this.user!.username).subscribe(
         (response: User) => {
+          console.log(response);
           this.currentUsername = response;
           this.isLoadingView = false;
         },
@@ -85,11 +94,10 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
-  // Actualizar información del usuario
+  // ! Actualizar información del usuario
   onSubmit() {
     
     if (this.editForm.invalid) { return; }
-    alert("Entro a la validación");
     this.btnloader = true;
     this.isLoadingEdit = true;
     let form = this.editForm.value;
@@ -111,14 +119,45 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  public getOrderByUsers() {
+  // ! Delete my profile
+  deleteMyProfile() {
 
-
-
-
+    this.isLoadingDelete = true;
+    this.subscriptions.push(
+      this.userService.desactivateByUsername(this.user?.username!).subscribe(
+        (response: User) => {
+          this.btnloader = false;
+          this.isLoadingDelete = false;
+          this.message.create("success",  "Perfil actualizado correctamnete!");
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.btnloader = false;
+          this.isLoadingDelete = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
   }
 
-  
+
+  // ! Get orders by user
+  public getOrderByUsers() {
+
+    this.isLoadingOrders = true;
+    this.subscriptions.push(
+      this.orderService.getOrdersByUser(this.user!.username).subscribe(
+        (response: Order[]) => {
+          console.log(response);
+          this.isLoadingOrders = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingOrders = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+  }
+
   public onUpdateProfileImage(): void {
     const formData = new FormData();
     formData.append('username', this.user!.username);

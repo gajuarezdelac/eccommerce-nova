@@ -45,6 +45,19 @@ export class NavbarComponent implements OnInit {
     this.message.create("success",  "Sesión cerrada de manera correcta!");
   }
 
+  onActivate(event : any) {
+    // window.scroll(0,0);
+ 
+    window.scroll({ 
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+     });
+ 
+     
+ }
+
+
   public onSubmit(): void {
     this.submitted = true;
     console.log(this.validateForm.value);

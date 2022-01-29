@@ -121,6 +121,7 @@ import { InboxControlComponent } from './pages/inbox-control/inbox-control.compo
 import { FinanceControlComponent } from './pages/finance-control/finance-control.component';
 import { CardProductComponent } from './components/card-product/card-product.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { P404Component } from './components/p404/p404.component';
 
 
 @NgModule({
@@ -152,6 +153,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     InboxControlComponent,
     FinanceControlComponent,
     CardProductComponent,
+    P404Component,
   ],
   imports: [
     ChartsModule,

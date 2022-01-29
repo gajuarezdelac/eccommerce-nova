@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Product } from 'src/app/models/Product';
+import { Product, Image } from 'src/app/models/Product';
 import { Content } from 'src/app/models/Review';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -24,6 +24,8 @@ export class DetailsProductComponent implements OnInit {
   public element : Product = new Product();
   public isLoadingView = false;
   public isLoadingReview = false;
+  public idProduct : String = "";
+  public images : Image[] = [];
 
   // Reviews
   public lstReviews : Content[] = [];
@@ -38,12 +40,18 @@ export class DetailsProductComponent implements OnInit {
     private authenticationService : AuthService,
     private fb: FormBuilder,
     private message: NzMessageService,
+    private actRoute: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
     private reviewService: ReviewService
   ) { }
 
    ngOnInit(): void {
+
+    this.idProduct = this.actRoute.snapshot.params.id;
+    this.getElementById(this.actRoute.snapshot.params.id);
+
+    
 
     this.createForm = this.fb.group({
       code: ['', Validators.required],
@@ -65,12 +73,19 @@ export class DetailsProductComponent implements OnInit {
     this.subscriptions.push(
       this.productService.getProductById(id).subscribe(
         (response: Product) => {
+          
+          this.images = response.images.slice(1);
           this.element = response;
+          
+
+
+
           this.isLoadingView = false;
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;
-          this.message.create("error",  "Ha ocurrido un error!");
+          this.message.create("error",  errorResponse.error.message);
+          this.router.navigateByUrl('/home');
         }
       )
     );
@@ -87,7 +102,7 @@ export class DetailsProductComponent implements OnInit {
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;
-          this.message.create("error",  "Ha ocurrido un error!");
+          this.message.create("error",  errorResponse.error.message);
         }
       )
     );

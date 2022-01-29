@@ -1,16 +1,21 @@
+<nz-spin [nzSpinning]="isLoadingTable">
 
+	
 <div class="container-products">
 	<div class="row">
 	<aside class="col-md-3">
 		
 <div class="card">
 	<article class="filter-group">
+		
 		<header class="card-header">
 			<a  data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
 				<h6 class="title"> Buscar </h6>
 			</a>
 		</header>
+
+
 		<div class="filter-content collapse show" id="collapse_1" style="">
 			<div class="card-body">
 				<form class="pb-3">
@@ -187,13 +192,14 @@
 		</div>
 	</article> <!-- filter-group .// -->
 </div> <!-- card.// -->
-
 	</aside>
+
+
 	<main class="col-md-9">
 
 <header class="border-bottom mb-4 pb-3">
 		<div class="form-inline">
-			<span class="mr-md-auto">32 Items found </span>
+			<span class="mr-md-auto"> {{total}} coincidencias </span>
 			<select class="mr-2 form-control">
 				<option>Latest items</option>
 				<option>Trending</option>
@@ -210,37 +216,13 @@
 </header><!-- sect-heading -->
 
 <div class="row">
-	<div class="col-md-4 col-sm-6">
-		<div class="product-grid4">
-			<div class="product-image4">
-				<div>
-					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
-					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
-	  
-				</div>
-				<ul class="social">
-					<li><a routerLink="/product/fkffk" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
-					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-				</ul>
-				<span class="product-discount-label">-12%</span>
-			</div>
-			<div class="product-content">
-				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
-				<div class="price">
-					$17.60
-					<span>$20.00</span>
-				</div>
-				<a class="add-to-cart" routerLink="/product/dkdkd" >Mas detalle</a>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-md-4 col-sm-6">
+	<div class="col-md-4 col-sm-6 pro" *ngFor="let item of products" >
 		<div class="product-grid4">
 			<div class="product-image4">
 				<div>
-					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
-					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
+					<img class="pic-1" src="{{item.images[0].routeFile}}">
+					<img class="pic-2" src="{{item.images[1].routeFile}}">
 	  
 				</div>
 				<ul class="social">
@@ -250,37 +232,12 @@
 				<span class="product-discount-label">-12%</span>
 			</div>
 			<div class="product-content">
-				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
+				<h3 class="title"><a href="#">{{item.name}}</a></h3>
 				<div class="price">
-					$17.60
-					<span>$20.00</span>
+					$ {{item.price}}
+					<span>${{item.price + 20}}</span>
 				</div>
-				<a class="add-to-cart" routerLink="/product/dkdkd" >Mas detalle</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-4 col-sm-6">
-		<div class="product-grid4">
-			<div class="product-image4">
-				<div>
-					<img class="pic-1" src="https://www.playerasmark.com/app/assets/media/2017/10/blanco-rojo.jpg">
-					<img class="pic-2" src="https://www.textilregiomontana.com.mx/wp-content/uploads/2018/11/P-14-TURQUESA-600x600.jpg">
-	  
-				</div>
-				<ul class="social">
-					<li><a routerLink="/product/fkffk" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
-					<li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-				</ul>
-				<span class="product-discount-label">-12%</span>
-			</div>
-			<div class="product-content">
-				<h3 class="title"><a href="#">Men's Blue Shirt</a></h3>
-				<div class="price">
-					$17.60
-					<span>$20.00</span>
-				</div>
-				<a class="add-to-cart" routerLink="/product/dkdkd" >Mas detalle</a>
+				<a class="add-to-cart" routerLink="/product/{{item.id}}" >Mas detalle</a>
 			</div>
 		</div>
 	</div>
@@ -291,10 +248,17 @@
 </div> <!-- row end.// -->
 
 <div class="pagination">
-<nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination> 
+<nz-pagination 
+[nzPageSize]="pageSize"
+[nzPageIndex]="current"
+[nzTotal]="total"
+(nzPageSizeChange)="changePageSize($event)"
+(nzPageIndexChange)="changeCurrentPage($event)" id="demo"></nz-pagination> 
 </div>
 
 
 	</main>
 	</div>
 </div>
+
+</nz-spin>

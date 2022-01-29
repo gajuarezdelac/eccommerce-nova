@@ -26,7 +26,7 @@
   
   .service .box-container .box i{
     font-size: 3rem;
-    color:var(--orange);
+    color: rgb(16, 3, 88);
   }
   
   .service .box-container .box h3{
@@ -246,6 +246,12 @@
 
 .mb-grid-gutter {
   margin-bottom: 30px !important;
+}
+
+.text-s {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
   
   .container-ct {

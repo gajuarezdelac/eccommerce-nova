@@ -64,7 +64,7 @@ export class UserService {
 
   // * Update Profile
   public updateProfile(username : string ,formData: any ) : Observable<User>  {
-    return this.http.post<User>(`${this.host}/user/update-profile`, formData);
+    return this.http.post<User>(`${this.host}/user/update-profile/${username}`, formData);
   } 
 
  

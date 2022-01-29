@@ -201,6 +201,7 @@
                             type="text"
                             class="form-control"
                             formControlName="state"
+                            [(ngModel)]="currentUsername && currentUsername!.location"
                             name="state"
                             autocomplete="on"
                             placeholder="Estado" 
@@ -258,28 +259,12 @@
                       <!-- Form Group (birthday)-->
                       <div class="col-md-6">
                         <label class="small mb-1" for="inputBirthday">Fecha de nacimiento</label>
+
                         <div
                         class="form-group form-animate-text"
-                        [ngClass]="{'form-animate-error': submitted && f.dateOfBirth.errors}"
-                      >
-                        <input
-                          type="date"
-                          class="form-control"
-                          formControlName="dateOfBirth"
-                          name="dateOfBirth"
-                          autocomplete="on"
-                          placeholder="Correo electronico" 
-                          [(ngModel)]="currentUsername && currentUsername!.dateOfBirth"
-                          required
-                        />
-                        <div
-                          *ngIf="submitted && f.dateOfBirth.errors"
-                          class="invalid-feedback d-block"
                         >
-                          <div *ngIf="f.dateOfBirth.errors.required">
-                            El correo electronico es requerido
-                          </div>
-                        </div>
+                        {{currentUsername && currentUsername!.dateOfBirth | date: 'dd/MM/yyyy'}}
+
                       </div>
                       </div>
                     </div>
@@ -485,11 +470,10 @@
                   </form>
                 </div>
               </div>
-              <!-- Security preferences card-->
+              <!-- Security preferences card
               <div class="card mb-4">
                 <div class="card-header">Security Preferences</div>
                 <div class="card-body">
-                  <!-- Account privacy optinos-->
                   <h5 class="mb-1">Account Privacy</h5>
                   <p class="small text-muted">
                     By setting your account to private, your profile information
@@ -523,7 +507,6 @@
                     </div>
                   </form>
                   <hr class="my-4" />
-                  <!-- Data sharing options-->
                   <h5 class="mb-1">Data Sharing</h5>
                   <p class="small text-muted">
                     Sharing usage data can help us to improve our products and
@@ -559,7 +542,7 @@
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="col-lg-4">
               <!-- Delete account card-->

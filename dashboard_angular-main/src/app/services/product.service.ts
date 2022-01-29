@@ -31,7 +31,7 @@ export class ProductService {
       }
     });
 
-    return this.http.get<ProductPaginate>(`${this.host}/product/search`)
+    return this.http.get<ProductPaginate>(`${this.host}/product/search`, {params: params})
   } 
 
   // * Get list of inbox
@@ -56,6 +56,12 @@ export class ProductService {
   public getAllProductsByCode(code : string):  Observable<Product[]> {
     return this.http.get<Product[]>(`${this.host}/product/${code}`)
   }
+
+  // * Buscar listado top rating
+  public getAllProductsTopRating():  Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.host}/product/list-top`)
+  }
+
 
   // * List of products by ID´s
   public getAllProductsById(list : any) : Observable<Product[]> {
