@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
       this.subscriptions.push(
         this.authenticationService.register(form).subscribe(
           (response: User) => {
-          this.createMessage("sucess",  "Registrado correctamente!");
+          this.createMessage("success",  "Registrado correctamente!");
           this.isSpinning = false;
           this.router.navigateByUrl("/auth/login");
         },

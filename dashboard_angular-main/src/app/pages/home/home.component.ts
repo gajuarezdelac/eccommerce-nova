@@ -31,14 +31,23 @@ export class HomeComponent implements OnInit {
 
   }
 
-  public navigate(e : any) : void {
+   public navigate(e : any) : void {
     this.router.navigate(['/search'], { queryParams: { keyword: e } });
-  }
+   }
 
 
-  public viewDetails(e : any) : void {
+   public viewDetails(e : any) : void {
     this.router.navigate(['/product/e']);
-  }
+   }
+
+
+   // Get products by promotion
+
+   
+
+   // Get Categories
+
+
 
 
 }

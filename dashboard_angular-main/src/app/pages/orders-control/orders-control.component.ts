@@ -135,7 +135,7 @@ export class OrdersControlComponent implements OnInit {
           this.message.create("error",  "Ha ocurrido un error!");
         }
       )
-    );    
+    );   
   }
 
   // ! Listado de elementos
@@ -171,7 +171,6 @@ export class OrdersControlComponent implements OnInit {
   }
 
   // ! Visualizar orden o pedido
-
   getElementById(id : string) : void {
     this.isLoadingDrawer = true;
     this.subscriptions.push(

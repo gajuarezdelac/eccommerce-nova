@@ -62,7 +62,7 @@ export class RecoveryPasswordComponent implements OnInit {
         (response: CustomHttpRespone) => {   
           this.isSpinning = false;
           this.router.navigateByUrl('/auth/login');
-          this.createMessage("error",  response.message);
+          this.createMessage("success",  response.message);
         },
         (errorResponse: HttpErrorResponse) => {
           this.isSpinning = false;

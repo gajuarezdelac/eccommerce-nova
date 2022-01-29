@@ -59,13 +59,13 @@ export class ResetPasswordComponent implements OnInit {
       return ; 
     }
 
-
     this.isSpinning = true;
     let form = this.validateForm.value;
     this.subscriptions.push(
       this.authenticationService.resetPassword(form).subscribe(
         (response: CustomHttpRespone) => {
           this.isSpinning = false;
+          this.createMessage("success",  "Contraseña restablecida correctamente!");
           this.router.navigateByUrl('/auth/login');
         },
         (errorResponse: HttpErrorResponse) => {

@@ -50,25 +50,27 @@ export class UserProfileComponent implements OnInit {
 
     if(this.authenticationService.isUserLoggedIn()) {
       this.user = this.authenticationService.getUserFromLocalCache();
+      this.getUerByUsername();
     } else {  
       this.router.navigateByUrl("/home");
     }
 
     this.editForm = this.fb.group({
-      currentUsername: ['', Validators.required],
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
+      names: ['', Validators.required],
+      surnames: ['', Validators.required],
+      username: ['', Validators.required],
+      gender: ['', Validators.required],
+      state: ['', Validators.required],
+      dateOfBirth: [null, Validators.required],
+      numberPhone: [null, Validators.required]
     });
   }
 
   
   get f() { return this.editForm.controls; }
 
-
   getUerByUsername() {
-
     this.isLoadingView = true;
-
     this.subscriptions.push(
       this.userService.getByUsername(this.user!.username).subscribe(
         (response: User) => {
@@ -87,6 +89,7 @@ export class UserProfileComponent implements OnInit {
   onSubmit() {
     
     if (this.editForm.invalid) { return; }
+    alert("Entro a la validación");
     this.btnloader = true;
     this.isLoadingEdit = true;
     let form = this.editForm.value;
@@ -105,6 +108,14 @@ export class UserProfileComponent implements OnInit {
         }
       )
     );
+  }
+
+
+  public getOrderByUsers() {
+
+
+
+
   }
 
   

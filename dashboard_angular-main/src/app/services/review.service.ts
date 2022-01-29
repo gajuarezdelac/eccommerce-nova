@@ -53,8 +53,8 @@ export class ReviewService {
   }
 
   // * Actualizar review
-  public updateReview(id : string , formData: any): Observable<Content> {
-    return this.http.put<Content>(`${this.host}/review/update/${id}`, formData);
+  public updateReview(formData: any): Observable<Content> {
+    return this.http.put<Content>(`${this.host}/review/update`, formData);
   }
   
   // * Eliminar review
