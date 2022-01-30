@@ -22,8 +22,12 @@ public interface IProductRepository extends JpaRepository<Product, String> {
 	Page<Product> searchByFilters(@Param("code_prod") String codeProd,@Param("desc") String description,@Param("name") String name,@Param("category") String category, Pageable pageable);
 	
 	
-	@Query(value = "SELECT * FROM product p WHERE p.code",nativeQuery = true)
+	@Query(value = "SELECT * FROM product p",nativeQuery = true)
 	Page<Product> search(Pageable pageable);
+	
+	
+	@Query(value = "SELECT * FROM product p ORDER BY p.rating DESC LIMIT 6",nativeQuery = true)
+	List<Product> findTopRating();
 	
 	List<Product> findAllByIdIn(List<String> ids);
 	

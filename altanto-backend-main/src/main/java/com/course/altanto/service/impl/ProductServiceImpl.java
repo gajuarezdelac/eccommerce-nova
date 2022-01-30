@@ -202,6 +202,11 @@ public class ProductServiceImpl implements IProductService {
 		  Page<Product> response = productRepository.search(pageable);
 	      return response;
 	}
+
+	@Override
+	public List<Product> findProductTopRating() {
+		return productRepository.findTopRating();
+	}
 	
 
 }

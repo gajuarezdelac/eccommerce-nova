@@ -35,5 +35,7 @@ public interface IProductService {
 	
 	List<Product> getProductsByOrder(List<String> ids);
 	
+	List<Product> findProductTopRating();
+	
 
 }

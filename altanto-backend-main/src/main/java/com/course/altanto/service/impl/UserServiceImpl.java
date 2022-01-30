@@ -309,11 +309,13 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	public User updateProfile(String currentUsername, UserDTO request) throws UserNotFoundException {
 		
+		System.out.println(request.getState());
+		
 		User element = validateUpdateUsername(currentUsername);
 		element.setNames(request.getNames());
 		element.setSurnames(request.getSurnames());
 		element.setGender(request.getGender());
-		element.setDateOfBirth(request.getDateOfBirth());
+		element.setLocation(request.getState());
 		element.setNumberPhone(request.getNumberPhone());
 		element.setUsername(request.getUsername());
 		userRepository.save(element);

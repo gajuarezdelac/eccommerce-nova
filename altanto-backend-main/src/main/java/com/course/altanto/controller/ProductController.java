@@ -38,6 +38,13 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("/list-top")
+	public ResponseEntity<List<Product>> listTOP() {
+		List<Product> response = service.findProductTopRating();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
 	@GetMapping("/list")
 	public ResponseEntity<List<Product>> list() {
 		List<Product> response = service.getAllProducts();
