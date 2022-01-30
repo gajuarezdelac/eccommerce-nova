@@ -77,9 +77,6 @@ export class DetailsProductComponent implements OnInit {
           this.images = response.images.slice(1);
           this.element = response;
           
-
-
-
           this.isLoadingView = false;
         },
         (errorResponse: HttpErrorResponse) => {
