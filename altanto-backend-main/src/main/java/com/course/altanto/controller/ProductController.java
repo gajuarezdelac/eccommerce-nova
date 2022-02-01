@@ -32,7 +32,7 @@ public class ProductController {
 		this.service = service;
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/view/{id}")
 	public ResponseEntity<Product> test(@PathVariable(value = "id") String id) throws ExceptionGeneric {
 		Product response = service.viewProductById(id);
 		return new ResponseEntity<>(response, HttpStatus.OK);

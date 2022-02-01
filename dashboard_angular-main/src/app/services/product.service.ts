@@ -70,7 +70,7 @@ export class ProductService {
 
   // * Get product by ID
   public getProductById(id : string) : Observable<Product> {
-      return this.http.get<Product>(`${this.host}/product/${id}`)
+      return this.http.get<Product>(`${this.host}/product/view/${id}`)
   }
 
    // * Crear producto

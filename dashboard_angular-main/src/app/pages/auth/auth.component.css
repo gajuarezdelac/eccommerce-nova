@@ -4,6 +4,10 @@ section {
     border: 0px;
     padding: 0px;
   }
+
+  .content-sap {
+    cursor: pointer;
+  }
   
   .container-flex {
     display: flex;
@@ -69,6 +73,7 @@ section {
   @media (max-width: 950px) {
   
     .content-sap {
+      cursor: pointer;
       display: none;
     }
    

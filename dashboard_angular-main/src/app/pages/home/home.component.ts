@@ -38,8 +38,9 @@ export class HomeComponent implements OnInit {
 
     if(this.authenticationService.isUserLoggedIn()) {
       this.user = this.authenticationService.getUserFromLocalCache();
-      this.getProductsByRating();
     }
+
+    this.getProductsByRating();
 
   }
 

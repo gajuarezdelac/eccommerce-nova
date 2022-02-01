@@ -32,6 +32,20 @@ export class AuthInterceptor implements HttpInterceptor {
       return HttpHandler.handle(httpRequest); 
     }
 
+    if(httpRequest.url.includes(`${this.authenticationService.host}/product/list-top`)){
+      return HttpHandler.handle(httpRequest); 
+    }
+
+    if(httpRequest.url.includes(`${this.authenticationService.host}/product/search`)){
+      return HttpHandler.handle(httpRequest); 
+    }
+
+    if(httpRequest.url.includes(`${this.authenticationService.host}/product/view`)){
+      return HttpHandler.handle(httpRequest); 
+    }
+
+
+
     this.authenticationService.loadToken();
     const token = this.authenticationService.getToken();
     
