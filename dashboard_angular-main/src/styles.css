@@ -8,6 +8,28 @@
   font-family: 'Roboto', sans-serif;
 }
 
+
+
+span.carousel-control-prev-icon {
+  padding: 10px;
+  margin: 10px;
+  background-color: #333;
+}
+
+span.carousel-control-next-icon {
+  padding: 10px !important;
+  margin: 10px !important;
+  background-color: #333;
+}
+
+
+a.logo { 
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
 html{
   scroll-behavior:smooth;
 }

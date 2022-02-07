@@ -225,8 +225,8 @@
 	  
 				</div>
 				<ul class="social">
-					<li><a routerLink="/product/{{item.id}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
-					<li><a data-tip="Add to Wishlist"> <i class="fas fa-heart"></i> </a></li>
+					<li><a routerLink="/product/{{item.id}}" data-tip="Vista rapida"><i class="fa fa-eye"></i></a></li>
+					<li><a data-tip="Agregar a favoritos" (click)="addFavoritos(item.id)" > <i class="fas fa-heart"></i> </a></li>
 				</ul>
 				<span class="product-discount-label">-12%</span>
 			</div>

@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   public user: User | undefined;
   public validateForm!: FormGroup;
   public submitted: boolean = false;
-
+  public totalItem : number = 0;
 
   constructor(
     private authenticationService : AuthService,
@@ -37,6 +37,17 @@ export class NavbarComponent implements OnInit {
     if(this.authenticationService.isUserLoggedIn()) {
       this.user = this.authenticationService.getUserFromLocalCache();
     }
+
+    // Cada vez que cargue la pantalla principal se asignara se rellenara las variables
+    this.cartService.setProduct(JSON.parse(localStorage.getItem('MyCart') || '[]'));
+    this.cartService.getProducts()
+    .subscribe(res=>{
+      this.totalItem = res.length;
+    })
+
+
+
+
   }
 
   public onLogOut(): void {

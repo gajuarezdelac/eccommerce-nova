@@ -72,6 +72,12 @@ export class SearchComponent implements OnInit {
    }
 
 
+  //  ! Agregar a favoritos
+  addFavoritos($event: string) : void {
+    this.message.create("success",  "Agregado correctamente!");    
+  }
+
+
    
   onActivate() {
     // window.scroll(0,0);

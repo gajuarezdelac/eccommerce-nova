@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Product, Image } from 'src/app/models/Product';
 import { Content } from 'src/app/models/Review';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -32,6 +33,7 @@ export class DetailsProductComponent implements OnInit {
 
   // Agregar review
   public createForm! : FormGroup;
+  public isVisibleAdd : boolean = false;
 
   // Editar review
   public editForm! : FormGroup;
@@ -43,7 +45,8 @@ export class DetailsProductComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private cartService: CartService,
   ) { }
 
    ngOnInit(): void {
@@ -54,9 +57,9 @@ export class DetailsProductComponent implements OnInit {
     
 
     this.createForm = this.fb.group({
-      code: ['', Validators.required],
-      name: ['', Validators.required],
-      price: [0, Validators.required],
+      rate: [3, Validators.required],
+      title: ["", Validators.required],
+      comment: ["", Validators.required],
     });
 
     this.editForm = this.fb.group({
@@ -107,8 +110,9 @@ export class DetailsProductComponent implements OnInit {
 
   // Add new review
   public addReview() : void {
-
+    
     this.isLoadingReview = true;
+
     if(!this.createForm.valid) {
       return ; 
     }
@@ -129,6 +133,20 @@ export class DetailsProductComponent implements OnInit {
       )
     );
   }
+
+  handleCancel() {
+    this.isVisibleAdd = false;
+  }
+
+  handleAdd() {
+
+  
+  }
+
+  showModalAddModal() {
+    this.isVisibleAdd = true;
+  }
+
 
   public editReview() : void {
     
@@ -182,13 +200,11 @@ export class DetailsProductComponent implements OnInit {
 
 
 
-
-
-
-  // Add cart
-  public AddElement(e : any) {
-
+  // ! Add cart
+  addtocart(item: any){
+    this.cartService.addtoCart(item);
   }
+  
 
 
 }

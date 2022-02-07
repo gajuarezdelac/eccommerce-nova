@@ -52,6 +52,10 @@ export class ProductControlComponent implements OnInit {
   @ViewChild('f') myForm: NgForm | undefined;
   public visibleCreateDrawer = false;
   public isLoadingCreateDrawer = false;
+  public isCalzado : any = null;
+
+
+
 
   // * Variables para editar un producto
 
@@ -91,7 +95,7 @@ export class ProductControlComponent implements OnInit {
     
     this.editForm = this.fb.group({
       id: ['', Validators.required],
-      code: ['', Validators.required],
+      code: [{value: '', disabled: true}, Validators.required],
       name: ['', Validators.required],
       price: [0, Validators.required],
       category: ['', Validators.required],
@@ -336,7 +340,18 @@ export class ProductControlComponent implements OnInit {
     closeCreateDrawer(): void {
       this.visibleCreateDrawer = false;
     }
-  
+
+
+    // ! Change
+
+    onChangeType(event: any): void {
+      if(event == '1') {
+        this.isCalzado = true;
+      }else {
+        this.isCalzado = false;
+      }
+    }
+
 
       // ! Editar pedido
 

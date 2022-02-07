@@ -13,16 +13,38 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ShopCartComponent implements OnInit {
 
+  
+  public products : any = [];
+  public grandTotal !: number;
+
+
   constructor(
     private authenticationService: AuthService,
     private fb: FormBuilder,
     private message: NzMessageService,
     private router: Router,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private cartService: CartService
+    ) { }
 
   ngOnInit(): void {
 
+    this.cartService.getProducts()
+    .subscribe(res=>{
+      this.products = res;
+      this.grandTotal = this.cartService.getTotalPrice();
+    });
   }
+
+
+  removeItem(item: any){
+    this.cartService.removeCartItem(item);
+  }
+
+  emptycart(){
+    this.cartService.removeAllCart();
+  }
+  
 
   
 

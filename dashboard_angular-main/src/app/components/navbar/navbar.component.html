@@ -23,8 +23,10 @@
                 <i class="bx bx-menu icon-single"></i>
             </button>
 
-    <a class="navbar-brand" href="#">
-      <h4 class="font-weight-bold">Logo</h4>
+    <a class="logo" routerLink="/home">
+      <div class="logo">
+      <h1 class="font-weight-bold">Cotta</h1>
+      </div>
     </a>
 
     <ul class="navbar-nav ml-auto d-block d-md-none">
@@ -46,12 +48,11 @@
         </li>
 
         <li class="nav-item">
-          <a class="btn btn-link" routerLink="/favorites" ><i class="bx bx-heart icon-single"> </i> <span class="badge badge-danger">4</span>  </a>
+          <a class="btn btn-link" routerLink="/favorites" ><i class="bx bx-heart icon-single"> </i> <span class="badge badge-danger">0</span>  </a>
         </li>
 
-        
         <li class="nav-item">
-          <a class="btn btn-link" routerLink="/my-cart"><i class="bx bxs-cart icon-single"></i> <span class="badge badge-danger">3</span></a>
+          <a class="btn btn-link" routerLink="/my-cart"><i class="bx bxs-cart icon-single"></i> <span class="badge badge-danger">{{totalItem}}</span></a>
         </li>
 
         <li class="nav-item ml-md-3">
@@ -103,7 +104,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ayuda</a>
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ayuda</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" routerLink="/faq"> Preguntas frecuentes </a>
             <a class="dropdown-item" routerLink="/search"> Politica de privacidad </a>

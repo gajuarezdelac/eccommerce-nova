@@ -20,14 +20,15 @@
                 <img class="d-block w-100" src="{{item.routeFile}}" alt="{{item.id}}">
               </div>
 
-
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="carousel-control-next-icon" aria-hidden="true">
+                  
+              </span>
               <span class="sr-only">Next</span>
             </a>
           </div>
@@ -81,11 +82,16 @@
                                 <input type="text" name="quantity" value="1" class="qty">
                                 <div class="qtyplus">+</div>
                             </form>
-                            <a href="#" class="round-black-btn">Add to Cart</a>
+
+                            <button class="round-black-btn" (click)=addtocart(element)>Add to Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            
+
+<!--  -->
             <div class="product-info-tabs">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                       <li class="nav-item">
@@ -104,7 +110,6 @@
                           <p class="mb-20">There are no reviews yet.</p>
                           
 
-                          <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
 <div class="container">
 <div class="col-md-12">
     <div class="offer-dedicated-body-left">
@@ -787,7 +792,7 @@
                         </div>
                     </div>
                     <div class="graph-star-rating-footer text-center mt-3 mb-3">
-                        <button type="button" class="btn btn-outline-primary btn-sm">Rate and Review</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="showModalAddModal()"> Rate and Review</button>
                     </div>
                 </div>
                 <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
@@ -857,3 +862,26 @@
     
             
 </nz-spin>
+
+
+<!-- Modal Add -->
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
+    <ng-container *nzModalContent>
+        <div class="mod">
+
+            <form 
+           nz-form
+[formGroup]="createForm"
+class="login-form"
+[nzLayout]="'vertical'"
+            >
+
+            <nz-rate formControlName="rate"></nz-rate>
+
+            </form>
+            
+            
+        </div>
+    </ng-container>
+  </nz-modal>

@@ -1,12 +1,14 @@
 
+
+
 .layout {
-  min-height: 100vh;
+  min-height: 100vh;  
 }
-
-
 
 a.avatar-user {
   color: #ffff;
+
+  
 }
 
 a.avatar-user:hover {
@@ -274,4 +276,7 @@ a.avatar-user:hover {
     right: 0;
   }
   
+
+
+  /* font style */
 

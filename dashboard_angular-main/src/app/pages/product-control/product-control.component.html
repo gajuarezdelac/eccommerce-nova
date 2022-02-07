@@ -269,8 +269,9 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Código de producto </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control  nzErrorTip="Campo requerido">
           <input
+            [disabled]="true"
             nz-input
             formControlName="code"
             [(ngModel)]="viewElement && viewElement!.code"
@@ -330,7 +331,7 @@ class="login-form"
       <nz-form-item>
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Categoria </nz-form-label>
-          <nz-select nz-input formControlName="category" 
+          <nz-select [nzDisabled]="true" nz-input formControlName="category" 
           [(ngModel)]="viewElement && viewElement!.category">
             <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
             <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
@@ -346,7 +347,7 @@ class="login-form"
       <nz-form-item>
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Clasificación </nz-form-label>
-          <nz-select nz-input formControlName="typeGarment" [(ngModel)]="viewElement && viewElement!.typeGarment">
+          <nz-select [nzDisabled]="true" nz-input formControlName="typeGarment" [(ngModel)]="viewElement && viewElement!.typeGarment">
             <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
             <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
             <nz-option nzValue="children" nzLabel="Niños"></nz-option>
@@ -360,10 +361,10 @@ class="login-form"
       <nz-form-item>
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
-          <nz-select nz-input formControlName="typeClothing" [(ngModel)]="viewElement && viewElement!.typeClothing">
-            <nz-option nzValue="calzado" nzLabel="Calzado"></nz-option>
-            <nz-option nzValue="ropa" nzLabel="Ropa"></nz-option>
-            <nz-option nzValue="accesorios" nzLabel="Accesorios"></nz-option>
+          <nz-select [nzDisabled]="true" nz-input formControlName="typeClothing" [(ngModel)]="viewElement && viewElement!.typeClothing">
+            <nz-option nzValue="1" nzLabel="Calzado"></nz-option>
+            <nz-option nzValue="2" nzLabel="Ropa"></nz-option>
+            <nz-option nzValue="3" nzLabel="Accesorios"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -398,15 +399,40 @@ class="login-form"
     <div nz-row [nzGutter]="8">
     
       <div nz-col nzSpan="12">
-        <nz-form-item>
+
+        <nz-form-item  [hidden]="viewElement!.typeClothing != '1'"  >
           <nz-form-control nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
-            <nz-select nz-input formControlName="size" 
-            [(ngModel)]="viewElement && viewElement!.size">
-              <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
-              <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
-              <nz-option nzValue="children" nzLabel="Niños"></nz-option>
-              <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+            <nz-select [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
+              <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
+              <nz-option nzValue="3.5" nzLabel="Talla 3.5"></nz-option>
+              <nz-option nzValue="4" nzLabel="Talla 4"></nz-option>
+              <nz-option nzValue="4.5" nzLabel="Talla 4.5"></nz-option>
+              <nz-option nzValue="5" nzLabel="Talla 5"></nz-option>
+              <nz-option nzValue="5.5" nzLabel="Talla 5.5"></nz-option>
+              <nz-option nzValue="6" nzLabel="Talla 6"></nz-option>
+              <nz-option nzValue="6.5" nzLabel="Talla 6.5"></nz-option>
+              <nz-option nzValue="7" nzLabel="Talla 7"></nz-option>
+              <nz-option nzValue="7.5" nzLabel="Talla 7.5"></nz-option>
+              <nz-option nzValue="8" nzLabel="Talla 8"></nz-option>
+              <nz-option nzValue="8.5" nzLabel="Talla 8.5"></nz-option>
+              <nz-option nzValue="9" nzLabel="Talla 9"></nz-option>
+              <nz-option nzValue="9.5" nzLabel="Talla 9.5"></nz-option>
+              <nz-option nzValue="10" nzLabel="Talla 10"></nz-option>
+              <nz-option nzValue="10.5" nzLabel="Talla 10.5"></nz-option>
+              <nz-option nzValue="11" nzLabel="Talla 11"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item [hidden]="viewElement!.typeClothing == '1'">
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-form-label nzRequired> Talla </nz-form-label>
+            <nz-select   [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
+              <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
+              <nz-option nzValue="M" nzLabel="Mediano (M)"></nz-option>
+              <nz-option nzValue="L" nzLabel="Grande (L)"></nz-option>
+              <nz-option nzValue="XL" nzLabel="Extra largo (XL)"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -581,10 +607,10 @@ class="login-form"
       <nz-form-item>
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
-          <nz-select nz-input formControlName="typeClothing">
-            <nz-option nzValue="calzado" nzLabel="Calzado"></nz-option>
-            <nz-option nzValue="ropa" nzLabel="Ropa"></nz-option>
-            <nz-option nzValue="accesorios" nzLabel="Accesorios"></nz-option>
+          <nz-select nz-input formControlName="typeClothing" (ngModelChange)="onChangeType($event)">
+            <nz-option nzValue="1" nzLabel="Calzado"></nz-option>
+            <nz-option nzValue="2" nzLabel="Ropa"></nz-option>
+            <nz-option nzValue="3" nzLabel="Accesorios"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -612,7 +638,7 @@ class="login-form"
   </nz-tab>
 
 
-  <nz-tab [nzTitle]="titleTemplate2">
+  <nz-tab [nzTitle]="titleTemplate2" [nzDisabled]="isCalzado == null">
     <ng-template #titleTemplate2>
       <i nz-icon [nzType]="'gold'"></i>
       Cantidad
@@ -621,17 +647,45 @@ class="login-form"
     <div nz-row [nzGutter]="8">
     
       <div nz-col nzSpan="12">
-        <nz-form-item>
+        <nz-form-item  [hidden]="!isCalzado">
           <nz-form-control nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select nz-input formControlName="size">
-              <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
-              <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
-              <nz-option nzValue="children" nzLabel="Niños"></nz-option>
-              <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+              <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
+              <nz-option nzValue="3.5" nzLabel="Talla 3.5"></nz-option>
+              <nz-option nzValue="4" nzLabel="Talla 4"></nz-option>
+              <nz-option nzValue="4.5" nzLabel="Talla 4.5"></nz-option>
+              <nz-option nzValue="5" nzLabel="Talla 5"></nz-option>
+              <nz-option nzValue="5.5" nzLabel="Talla 5.5"></nz-option>
+              <nz-option nzValue="6" nzLabel="Talla 6"></nz-option>
+              <nz-option nzValue="6.5" nzLabel="Talla 6.5"></nz-option>
+              <nz-option nzValue="7" nzLabel="Talla 7"></nz-option>
+              <nz-option nzValue="7.5" nzLabel="Talla 7.5"></nz-option>
+              <nz-option nzValue="8" nzLabel="Talla 8"></nz-option>
+              <nz-option nzValue="8.5" nzLabel="Talla 8.5"></nz-option>
+              <nz-option nzValue="9" nzLabel="Talla 9"></nz-option>
+              <nz-option nzValue="9.5" nzLabel="Talla 9.5"></nz-option>
+              <nz-option nzValue="10" nzLabel="Talla 10"></nz-option>
+              <nz-option nzValue="10.5" nzLabel="Talla 10.5"></nz-option>
+              <nz-option nzValue="11" nzLabel="Talla 11"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
+
+
+        <nz-form-item  [hidden]="isCalzado">
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-form-label nzRequired> Talla </nz-form-label>
+            <nz-select nz-input formControlName="size">
+              <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
+              <nz-option nzValue="M" nzLabel="Mediano (M)"></nz-option>
+              <nz-option nzValue="L" nzLabel="Grande (L)"></nz-option>
+              <nz-option nzValue="XL" nzLabel="Extra largo (XL)"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+
       </div>
 
       <div nz-col nzSpan="12">
