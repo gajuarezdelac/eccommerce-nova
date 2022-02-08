@@ -19,7 +19,6 @@ import { ReviewService } from 'src/app/services/review.service';
 export class DetailsProductComponent implements OnInit {
 
 
-
   // Variables para visualizar el producto
   public subscriptions : Subscription[] = [];
   public element : Product = new Product();
@@ -37,9 +36,10 @@ export class DetailsProductComponent implements OnInit {
   public createForm! : FormGroup;
   @ViewChild('f') myForm: NgForm | undefined;
   public isVisibleAdd : boolean = false;
+  public cantidad = 1;
 
   // Editar review
-  public editForm! : FormGroup;
+  public createProduct! : FormGroup;
   
   constructor(
     private authenticationService : AuthService,
@@ -53,6 +53,12 @@ export class DetailsProductComponent implements OnInit {
   ) { }
 
    ngOnInit(): void {
+     
+    this.createProduct = this.fb.group({
+      size: [null, Validators.required],
+      extra: [null, Validators.required],
+      cantd: [1, Validators.required],
+    });
 
     this.idProduct = this.actRoute.snapshot.params.id;
     this.getElementById(this.actRoute.snapshot.params.id);
@@ -62,12 +68,6 @@ export class DetailsProductComponent implements OnInit {
       title: ["", Validators.required],
     });
 
-    this.editForm = this.fb.group({
-      id: ['', Validators.required],
-      code: ['', Validators.required],
-      name: ['', Validators.required],
-      price: [0, Validators.required],
-    });
 
    }
 
@@ -157,28 +157,23 @@ export class DetailsProductComponent implements OnInit {
   }
 
 
-  public editReview() : void {
+  public validateForm() : void {
     
-    this.isLoadingReview = true;
-    if(!this.createForm.valid) {
-      return ; 
+    
+    for (const i in this.createProduct.controls) {
+      if (this.createProduct.controls.hasOwnProperty(i)) {
+        this.createProduct.controls[i].markAsDirty();
+        this.createProduct.controls[i].updateValueAndValidity();
+      }
     }
 
-    let form = this.editForm.value;
-    const formData = this.productService.createFormDate('', form); 
+    if(!this.createProduct.valid) {
+      return; 
+    }
+    let form = this.createProduct.value;
+    // Estos son los valores que haremos llegar al carrito
+    this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, ...this.element });
 
-    this.subscriptions.push(
-      this.reviewService.updateReview(form).subscribe(
-        (response: Content) => {
-          this.message.create("success",  "Ha ocurrido un error!");
-          this.isLoadingReview = false;
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.isLoadingReview = false;
-          this.message.create("error",  "Ha ocurrido un error!");
-        }
-      )
-    );
   }
 
   // Delete review by user
@@ -214,7 +209,7 @@ export class DetailsProductComponent implements OnInit {
   }
 
   calcullateRating()  {
-    
+
     let totalCalf = 0;
 
     this.lstReviews.forEach((e) => {
@@ -225,6 +220,24 @@ export class DetailsProductComponent implements OnInit {
     return r;
 
   }
+
+  
+  sumOne() {
+    if(this.cantidad >= 0 && this.element.cantd > this.cantidad) {
+      this.cantidad += 1;   
+    }else {
+      return;
+    }
+  }
+
+  lessOne() {
+    if(this.cantidad <= 1) {
+      return;
+    }else {
+      this.cantidad -= 1;
+    }
+  }
+
 
   // ! Add cart
   addtocart(item: any){

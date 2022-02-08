@@ -400,7 +400,7 @@ class="login-form"
     
       <div nz-col nzSpan="12">
 
-        <nz-form-item  [hidden]="viewElement!.typeClothing != '1'"  >
+        <nz-form-item  [hidden]="viewElement && viewElement!.typeClothing != '1'"  >
           <nz-form-control nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
@@ -425,7 +425,7 @@ class="login-form"
           </nz-form-control>
         </nz-form-item>
 
-        <nz-form-item [hidden]="viewElement!.typeClothing == '1'">
+        <nz-form-item [hidden]="viewElement && viewElement!.typeClothing == '1'">
           <nz-form-control nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select   [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
@@ -507,7 +507,6 @@ class="login-form"
 (ngSubmit)="createSubmit()"
 [nzLayout]="'vertical'"
 >
-
 
 <nz-spin [nzSpinning]="isLoadingCreateDrawer">
 <nz-tabset>

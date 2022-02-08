@@ -117,8 +117,11 @@ export class ProductControlComponent implements OnInit {
    this.getListPaginate();
   }
 
-
   // ! Search 
+
+
+
+
 
   submitForm(): void {    
  
