@@ -47,6 +47,7 @@ public class ReviewServiceImpl implements IReviewService{
 	public Review addReview(ReviewDTO request) {
 
 		Review element  = new Review();
+		element.setTitle(request.getTitle());
 		element.setCalf(request.getCalf());
 		element.setCodeProd(request.getCodeProd());
 		element.setMessage(request.getMessage());

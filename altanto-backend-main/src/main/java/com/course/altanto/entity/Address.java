@@ -1,9 +1,7 @@
 package com.course.altanto.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,17 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/**
- * @author gabriel.juarez
- *
-*/
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
-public class Orders implements Serializable {
+public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,20 +26,31 @@ public class Orders implements Serializable {
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
-		
-	@Column(nullable = false)
+	
 	private String userId;
 	
-	private double amount;
+	private String names;
 	
-	private String[] listProducts;
+	private String surnames;
 	
-	private int status;
+	private boolean isYourHome;
 	
-	private Date createdAt;
+	private String town;
 	
-	private String addressId;
+	private String cp;
 	
-	private Date EditAt;
+	private String phone;
+	
+	private String emailNotification;
+	
+	private String calle;
+	
+	private String colonia;
+	
+	private String noExterior;
+	
+	private String noInterior;
+	
+	private String moreInformation;
 	
 }

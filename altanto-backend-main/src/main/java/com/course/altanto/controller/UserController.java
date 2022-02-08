@@ -209,5 +209,5 @@ public class UserController {
 	    private void authenticate(String username, String password) {
 	        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 	    }
-	  
+
 }

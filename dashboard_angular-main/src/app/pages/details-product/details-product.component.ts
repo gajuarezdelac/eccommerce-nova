@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Product, Image } from 'src/app/models/Product';
 import { Content } from 'src/app/models/Review';
@@ -50,6 +51,7 @@ export class DetailsProductComponent implements OnInit {
     private productService: ProductService,
     private reviewService: ReviewService,
     private cartService: CartService,
+    private  notification: NzNotificationService
   ) { }
 
    ngOnInit(): void {
@@ -202,23 +204,18 @@ export class DetailsProductComponent implements OnInit {
     );
   }
 
-
   getReviewsByRate(rate : number) {
     let r =  (this.lstReviews.filter(e => e.calf == rate).length * 100) / this.totalReviews;
-    return `${r}%`;
+    return `${r.toFixed(0)}%`;
   }
 
   calcullateRating()  {
-
     let totalCalf = 0;
-
     this.lstReviews.forEach((e) => {
       totalCalf += e.calf;
     });
-
     let r = totalCalf / this.lstReviews.length;
     return r;
-
   }
 
   
@@ -242,8 +239,17 @@ export class DetailsProductComponent implements OnInit {
   // ! Add cart
   addtocart(item: any){
     this.cartService.addtoCart(item);
+    this.createNotification('success', item);
   }
-  
+ 
+  createNotification(type: string, element : any): void {
+    this.notification.create(
+      type,
+      'Agregado exitosamente',
+      `Se ha agregado ${element.cantidad} piezas a nuestro carrito 😀`,
+      { nzPlacement: 'bottomLeft' }
+    );
+  }
 
 
 }
