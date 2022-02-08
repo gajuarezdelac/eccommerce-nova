@@ -62,4 +62,17 @@ export class ReviewService {
     return this.http.delete<Content>(`${this.host}/review/${id}`);
   }
 
+    
+  public createFormReview(currentElement: string  | null, element: any): FormData {
+    const formData = new FormData();
+    formData.append('id', currentElement!);
+    formData.append('codeProd', element.codeProd);
+    formData.append('userId', element.userId);
+    formData.append('calf', element.calf);
+    formData.append('message', element.message);
+    formData.append('title', element.title);
+    return formData;
+  }
+
+
 }

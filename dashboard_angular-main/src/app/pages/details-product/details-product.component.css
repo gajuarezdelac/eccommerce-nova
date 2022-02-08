@@ -101,7 +101,10 @@
 	width: 100%;
 }
 .reviews-counter {
-    font-size: 13px;
+	display: flex;
+	align-items:flex-end;
+	justify-content: start;
+    font-size: 15px;
 }
 .reviews-counter span {
 	vertical-align: -2px;
@@ -434,6 +437,3 @@ body{
 		border-radius: 0;
 		height: 30px;
 	}
-	
-	
-	

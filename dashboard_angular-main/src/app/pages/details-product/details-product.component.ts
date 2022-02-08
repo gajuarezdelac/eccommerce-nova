@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -30,9 +30,12 @@ export class DetailsProductComponent implements OnInit {
 
   // Reviews
   public lstReviews : Content[] = [];
+  public totalReviews : number = 0;
+  public isLoadingGetReviews = false;
 
   // Agregar review
   public createForm! : FormGroup;
+  @ViewChild('f') myForm: NgForm | undefined;
   public isVisibleAdd : boolean = false;
 
   // Editar review
@@ -53,16 +56,14 @@ export class DetailsProductComponent implements OnInit {
 
     this.idProduct = this.actRoute.snapshot.params.id;
     this.getElementById(this.actRoute.snapshot.params.id);
-
-    
-
     this.createForm = this.fb.group({
-      rate: [3, Validators.required],
+      calf: [5, Validators.required],
+      message: ["", Validators.required],
       title: ["", Validators.required],
-      comment: ["", Validators.required],
     });
 
     this.editForm = this.fb.group({
+      id: ['', Validators.required],
       code: ['', Validators.required],
       name: ['', Validators.required],
       price: [0, Validators.required],
@@ -79,8 +80,8 @@ export class DetailsProductComponent implements OnInit {
           
           this.images = response.images.slice(1);
           this.element = response;
-          
           this.isLoadingView = false;
+          this.getAllReviews();
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;
@@ -92,16 +93,18 @@ export class DetailsProductComponent implements OnInit {
   }
 
   // Get all reviews by code
-  public getAllReviews(id : string) : void {
-    this.isLoadingView = true;
+  public getAllReviews() : void {
+    this.isLoadingGetReviews = true;
     this.subscriptions.push(
-      this.reviewService.getAllReviews().subscribe(
+      this.reviewService.getAllReviewsByProduct(this.element.code).subscribe(
         (response: Content[]) => {
           this.lstReviews = response;
-          this.isLoadingView = false;
+          this.totalReviews = response.length;
+          this.isLoadingGetReviews = false;
+
         },
         (errorResponse: HttpErrorResponse) => {
-          this.isLoadingView = false;
+          this.isLoadingGetReviews = false;
           this.message.create("error",  errorResponse.error.message);
         }
       )
@@ -109,22 +112,33 @@ export class DetailsProductComponent implements OnInit {
   }
 
   // Add new review
-  public addReview() : void {
+  public createSubmit() : void {
+
     
-    this.isLoadingReview = true;
+    for (const i in this.createForm.controls) {
+      if (this.createForm.controls.hasOwnProperty(i)) {
+        this.createForm.controls[i].markAsDirty();
+        this.createForm.controls[i].updateValueAndValidity();
+      }
+    }
+
 
     if(!this.createForm.valid) {
       return ; 
     }
 
+    
+    this.isLoadingReview = true;
     let form = this.createForm.value;
-    const formData = this.productService.createFormDate('', form); 
+    // const formData = this.reviewService.createFormReview('', {userId: "Usuario de prueba", codeProd: this.element.code , ...form}); 
 
     this.subscriptions.push(
-      this.reviewService.createReview(form).subscribe(
+      this.reviewService.createReview({userId: "Usuario de prueba", codeProd: this.element.code , ...form}).subscribe(
         (response: Content) => {
-          this.message.create("success",  "Ha ocurrido un error!");
+          this.message.create("success",  "Se ha creado correctamente!");
           this.isLoadingReview = false;
+          this.getAllReviews();
+          this.handleCancel();
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingReview = false;
@@ -136,11 +150,6 @@ export class DetailsProductComponent implements OnInit {
 
   handleCancel() {
     this.isVisibleAdd = false;
-  }
-
-  handleAdd() {
-
-  
   }
 
   showModalAddModal() {
@@ -199,6 +208,23 @@ export class DetailsProductComponent implements OnInit {
   }
 
 
+  getReviewsByRate(rate : number) {
+    let r =  (this.lstReviews.filter(e => e.calf == rate).length * 100) / this.totalReviews;
+    return `${r}%`;
+  }
+
+  calcullateRating()  {
+    
+    let totalCalf = 0;
+
+    this.lstReviews.forEach((e) => {
+      totalCalf += e.calf;
+    });
+
+    let r = totalCalf / this.lstReviews.length;
+    return r;
+
+  }
 
   // ! Add cart
   addtocart(item: any){

@@ -3,6 +3,7 @@ export interface Content {
     codeProd: string;
     userId: string;
     calf: number;
+    title: string;
     message: string;
     createdAt: any;
 }
