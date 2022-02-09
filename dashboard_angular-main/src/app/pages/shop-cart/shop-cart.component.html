@@ -5,6 +5,24 @@
         <div class="col-xl-9 col-md-8">
             <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Carrito de compras</span><a class="font-size-sm" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left" style="width: 1rem; height: 1rem;"><polyline points="15 18 9 12 15 6"></polyline></svg>Continuar comprando</a></h2>
             <!-- Item-->
+            
+            <nz-empty
+            [hidden]="products.length > 0"
+            nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            [nzNotFoundContent]="contentTpl"
+            [nzNotFoundFooter]="footerTpl"
+          >
+            <ng-template #contentTpl>
+              <span>
+                Aún no tienes nada en tu carrito
+                <a href="#API">¿Deseas seguir comprando?</a>
+              </span>
+            </ng-template>
+            <ng-template #footerTpl>
+              <button nz-button nzType="primary" routerLink="/search"> Comprar </button>
+            </ng-template>
+          </nz-empty>
+            
             <div class="d-sm-flex justify-content-between my-4" *ngFor="let item of products">
                 <div class="media d-block d-sm-flex text-center text-sm-left">
                     <a class="cart-item-thumb mx-auto mr-sm-4" href="#"><img src="{{item.images[0].routeFile}}" alt="Product"></a>
@@ -35,6 +53,7 @@
                         </svg>Remove</button>
                 </div>
             </div>
+
         </div>
 
         <!-- Sidebar-->
@@ -52,7 +71,7 @@
                 </svg>Seleccionar dirección</a>
             <div class="pt-4">
                 <div class="accordion" id="cart-accordion">
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-header">
                             <h3 class="accordion-heading font-weight-semibold"><a href="#promocode" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="promocode">Apply promo code<span class="accordion-indicator"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg></span></a></h3>
                         </div>
@@ -61,13 +80,12 @@
                                 <form class="needs-validation" novalidate="">
                                     <div class="form-group">
                                         <input class="form-control" type="text" id="cart-promocode" placeholder="Promo code" required="">
-                                        <!-- <div class="invalid-feedback">¿Tienes algún codigo de promocion?, ingresalo por favor:</div> -->
                                     </div>
                                     <button class="btn btn-outline-primary btn-block" type="submit">Aplicar código de promoción</button>
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="card">
                         <div class="card-header">
                             <h3 class="accordion-heading font-weight-semibold"><a class="collapsed" href="#shipping" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="shipping">Shipping estimates<span class="accordion-indicator"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg></span></a></h3>

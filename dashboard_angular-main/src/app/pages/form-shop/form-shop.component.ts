@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Address } from 'src/app/models/Address';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -14,12 +15,15 @@ import { ProductService } from 'src/app/services/product.service';
 export class FormShopComponent implements OnInit {
 
   // Get all address
-
+  public lstAddresses : Address[] = [];
+  public isLoadingGet = false;
 
   // Agregar dirección de entrega
   public createAddress! : FormGroup;
   public isLoadingSave = false;
 
+  // Seleccionar dirección
+  public selectAddress : Address | undefined = undefined;
 
   constructor(
     private authenticationService : AuthService,
@@ -45,13 +49,10 @@ export class FormShopComponent implements OnInit {
       noInternal: [null, Validators.required],
       moreInformation: [null, Validators.required]
     });
-
   }
 
 
-  
   createSubmit () {
-
     for (const i in this.createAddress.controls) {
       if (this.createAddress.controls.hasOwnProperty(i)) {
         this.createAddress.controls[i].markAsDirty();
@@ -65,8 +66,4 @@ export class FormShopComponent implements OnInit {
 
     let form = this.createAddress.value;
   }
-
-
-  
-
 }

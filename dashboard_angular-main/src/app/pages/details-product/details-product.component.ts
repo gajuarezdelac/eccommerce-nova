@@ -205,7 +205,13 @@ export class DetailsProductComponent implements OnInit {
   }
 
   getReviewsByRate(rate : number) {
-    let r =  (this.lstReviews.filter(e => e.calf == rate).length * 100) / this.totalReviews;
+    let r = 0;
+    r =  (this.lstReviews.filter(e => e.calf == rate).length * 100) / this.totalReviews;
+
+    if(isNaN(r)) {
+      r = 0;
+    } 
+
     return `${r.toFixed(0)}%`;
   }
 
