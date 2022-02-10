@@ -1,5 +1,6 @@
 export class User {
         
+        id : string;
         names: string;
         surnames: string;
         username: string;
@@ -22,6 +23,7 @@ export class User {
 
 
     constructor() {
+      this.id = "";
       this.names = '';
       this.surnames = '';
       this.username = '';
