@@ -17,6 +17,8 @@ public class UserDTO {
 	
 	private String numberPhone;
 	
-	private String state;
+	private Date dateOfBirth;
+	
+	private String location;
 	
 }
