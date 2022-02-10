@@ -21,9 +21,8 @@ public interface IProductRepository extends JpaRepository<Product, String> {
 	@Query(value = "SELECT * FROM product p WHERE p.code LIKE %:code_prod% AND p.short_description LIKE %:desc% AND p.name LIKE %:name%  AND p.category LIKE %:category% ",nativeQuery = true)
 	Page<Product> searchByFilters(@Param("code_prod") String codeProd,@Param("desc") String description,@Param("name") String name,@Param("category") String category, Pageable pageable);
 	
-	
-	@Query(value = "SELECT * FROM product p",nativeQuery = true)
-	Page<Product> search(Pageable pageable);
+	@Query(value = "SELECT * FROM product p WHERE p.name LIKE %:keyword% ",nativeQuery = true)
+	Page<Product> search(@Param("keyword") String keyword, Pageable pageable);
 	
 	
 	@Query(value = "SELECT * FROM product p ORDER BY p.rating DESC LIMIT 6",nativeQuery = true)

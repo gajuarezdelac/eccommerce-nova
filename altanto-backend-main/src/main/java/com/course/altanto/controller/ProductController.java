@@ -60,10 +60,11 @@ public class ProductController {
 	
 	@GetMapping("/search")
 	public ResponseEntity<Page<Product>> searchEC(
-			    @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+			@RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,    
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
 			    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
 		
-		Page<Product> response = service.searchEC(pageNo, pageSize);
+		Page<Product> response = service.searchEC(keyWord,pageNo, pageSize);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

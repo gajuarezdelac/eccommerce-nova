@@ -30,10 +30,8 @@ import com.course.altanto.service.IFileService;
 @RequestMapping("/file")
 public class FileController {
 
-	  
 	@Autowired
 	private IFileService service;
-	
 	
    @PostMapping("/upload")
    public ResponseEntity<List<File>> uploadFilesND(@RequestParam(value = "files", required = true) List<MultipartFile> files) throws IOException, SAXException, ParserConfigurationException, NotAnImageFileException  {
@@ -44,7 +42,6 @@ public class FileController {
    @GetMapping(path = "/image/{folder}/{fileName}", produces = IMAGE_JPEG_VALUE)
    public byte[] getProfileImage(@PathVariable("folder") String username, @PathVariable("fileName") String fileName) throws IOException {
        return Files.readAllBytes(Paths.get(PRODUCT_FOLDER + username + FORWARD_SLASH + fileName));
-   }
-   
+   }   
 	 
 }

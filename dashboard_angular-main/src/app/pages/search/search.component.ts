@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Subscription } from 'rxjs';
 import { ProductPaginate, Content } from 'src/app/models/ProductPaginate';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -25,25 +26,52 @@ export class SearchComponent implements OnInit {
   public total: number = 0;
   public totalElementByPage = 0;
   public isLoadingTable = false;
+  public filterForm! : FormGroup;
+  public key : string = "";
 
   //   
   constructor(
     private authenticationService: AuthService,
     private fb: FormBuilder,
     private message: NzMessageService,
+    private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
-    this.getListPaginate();
+
+    // this.route.queryParams.subscribe((params: any) => {
+    //   if(params.keyword){
+    //    this.key = params.keyword; 
+    //   }else {
+    //     this.key = "";
+    //   }
+    // });
+
+    this.searchService.getKeyword()
+    .subscribe(res=>{
+      this.key = res;
+      this.getListPaginate();
+    });
+    
+
+    this.filterForm = this.fb.group({
+      category: [''],
+      clasification: [''],
+      typeClothing: [''],
+      minPrice: [0],
+      maxPrice: [100000],
+    });
+
   }
 
   // ! Listado de registros para llenar la tabla 
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize}).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key}).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;

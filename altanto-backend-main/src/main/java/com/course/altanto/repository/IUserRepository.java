@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.course.altanto.entity.User;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User, Long> {
+public interface IUserRepository extends JpaRepository<User, String> {
 
     User findUserByUsername(String username);
     
@@ -18,5 +18,5 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM user u WHERE u.username LIKE %:username% AND u.names LIKE %:names% AND u.surnames LIKE %:surnames%",nativeQuery = true)
 	Page<User> searchByFilters(@Param("username") String username,@Param("names") String names,@Param("surnames") String surnames, Pageable pageable);
 	
-    
+
 }

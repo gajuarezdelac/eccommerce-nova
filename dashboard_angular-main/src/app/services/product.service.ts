@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pagination } from '../models/Pagination';
 import { PaginationProduct } from '../models/PaginationProduct';
+import { PaginationSearch } from '../models/PaginationSearch';
 import { Product } from '../models/Product';
 import { ProductPaginate } from '../models/ProductPaginate';
 
@@ -22,10 +23,11 @@ export class ProductService {
   }
 
   // * Search products
-  public searchProducts(pagination : Pagination) :  Observable<ProductPaginate> {
+  public searchProducts(pagination : PaginationSearch) :  Observable<ProductPaginate> {
 
     const params = new HttpParams({
       fromObject: {
+        keyWord: pagination.keyword,
         pageNo: pagination.numberPage,
         pageSize: pagination.sizePage
       }

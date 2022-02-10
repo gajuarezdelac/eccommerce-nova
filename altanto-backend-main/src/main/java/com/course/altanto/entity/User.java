@@ -6,8 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,10 +33,10 @@ public class User implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(nullable = false, updatable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private Long id;
+	private String id;
 	
 	@Column(nullable = false)
 	private String names;
@@ -59,8 +60,10 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String role;
 	
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String token;
 	
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Date expireToken;
 	
 	private String profileImageUrl;

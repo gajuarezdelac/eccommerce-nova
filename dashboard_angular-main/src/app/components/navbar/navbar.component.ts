@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,9 @@ export class NavbarComponent implements OnInit {
     private authenticationService : AuthService,
     private fb: FormBuilder,
     private message: NzMessageService,
+    private searchService : SearchService,
     private router: Router,
+    
     private cartService : CartService
   ) { }
 
@@ -40,10 +43,13 @@ export class NavbarComponent implements OnInit {
 
     // Cada vez que cargue la pantalla principal se asignara se rellenara las variables
     this.cartService.setProduct(JSON.parse(localStorage.getItem('MyCart') || '[]'));
+    
     this.cartService.getProducts()
     .subscribe(res=>{
       this.totalItem = res.length;
     })
+
+
 
 
 
@@ -72,11 +78,18 @@ export class NavbarComponent implements OnInit {
   public onSubmit(): void {
     this.submitted = true;
     console.log(this.validateForm.value);
-    if(this.validateForm.value.keyword == null && this.validateForm.value.keyword == '') {       
-         this.router.navigate(['/search']);
+
+    if(this.validateForm.value.keyword == null || this.validateForm.value.keyword == '') {       
+      this.search("");
+      this.router.navigate(['/search']);
     } else {
-      this.router.navigate(['/search'], { queryParams: { keyword: this.validateForm.value.keyword } });
+      this.search(this.validateForm.value.keyword);
+      this.router.navigate(['/search']);
     }   
   }
   
+  search(keyword: any){
+    this.searchService.search(keyword);
+  }
+
 }

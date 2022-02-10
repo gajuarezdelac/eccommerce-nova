@@ -31,6 +31,7 @@ public class OrdersServiceImpl implements IOrdersService{
 		element.setAmount(request.getAmount());
 		element.setUserId(request.getUserId());
 		element.setStatus(request.getStatus());
+		element.setAddressId(request.getAddressId());
 		element.setListProducts(request.getListProducts());
 		element.setCreatedAt(new Date());
 		ordersRepository.save(element);
