@@ -22,18 +22,14 @@ export class CartService {
   }
   
   addtoCart(product : any){
-    
     this.cartItemList.push(product);
     this.productList.next(this.cartItemList);
-    
     localStorage.setItem('MyCart', JSON.stringify(this.productList.value));
     this.getTotalPrice();
   }
 
   getTotalPrice() : number{
     let grandTotal = 0;
-
-    console.log(this.cartItemList , "Recuperando el total");
     this.cartItemList.map((a:any)=>{
       grandTotal += a.price;
     })

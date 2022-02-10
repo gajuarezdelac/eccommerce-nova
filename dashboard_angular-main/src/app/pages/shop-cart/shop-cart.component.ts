@@ -36,13 +36,18 @@ export class ShopCartComponent implements OnInit {
     });
   }
 
-
   removeItem(item: any){
     this.cartService.removeCartItem(item);
   }
 
   emptycart(){
     this.cartService.removeAllCart();
+  }
+
+
+  onChangeCant(event : any, item: any) {
+    console.log(event);
+    console.log(item);
   }
   
 

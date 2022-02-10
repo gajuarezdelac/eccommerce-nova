@@ -8,6 +8,7 @@ import { RecoveryPasswordComponent } from './pages/auth/recovery-password/recove
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DetailOrderComponent } from './pages/detail-order/detail-order.component';
 import { DetailsProductComponent } from './pages/details-product/details-product.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
@@ -52,6 +53,7 @@ const routes: Routes = [
     { path: 'my-cart' , component: ShopCartComponent },
     { path: 'my-profile' , component: UserProfileComponent, canActivate: [ AuthGuard ] },
     { path: "faq",  component: FaqComponent },
+    { path: "order/:id", component: DetailOrderComponent, canActivate: [ AuthGuard ] },
     { path: 'check-delivery', component: FormShopComponent, canActivate: [ AuthGuard ] },
     { path: 'payment', component: PaymentComponent , canActivate: [ AuthGuard ]},
     { path: 'favorites', component: FavoritesComponent , canActivate: [ AuthGuard ]},

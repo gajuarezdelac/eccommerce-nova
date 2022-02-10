@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Subscription } from 'rxjs';
 import { FileUploadStatus } from 'src/app/models/file-upload-status';
 import { Order } from 'src/app/models/Order';
@@ -40,9 +41,15 @@ export class UserProfileComponent implements OnInit {
 
   // Variables para el listado de ordenes
   public isLoadingOrders = false;
+  public lstOrders : Order[] = [];
 
   // Variables para el listado de ordenes
-  public isLoadingDelete = false;
+  public isLoadingGeneral = false;
+
+  // Restablecer contraseña
+  public resetForm! : FormGroup;
+  public isLoadingReset = false;
+ 
 
   constructor(
     private authenticationService: AuthService,
@@ -50,15 +57,15 @@ export class UserProfileComponent implements OnInit {
     private message: NzMessageService,
     private router: Router,
     private userService: UserService,
+    private modal: NzModalService,
     private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
-
-
     if(this.authenticationService.isUserLoggedIn()) {
       this.user = this.authenticationService.getUserFromLocalCache();
       this.getUerByUsername();
+      this.getOrdersByUsers();
     } else {  
       this.router.navigateByUrl("/home");
     }
@@ -68,12 +75,19 @@ export class UserProfileComponent implements OnInit {
       surnames: ['', Validators.required],
       username: ['', Validators.required],
       gender: ['', Validators.required],
-      state: ['', Validators.required],
+      location: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
       numberPhone: [null, Validators.required]
     });
+
+    this.resetForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      password: ['', Validators.required],
+      newpassword: ['', Validators.required],
+    })
   }
 
-  
+
   get f() { return this.editForm.controls; }
 
   // ! Get user by username
@@ -97,15 +111,23 @@ export class UserProfileComponent implements OnInit {
   // ! Actualizar información del usuario
   onSubmit() {
     
+     
+    for (const i in this.editForm.controls) {
+      if (this.editForm.controls.hasOwnProperty(i)) {
+        this.editForm.controls[i].markAsDirty();
+        this.editForm.controls[i].updateValueAndValidity();
+      }
+    }
+
+
     if (this.editForm.invalid) { return; }
-    this.btnloader = true;
+
     this.isLoadingEdit = true;
     let form = this.editForm.value;
     
     this.subscriptions.push(
       this.userService.updateProfile(this.user?.username!, form).subscribe(
         (response: User) => {
-          this.btnloader = false;
           this.isLoadingEdit = false;
           this.message.create("success",  "Perfil actualizado correctamnete!");
         },
@@ -116,38 +138,74 @@ export class UserProfileComponent implements OnInit {
         }
       )
     );
+  }
+
+
+  // ! Reset my password
+
+  onResetPassword() {
+
+    alert("Reset Password");
+
+    for (const i in this.resetForm.controls) {
+      if (this.resetForm.controls.hasOwnProperty(i)) {
+        this.resetForm.controls[i].markAsDirty();
+        this.resetForm.controls[i].updateValueAndValidity();
+      }
+    }
+
+    if (this.resetForm.invalid) { return; }
+
+    this.isLoadingReset = true;
+    let form = this.editForm.value;
+    
+
   }
 
 
   // ! Delete my profile
   deleteMyProfile() {
-
-    this.isLoadingDelete = true;
+    this.isLoadingGeneral = true;
     this.subscriptions.push(
       this.userService.desactivateByUsername(this.user?.username!).subscribe(
         (response: User) => {
-          this.btnloader = false;
-          this.isLoadingDelete = false;
-          this.message.create("success",  "Perfil actualizado correctamnete!");
+          this.authenticationService.logOut();
+          this.user = undefined;
+          this.message.create("success",  "Tu perfil se ha desabilidado correctamente");
+          this.router.navigate(['/auth/register']);
+          this.isLoadingGeneral = false;
         },
         (errorResponse: HttpErrorResponse) => {
           this.btnloader = false;
-          this.isLoadingDelete = false;
+          this.isLoadingGeneral = false;
           this.message.create("error",  "Ha ocurrido un error!");
         }
       )
     );
   }
 
+  showDeleteConfirm(): void {
+    this.modal.confirm({
+      nzTitle: 'Are you sure delete this task?',
+      nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.deleteMyProfile(),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel')
+    });
+  }
+
 
   // ! Get orders by user
-  public getOrderByUsers() {
+  public getOrdersByUsers() {
 
     this.isLoadingOrders = true;
     this.subscriptions.push(
-      this.orderService.getOrdersByUser(this.user!.username).subscribe(
+      this.orderService.getOrdersByUser("3030202020").subscribe(
         (response: Order[]) => {
-          console.log(response);
+          this.lstOrders = response;
           this.isLoadingOrders = false;
         },
         (errorResponse: HttpErrorResponse) => {
