@@ -47,3 +47,11 @@
 .font-weight-semibold {
     font-weight: 600 !important;
 }
+
+.empty {
+    margin: 20px auto;
+}
+
+.question {
+    color: rgb(11, 32, 156);
+}

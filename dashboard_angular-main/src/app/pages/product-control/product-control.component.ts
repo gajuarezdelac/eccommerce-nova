@@ -438,6 +438,7 @@ export class ProductControlComponent implements OnInit {
           this.message.create("success", "Producto encontrado!");
           this.handleCancel();
           this.isLoadingProductByCode = false;
+          this.codeForm.reset();
           this.fillForm(response);
           console.log(response);
         },

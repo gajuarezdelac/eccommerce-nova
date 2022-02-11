@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-shop-cart',
@@ -24,6 +25,7 @@ export class ShopCartComponent implements OnInit {
     private message: NzMessageService,
     private router: Router,
     private productService: ProductService,
+    private searchService : SearchService,
     private cartService: CartService
     ) { }
 
@@ -53,6 +55,11 @@ export class ShopCartComponent implements OnInit {
   }
   
 
+  
+  public navigate() {
+    this.searchService.search({keyword: "", typeClothing: ""});
+    this.router.navigate(['/search']);
+  }
   
 
 }

@@ -4,11 +4,13 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
+import { SearchService } from 'src/app/services/search.service';
 import { WishesService } from 'src/app/services/wishes.service';
 
 @Component({
@@ -32,6 +34,8 @@ export class FavoritesComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private wishService : WishesService,
+    private searchService : SearchService,
+    private notification: NzNotificationService
     ) { }
 
   ngOnInit(): void {
@@ -73,11 +77,45 @@ export class FavoritesComponent implements OnInit {
     );
   }
 
+   
+  isNull(e : any) : string {
+    if(e == '' || e == undefined){
+      return 'Sin número'
+    }
+    return e;
+  }
+
 
 
 
 
   // delete favorite
+  public deleteFavorite(item : any) {
+    this.wishService.removeItem(item);
+    this.createNotificationF('success', "Se ha añadido a tu lista");
+  }
+
+  public navigate() {
+    this.searchService.search({keyword: "", typeClothing: ""});
+    this.router.navigate(['/search']);
+  }
+
+
+
+
+  createNotificationF(type: string, message: string): void {
+    this.notification.create(
+      type,
+      'Upps!',
+      `${message} 😍`,
+      { nzPlacement: 'bottomLeft' }
+    );
+  }
+
+
+
+
+
 
 
 

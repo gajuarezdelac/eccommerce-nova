@@ -69,7 +69,6 @@ export class NavbarComponent implements OnInit {
 
   public onSubmit(): void {
     this.submitted = true;
-
     if(this.validateForm.value.keyword == null || this.validateForm.value.keyword == '') {       
       this.search({keyword: "", typeClothing: ""});
       this.router.navigate(['/search']);
