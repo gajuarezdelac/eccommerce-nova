@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
     }
 
     // Cada vez que cargue la pantalla principal se asignara se rellenara las variables
-    this.cartService.setProduct(JSON.parse(localStorage.getItem('MyCart') || '[]'));
+    this.cartService.setProduct(JSON.parse(localStorage.getItem('MyCart_Cotta') || '[]'));
     
     this.cartService.getProducts()
     .subscribe(res=>{

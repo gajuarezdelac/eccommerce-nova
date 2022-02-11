@@ -31,7 +31,7 @@ export class WishesService {
   updateWishes(product : any){
     // En caso de que exista un producto con las mismas caracteristicas este se elimina
     this.itemList.map((a:any, index:any)=>{
-      if(product.id == a.id && product.size == a.size && product.code == a.code){
+      if(product.id == a.id && product.code == a.code){
         this.itemList.splice(index,1);
       }
     });
@@ -44,7 +44,7 @@ export class WishesService {
    removeItem(product: any){ 
 
     this.itemList.map((a:any, index:any)=>{
-      if(product.id == a.id && product.size == a.size && product.code == a.code){
+      if(product.id == a.id && product.code == a.code){
         this.itemList.splice(index,1);
       }
     });
