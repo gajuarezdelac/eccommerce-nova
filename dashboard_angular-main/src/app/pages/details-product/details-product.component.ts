@@ -246,7 +246,6 @@ export class DetailsProductComponent implements OnInit {
     }
   }
 
-
   // ! Add cart
   addtocart(item: any){
     this.cartService.addtoCart(item);

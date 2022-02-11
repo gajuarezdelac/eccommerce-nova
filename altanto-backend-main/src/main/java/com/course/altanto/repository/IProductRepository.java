@@ -14,6 +14,9 @@ import com.course.altanto.entity.Product;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, String> {
 	
+	
+	
+	
 	List<Product> findProductByCode(String code);
 	
 	Product findProductById(String id);
@@ -26,6 +29,9 @@ public interface IProductRepository extends JpaRepository<Product, String> {
 	
 	@Query(value = "SELECT * FROM product p ORDER BY p.rating DESC LIMIT 6",nativeQuery = true)
 	List<Product> findTopRating();
+	
+	@Query(value= "SELECT * FROM product as p WHERE p.code = :code LIMIT 1", nativeQuery = true)
+	Product findProductByCodeNative(@Param("code") String code);
 	
 	List<Product> findAllByIdIn(List<String> ids);
 	

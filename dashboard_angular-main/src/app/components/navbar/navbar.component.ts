@@ -49,11 +49,6 @@ export class NavbarComponent implements OnInit {
       this.totalItem = res.length;
     })
 
-
-
-
-
-
   }
 
   public onLogOut(): void {
@@ -69,23 +64,24 @@ export class NavbarComponent implements OnInit {
             top: 0, 
             left: 0, 
             behavior: 'smooth' 
-     });
- 
-     
- }
-
+     });     
+  }
 
   public onSubmit(): void {
     this.submitted = true;
-    console.log(this.validateForm.value);
 
     if(this.validateForm.value.keyword == null || this.validateForm.value.keyword == '') {       
-      this.search("");
+      this.search({keyword: "", typeClothing: ""});
       this.router.navigate(['/search']);
     } else {
-      this.search(this.validateForm.value.keyword);
+      this.search( {keyword: this.validateForm.value.keyword, typeClothing: ""} );
       this.router.navigate(['/search']);
     }   
+  }
+
+  public searchByCategory(key: string, gender: string) {
+    this.search({keyword: "", typeClothing: key, typeGarment: gender} );
+    this.router.navigate(['/search']);
   }
   
   search(keyword: any){

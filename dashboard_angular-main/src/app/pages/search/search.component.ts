@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit {
 
 
   // Variables para obtener el listado de productos
-  public pageSize: number = 12;
+  public pageSize: number = 6;
   public current: number = 1;
   public subscriptions: Subscription[] = [];
   public products : Content[] = [];
@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
   public totalElementByPage = 0;
   public isLoadingTable = false;
   public filterForm! : FormGroup;
-  public key : string = "";
+  public key : any = {};
 
   //   
   constructor(
@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key,typeClothing: "", clasification: "",category: "" }).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.key.typeClothing, clasification: "",category: "" }).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
@@ -123,7 +123,7 @@ export class SearchComponent implements OnInit {
     }
 
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;

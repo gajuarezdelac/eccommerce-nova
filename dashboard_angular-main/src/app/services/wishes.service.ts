@@ -38,6 +38,8 @@ export class WishesService {
 
     // Se inserta el nuevo independientemente si existe o no
     this.itemList.push(product);
+
+    console.log(this.itemList);
     return this.itemList;
   }
 

@@ -31,7 +31,7 @@ public interface IProductService {
 
 	Product deleteProductById(String id) throws ExceptionGeneric;
 
-	List<Product> getPorductByCodeProd(String codeProd) throws ExceptionGeneric;
+	Product getPorductByCodeProd(String codeProd) throws ExceptionGeneric;
 	
 	List<Product> getProductsByOrder(List<String> ids);
 	

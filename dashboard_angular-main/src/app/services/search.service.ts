@@ -6,16 +6,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
 
-  public key : any = "";
-  public keyword = new BehaviorSubject<any>("");  
-
+  public key : any = {};
+  public keyword = new BehaviorSubject<any>({});  
+  
   constructor() { }
 
   getKeyword(){
     return this.keyword.asObservable();
   }
   
-  search(k: string) {
+  search(k: any) {
      this.key = k;
      this.keyword.next(this.key);
   }

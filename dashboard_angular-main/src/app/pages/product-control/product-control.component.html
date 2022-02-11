@@ -169,11 +169,11 @@
   
             
             <nz-descriptions-item nzTitle="Descuento">  %{{viewElement && viewElement.discount}}   </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Categoria">    {{viewElement && viewElement.category}}   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Categoria">    {{viewElement && getClasificacionByKey(viewElement.category)}}   </nz-descriptions-item>
   
             <nz-descriptions-item nzTitle="Rating">   {{viewElement && viewElement.rating}}  </nz-descriptions-item>
   
-            <nz-descriptions-item nzTitle="Tipo de prenda">     {{viewElement && viewElement.typeGarment}}  </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Tipo de prenda">     {{viewElement && getTypeClothingByKey(viewElement.typeClothing)}}  </nz-descriptions-item>
   
             <nz-descriptions nzTitle="Otro datos" [nzSize]="'small'"  >
               <nz-descriptions-item nzTitle="Description" [nzSpan]="3">     {{viewElement && viewElement.shortDescription}}   </nz-descriptions-item>
@@ -182,7 +182,7 @@
           </nz-descriptions>
   
           <nz-descriptions nzTitle="Otro datos" [nzSize]="'small'"  >
-            <nz-descriptions-item nzTitle="Clasificación" [nzSpan]="3">     {{viewElement && viewElement.typeClothing}}   </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Clasificación" [nzSpan]="3">     {{viewElement && getCategoryByKey(viewElement.typeGarment)}}   </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Creado:" [nzSpan]="3">     {{viewElement && viewElement.createdAt | date: 'dd/MM/yyyy'}}   </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Creado:" [nzSpan]="3">     {{viewElement && viewElement.id }}   </nz-descriptions-item>
           </nz-descriptions>
@@ -192,8 +192,6 @@
   
       </nz-tabset>
       <ng-template #extraTemplate>
-      
-        
      <nz-space> 
     
       <button *nzSpaceItem nz-button nzType="primary" (click)="viewImages()">
@@ -201,11 +199,6 @@
         Visualizar imagenes
       </button>
     </nz-space>
-      
-      
-      
-  
-  
   
       </ng-template>
   
@@ -303,6 +296,7 @@ class="login-form"
           <input
             type="number"
             nz-input
+            min="1"
             formControlName="price"
             [(ngModel)]="viewElement && viewElement!.price"
             placeholder="please enter user name"
@@ -333,12 +327,12 @@ class="login-form"
           <nz-form-label nzRequired> Categoria </nz-form-label>
           <nz-select [nzDisabled]="true" nz-input formControlName="category" 
           [(ngModel)]="viewElement && viewElement!.category">
-            <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
-            <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
-            <nz-option nzValue="Etiqueta" nzLabel="Etiqueta"></nz-option>
-            <nz-option nzValue="Informal" nzLabel="Informal"></nz-option>
-            <nz-option nzValue="Trabajo" nzLabel="Trabajo"></nz-option>
-            <nz-option nzValue="Uniformes" nzLabel="Uniformes"></nz-option>
+            <nz-option nzValue="1" nzLabel="Deportiva"></nz-option>
+            <nz-option nzValue="2" nzLabel="Interior"></nz-option>
+            <nz-option nzValue="3" nzLabel="Etiqueta"></nz-option>
+            <nz-option nzValue="4" nzLabel="Casual"></nz-option>
+            <nz-option nzValue="5" nzLabel="Trabajo"></nz-option>
+            <nz-option nzValue="6" nzLabel="Uniformes"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -348,10 +342,10 @@ class="login-form"
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Clasificación </nz-form-label>
           <nz-select [nzDisabled]="true" nz-input formControlName="typeGarment" [(ngModel)]="viewElement && viewElement!.typeGarment">
-            <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
-            <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
-            <nz-option nzValue="children" nzLabel="Niños"></nz-option>
-            <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+            <nz-option nzValue="1" nzLabel="Hombres"></nz-option>
+            <nz-option nzValue="2" nzLabel="Niños"></nz-option>
+            <nz-option nzValue="3" nzLabel="Mujeres"></nz-option>
+            <nz-option nzValue="4" nzLabel="Unisex"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -445,6 +439,7 @@ class="login-form"
             <input
               type="number"
               nz-input
+              min="1"
               formControlName="cantd"
               [(ngModel)]="viewElement && viewElement!.cantd"
               placeholder="please enter user name"
@@ -509,7 +504,9 @@ class="login-form"
 >
 
 <nz-spin [nzSpinning]="isLoadingCreateDrawer">
-<nz-tabset>
+<nz-tabset
+[nzTabBarExtraContent]="extraAdd"
+>
   <nz-tab [nzTitle]="titleTemplate1">
     <ng-template #titleTemplate1>
       <i nz-icon [nzType]="'audit'"></i>
@@ -551,6 +548,7 @@ class="login-form"
           <input
             type="number"
             nz-input
+            min="1"
             formControlName="price"
             placeholder="please enter user name"
           />
@@ -579,12 +577,12 @@ class="login-form"
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Categoria </nz-form-label>
           <nz-select nz-input formControlName="category">
-            <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
-            <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
-            <nz-option nzValue="Etiqueta" nzLabel="Etiqueta"></nz-option>
-            <nz-option nzValue="Informal" nzLabel="Informal"></nz-option>
-            <nz-option nzValue="Trabajo" nzLabel="Trabajo"></nz-option>
-            <nz-option nzValue="Uniformes" nzLabel="Uniformes"></nz-option>
+            <nz-option nzValue="1" nzLabel="Deportiva"></nz-option>
+            <nz-option nzValue="2" nzLabel="Interior"></nz-option>
+            <nz-option nzValue="3" nzLabel="Etiqueta"></nz-option>
+            <nz-option nzValue="4" nzLabel="Casual"></nz-option>
+            <nz-option nzValue="5" nzLabel="Trabajo"></nz-option>
+            <nz-option nzValue="6" nzLabel="Uniformes"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -594,10 +592,10 @@ class="login-form"
         <nz-form-control nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Clasificación </nz-form-label>
           <nz-select nz-input formControlName="typeGarment">
-            <nz-option nzValue="man" nzLabel="Hombres"></nz-option>
-            <nz-option nzValue="woman" nzLabel="Mujeres"></nz-option>
-            <nz-option nzValue="children" nzLabel="Niños"></nz-option>
-            <nz-option nzValue="all" nzLabel="Todos"></nz-option>
+            <nz-option nzValue="1" nzLabel="Hombres"></nz-option>
+            <nz-option nzValue="2" nzLabel="Mujeres"></nz-option>
+            <nz-option nzValue="3" nzLabel="Niños"></nz-option>
+            <nz-option nzValue="4" nzLabel="Unisex"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -695,6 +693,7 @@ class="login-form"
             <input
               type="number"
               nz-input
+              min="1"
               formControlName="cantd"
               placeholder="please enter user name"
             />
@@ -742,17 +741,15 @@ class="login-form"
         {{ item.name }}
       </nz-list-item>
     </nz-list>
-
-
-
-
-
   </nz-tab>
 
-
-
-
 </nz-tabset>
+
+<ng-template #extraAdd>
+  <button type="button" nz-button (click)="showModal()" > Copiar </button>
+</ng-template>
+
+
 </nz-spin>
 </form>
 
@@ -771,6 +768,50 @@ class="login-form"
 
 </nz-drawer>
 
+
+<!-- Modal add an new product by code -->
+
+<nz-modal [(nzVisible)]="isVisibleProductByCode" nzTitle="Buscar producto por código" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false">
+  <ng-container *nzModalContent>
+    <form
+    #p="ngForm"
+    id="ngFormAP"
+    nz-form
+    [formGroup]="codeForm"
+    class="login-form"
+    (ngSubmit)="submitFindProductByCode()"
+    [nzLayout]="'vertical'"
+    >
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col class="gutter-row" [nzSpan]="24">
+        <div class="inner-box">
+        <nz-form-item class="input-content" > 
+          <label nzRequired>Cod. Producto </label>
+          <nz-form-control nzErrorTip="Campo requerido">
+            <nz-input-group nzPrefixIcon="container">
+              <input type="text" nz-input formControlName="code" placeholder="Escribe el código del producto..." />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+     </div>
+     </div>
+    </form>
+  </ng-container>
+
+
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Cerrar</button>
+    <button
+    [disabled]="isLoadingProductByCode"
+    nz-button
+    form="ngFormAP"
+    nzType="primary">Buscar</button>
+  </div>
+
+
+</nz-modal>
 
 
 

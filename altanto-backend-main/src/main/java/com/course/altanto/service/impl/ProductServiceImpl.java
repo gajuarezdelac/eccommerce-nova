@@ -137,8 +137,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public List<Product> getPorductByCodeProd(String codeProd) throws ExceptionGeneric {
-		List<Product> response = getProductsByCode(codeProd);
+	public Product getPorductByCodeProd(String codeProd) throws ExceptionGeneric {
+		Product response = getProductsByCode(codeProd);
 		return response;
 	}
 
@@ -151,13 +151,15 @@ public class ProductServiceImpl implements IProductService {
 		return element;
 	}
 
-	private List<Product> getProductsByCode(String codeProd) throws ExceptionGeneric {
+	private Product getProductsByCode(String codeProd) throws ExceptionGeneric {
 
-		List<Product> list = productRepository.findProductByCode(codeProd);
-		if (list.size() == 0) {
+		Product element = productRepository.findProductByCodeNative(codeProd);
+		
+		if (element == null) {
 			throw new ExceptionGeneric("No se encontro un producto con el código: " + codeProd);
 		}
-		return list;
+		
+		return element;
 	}
 	
 	private File saveImage(String codeProd, File entity,MultipartFile profileImage) throws IOException, NotAnImageFileException {

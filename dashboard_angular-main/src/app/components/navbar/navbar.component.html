@@ -78,9 +78,9 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hombres </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/search"> Calzado </a>
-            <a class="dropdown-item" routerLink="/search"> Ropa </a>
-            <a class="dropdown-item" routerLink="/search">  Accesorios </a>
+            <a class="dropdown-item" (click)="searchByCategory('1', '1')"> Calzado </a>
+            <a class="dropdown-item" (click)="searchByCategory('2', '1')"> Ropa </a>
+            <a class="dropdown-item" (click)="searchByCategory('3', '1')">  Accesorios </a>
           </div>
         </li>
              

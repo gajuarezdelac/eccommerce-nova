@@ -84,8 +84,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/code/{id}") 
-	public ResponseEntity<List<Product>> getByCodeProd(@PathVariable("id") String codeProd) throws ExceptionGeneric {
-		List<Product> response = service.getPorductByCodeProd(codeProd);
+	public ResponseEntity<Product> getByCodeProd(@PathVariable("id") String codeProd) throws ExceptionGeneric {
+		Product response = service.getPorductByCodeProd(codeProd);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
