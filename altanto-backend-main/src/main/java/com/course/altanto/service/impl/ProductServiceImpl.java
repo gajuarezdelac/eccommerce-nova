@@ -197,9 +197,9 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Page<Product> searchEC(String keyWord, int pageNo, int pageSize) {
+	public Page<Product> searchEC(String typeClothing, String clasification, String category, String keyWord, int pageNo, int pageSize) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Product> response = productRepository.search(keyWord,pageable);
+		  Page<Product> response = productRepository.search(typeClothing, clasification, category,keyWord,pageable);
 	      return response;
 	}
 

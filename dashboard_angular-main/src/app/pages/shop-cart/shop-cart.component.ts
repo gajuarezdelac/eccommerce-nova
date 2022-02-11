@@ -34,6 +34,8 @@ export class ShopCartComponent implements OnInit {
       this.products = res;
       this.grandTotal = this.cartService.getTotalPrice();
     });
+
+    
   }
 
   removeItem(item: any){

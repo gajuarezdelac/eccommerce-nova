@@ -15,7 +15,7 @@ import com.course.altanto.exception.NotAnImageFileException;
 public interface IProductService {
 
 	// View products 
-	Page<Product> searchEC(String keyWord, int pageNo, int pageSize); 
+	Page<Product> searchEC(String typeClothing, String clasification, String category,String keyWord, int pageNo, int pageSize); 
 	
 	// View products ADMIN
 	Page<Product> search(int pageNo, int pageSize,String codeProd, String  description, String  name, String  category);

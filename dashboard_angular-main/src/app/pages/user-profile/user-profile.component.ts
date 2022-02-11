@@ -145,8 +145,6 @@ export class UserProfileComponent implements OnInit {
 
   onResetPassword() {
 
-    alert("Reset Password");
-
     for (const i in this.resetForm.controls) {
       if (this.resetForm.controls.hasOwnProperty(i)) {
         this.resetForm.controls[i].markAsDirty();

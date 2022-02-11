@@ -187,13 +187,59 @@
 
         </nz-tab>
   
-  
         <nz-tab [nzTitle]="titleTemplate2">
           <ng-template #titleTemplate2>
             <i nz-icon [nzType]="'barcode'"></i>
             Articulos
           </ng-template>
-          Nombre del tab 2
+
+          <nz-table #basicTable [nzPageSize]="50" [nzScroll]="{ x: '300px', y: '300px' }">
+            <thead>
+              <tr>
+                <th nzWidth="100px" >ID</th>
+                <th nzWidth="100px">Nombre</th>
+                <th nzWidth="100px">Precio</th>
+                <th nzWidth="100px">Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr>
+              <tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr>
+              <tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr><tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr><tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr><tr >
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+                <td>AAAA</td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+
         </nz-tab>
       </nz-tabset>
   

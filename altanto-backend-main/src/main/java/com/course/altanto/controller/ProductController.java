@@ -57,14 +57,16 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	
 	@GetMapping("/search")
 	public ResponseEntity<Page<Product>> searchEC(
+			@RequestParam(value = "typeClothing", defaultValue = "", required = false) String typeClothing,    
+			@RequestParam(value = "clasification", defaultValue = "", required = false) String clasification,    
+			@RequestParam(value = "category", defaultValue = "", required = false) String category,    
 			@RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,    
 			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-			    @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
 		
-		Page<Product> response = service.searchEC(keyWord,pageNo, pageSize);
+		Page<Product> response = service.searchEC(typeClothing, clasification, category, keyWord, pageNo, pageSize);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

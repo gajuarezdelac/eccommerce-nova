@@ -13,6 +13,8 @@ import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import * as moment from 'moment';
+import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'app-orders-control',
@@ -34,6 +36,7 @@ export class OrdersControlComponent implements OnInit {
 
   // * Variables para visualizar la orden
 
+  public lstProducts : Product[] = [];
   public visibleDrawer = false;
   public isLoadingDrawer = false;
   public viewOrder :  Content | undefined = undefined;
@@ -56,6 +59,7 @@ export class OrdersControlComponent implements OnInit {
     private modal :  NzModalService,
     private message: NzMessageService,
     private router: Router,
+    private productService : ProductService,
     private orderService: OrderService) { }
 
   ngOnInit(): void {
@@ -177,6 +181,7 @@ export class OrdersControlComponent implements OnInit {
       this.orderService.getOrderById(id).subscribe(
         (response: Content) => {
           this.viewOrder = response;
+          this.getProductsByIds(response.listProducts);
           this.isLoadingDrawer = false;
         },
         (errorResponse: HttpErrorResponse) => {
@@ -209,6 +214,24 @@ export class OrdersControlComponent implements OnInit {
     this.visibleEditDrawer = false;
     this.viewOrder = undefined;
   }
+
+  // ! Buscar ordenes por ID´s
+
+  public getProductsByIds(lst : string[]) {
+    this.subscriptions.push(
+      this.productService.getAllProductsById(lst).subscribe(
+        (response: Product[]) => {
+          // this.isLoadingView = false;
+          this.lstProducts = response;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          // this.isLoadingView = false;
+          this.message.create("error",  errorResponse.error.message);
+        }
+      )
+    );
+  }
+
 
 
 

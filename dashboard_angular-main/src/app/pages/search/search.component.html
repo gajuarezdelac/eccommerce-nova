@@ -5,205 +5,184 @@
 	<aside class="col-md-3">
 		
 <div class="card">
-	<article class="filter-group">
+
+	<form
+	[formGroup]="filterForm" (ngSubmit)="filterSubmit()"
+	>
+		<article class="filter-group">
 		
-		<header class="card-header">
-			<a  data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title"> Buscar </h6>
-			</a>
-		</header>
+			<header class="card-header">
+				<a  data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title"> Buscar </h6>
+				</a>
+			</header>
+	
+	
+			<div class="filter-content collapse show" id="collapse_1" style="">
+				<div class="card-body">
+					<div class="pb-3" >
+					<div class="input-group">
+						<button type="submit" class="btn btn-block btn-primary">Buscar</button>
+					</div>
+					</div>
+				</div> <!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group  .// -->
 
+		<article class="filter-group">
+			
+			<header class="card-header">
+				<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title">Rango de precios </h6>
+				</a>
+			</header>
 
-		<div class="filter-content collapse show" id="collapse_1" style="">
-			<div class="card-body">
-				<form class="pb-3">
-				<div class="input-group">
-				  <input type="text" class="form-control" placeholder="Search">
-				  <div class="input-group-append">
-				    <button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
-				  </div>
-				</div>
-				</form>
+			<div class="filter-content collapse show" id="collapse_3">
+				<div class="card-body">
+					<div class="form-row">
+					<div class="form-group col-md-6">
+					  <label>Minimo</label>
+					  <input class="form-control" formControlName="minPrice" placeholder="$0" type="number">
+					</div>
+					<div class="form-group text-right col-md-6">
+					  <label>Maximo</label>
+					  <input class="form-control" formControlName="maxPrice" placeholder="$100,000" type="number">
+					</div>
+					</div> <!-- form-row.// -->
+				</div><!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group .// -->
+	
+		<article class="filter-group">
+			<header class="card-header">
+				<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title" >Categoria </h6>
+				</a>
+			</header>
+			
+			<div class="filter-content collapse show" id="collapse_2">
+				<div class="card-body">
+					<label class="custom-control custom-radio">
+						<input value="" type="radio" name="category" formControlName="category" checked="" class="custom-control-input">
+						<div class="custom-control-label"> Todos </div>
+					  </label>
 
-			</div> <!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group  .// -->
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Categoria </h6>
-			</a>
-		</header>
+					<label class="custom-control custom-radio">
+					  <input value="Deportiva" type="radio" name="category" formControlName="category" class="custom-control-input">
+					  <div class="custom-control-label"> Deportiva </div>
+					</label>
+	
+					<label class="custom-control custom-radio">
+					  <input value="Interior" type="radio" name="category" formControlName="category" class="custom-control-input">
+					  <div class="custom-control-label"> Interior </div>
+					</label>
+	
+					<label class="custom-control custom-radio">
+					  <input  value="Etiqueta" type="radio" name="category" formControlName="category" class="custom-control-input">
+					  <div class="custom-control-label"> Etiqueta </div>
+					</label>
+
+					<label class="custom-control custom-radio">
+						<input value="Formal" type="radio" name="category" formControlName="category" class="custom-control-input">
+						<div class="custom-control-label"> Formal </div>
+					  </label>
+
+					<label class="custom-control custom-radio">
+						<input value="Informal" type="radio" name="category" formControlName="category" class="custom-control-input">
+						<div class="custom-control-label"> Informal </div>
+					</label>
+				</div><!-- card-body.// -->
+			</div>
+
+		</article> <!-- filter-group .// -->
+		<article class="filter-group">
+			<header class="card-header">
+				<a href="#" data-toggle="collapse" data-target="#collapse_C" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title">Clasificación </h6>
+				</a>
+			</header>
+			
+			<div class="filter-content collapse show" id="collapse_C" style="">
 		
-		<div class="filter-content collapse show" id="collapse_2" style="">
-			<div class="card-body">
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Deportiva  
-				  	<b class="badge badge-pill badge-light float-right">120</b>  </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Interior
-				  	<b class="badge badge-pill badge-light float-right">15</b>  </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Etiqueta 
-				  	<b class="badge badge-pill badge-light float-right">35</b> </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label">Formal 
-				  	<b class="badge badge-pill badge-light float-right">89</b> </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" class="custom-control-input">
-				  <div class="custom-control-label">Informal 
-				  	<b class="badge badge-pill badge-light float-right">30</b>  </div>
-				</label>
-	        </div>
-		</div>
+				<div class="card-body">
+					<label class="custom-control custom-radio">
+						<input value="" type="radio" name="clasification" formControlName="clasification" checked="" class="custom-control-input">
+						<div class="custom-control-label"> Todos </div>
+					  </label>
+
+					<label class="custom-control custom-radio">
+					  <input value="man" type="radio" name="clasification" formControlName="clasification" checked="" class="custom-control-input">
+					  <div class="custom-control-label"> Hombres </div>
+					</label>
+
+					<label class="custom-control custom-radio">
+					  <input value="children" type="radio" name="clasification" formControlName="clasification" class="custom-control-input">
+					  <div class="custom-control-label"> Niños </div>
+					</label>
+	
+					<label class="custom-control custom-radio">
+					  <input value="woman" type="radio" name="clasification" formControlName="clasification" class="custom-control-input">
+					  <div class="custom-control-label"> Mujeres </div>
+					</label>
+	
+				</div><!-- card-body.// -->
 
 
 
+			</div>
+	
+	
+		</article> <!-- filter-group .// -->
+		<article class="filter-group">
+			<header class="card-header">
+				<a data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title"> Tipo de prenda </h6>
+				</a>
+			</header>
+			<div class="filter-content collapse show" id="collapse_5" style="">
+				<div class="card-body">
+					<label class="custom-control custom-radio">
+						<input value="" type="radio" name="typeClothing" formControlName="typeClothing" checked="" class="custom-control-input">
+						<div class="custom-control-label"> Todos </div>
+					  </label>
 
-	</article> <!-- filter-group .// -->
+					<label class="custom-control custom-radio">
+					  <input value="1" type="radio" name="typeClothing" formControlName="typeClothing" checked="" class="custom-control-input">
+					  <div class="custom-control-label"> Calzado </div>
+					</label>
+	
+					<label class="custom-control custom-radio">
+					  <input value="2" type="radio" name="typeClothing" formControlName="typeClothing" class="custom-control-input">
+					  <div class="custom-control-label"> Ropa </div>
+					</label>
+	
+					<label class="custom-control custom-radio">
+					  <input value="3" type="radio" name="typeClothing" formControlName="typeClothing" class="custom-control-input">
+					  <div class="custom-control-label"> Accesorios </div>
+					</label>
+	
+				</div><!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group .// -->
+	</form>
 
 
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_C" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Clasificación </h6>
-			</a>
-		</header>
-		
-		<div class="filter-content collapse show" id="collapse_C" style="">
-			<div class="card-body">
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label"> Hombres  
-				  	<b class="badge badge-pill badge-light float-right">120</b>  </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label"> Mujeres
-				  	<b class="badge badge-pill badge-light float-right">15</b>  </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label"> Niños 
-				  	<b class="badge badge-pill badge-light float-right">35</b> </div>
-				</label>
-				<label class="custom-control custom-checkbox">
-				  <input type="checkbox" checked="" class="custom-control-input">
-				  <div class="custom-control-label"> Todos 
-				  	<b class="badge badge-pill badge-light float-right">89</b> </div>
-				</label>
-	        </div>
-		</div>
-
-
-	</article> <!-- filter-group .// -->
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Rango de precios </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_3" style="">
-			<div class="card-body">
-				<input type="range" class="custom-range" min="0" max="100" name="">
-				<div class="form-row">
-				<div class="form-group col-md-6">
-				  <label>Minimo</label>
-				  <input class="form-control" placeholder="$0" type="number">
-				</div>
-				<div class="form-group text-right col-md-6">
-				  <label>Maximo</label>
-				  <input class="form-control" placeholder="$1,0000" type="number">
-				</div>
-				</div> <!-- form-row.// -->
-				<button class="btn btn-block btn-primary">Apply</button>
-			</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
-	<!-- <article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title"> Tallas </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_4" style="">
-			<div class="card-body">
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> XS </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> SM </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> LG </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> XXL </span>
-			  </label>
-		</div>
-		</div>
-	</article>  -->
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title"> Tipo de prenda </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse in" id="collapse_5" style="">
-			<div class="card-body">
-				<label class="custom-control custom-radio">
-				  <input type="radio" name="myfilter_radio" checked="" class="custom-control-input">
-				  <div class="custom-control-label"> Calzado </div>
-				</label>
-
-				<label class="custom-control custom-radio">
-				  <input type="radio" name="myfilter_radio" class="custom-control-input">
-				  <div class="custom-control-label"> Ropa </div>
-				</label>
-
-				<label class="custom-control custom-radio">
-				  <input type="radio" name="myfilter_radio" class="custom-control-input">
-				  <div class="custom-control-label"> Accesorios </div>
-				</label>
-
-			</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
 </div> <!-- card.// -->
 	</aside>
-
-
 	<main class="col-md-9">
 
 <header class="border-bottom mb-4 pb-3">
 		<div class="form-inline">
 			<span class="mr-md-auto"> {{total}} coincidencias </span>
-			<select class="mr-2 form-control">
-				<option>Latest items</option>
-				<option>Trending</option>
-				<option>Most Popular</option>
-				<option>Cheapest</option>
+			<select class="mr-2 form-control" placeholder="Ordenar por..">
+				<option>Mas recientes</option>
+				<option>Mas populares</option>
+				<option>Por precio</option>
 			</select>
 			<!-- <div class="btn-group">
 				<a href="#" class="btn btn-outline-secondary" data-toggle="tooltip" title="" data-original-title="List view"> 
@@ -221,27 +200,23 @@
 				<div>
 					<img class="pic-1" src="{{item.images[0].routeFile}}">
 					<img class="pic-2" src="{{item.images[1].routeFile}}">
-	  
 				</div>
 				<ul class="social">
 					<li><a routerLink="/product/{{item.id}}" data-tip="Vista rapida"><i class="fa fa-eye"></i></a></li>
-					<li><a data-tip="Agregar a favoritos" (click)="addFavoritos(item.id)" > <i class="fas fa-heart"></i> </a></li>
+					<li><a data-tip="Agregar a favoritos" (click)="addFavoritos(item)" > <i class="fas fa-heart"></i> </a></li>
 				</ul>
-				<span class="product-discount-label">-12%</span>
+				<span *ngIf="item.discount > 0" class="product-discount-label">{{item.discount}}%</span>
 			</div>
 			<div class="product-content">
 				<h3 class="title"><a href="#">{{item.name}}</a></h3>
 				<div class="price">
-					$ {{item.price}}
-					<span>${{item.price + 20}}</span>
+					${{calculatePrice(item.price,item.discount)}}
+					<span *ngIf="item.discount > 0">${{item.price}}</span>
 				</div>
 				<a class="add-to-cart" routerLink="/product/{{item.id}}" >Mas detalle</a>
 			</div>
 		</div>
 	</div>
-
-
-
 	
 </div> <!-- row end.// -->
 

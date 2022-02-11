@@ -65,8 +65,8 @@
                 <span *ngIf="lstReviews.length != 0">{{lstReviews.length}} reviews </span>
               </div>
               <div class="product-price-discount">
-                <span>$ {{ element.price }}</span
-                ><span class="line-through">$ {{ element.price + 200 }} </span>
+                <span>$ {{ calculatePrice(element.price,element.discount) }}</span>
+                <span class="line-through" *ngIf="element.discount > 0" >$ {{ element.price}} </span>
               </div>
             </div>
             <p>{{ element.shortDescription }}</p>
@@ -138,7 +138,6 @@
             </div>
         
           </div>
-
 
           <div class="product-count">
             <label for="size">Cantidad (Piezas disponibles: {{element.cantd}})</label>

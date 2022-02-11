@@ -22,150 +22,32 @@
             <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade  active show" id="favourites" role="tabpanel" aria-labelledby="favourites-tab">
-                        <h4 class="font-weight-bold mt-0 mb-4">Lista de deseos</h4>
+                        <h4 class="font-weight-bold mt-0 mb-4"> Mis productos  </h4>
                         <div class="row">
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/4.png" class="img-fluid item-img">
-                                        </a>
+                          
+                            <div class="col-sm-6 col-md-4"  *ngFor="let item of products">
+                                <div class="shop__thumb">
+                                  <a href="#">
+                                    <div class="shop-thumb__img">
+                                      <img src="https://via.placeholder.com/400x400/87CEFA/000000" class="img-responsive" alt="...">
                                     </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 1
-                                             </a>
-                                          </h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 15–30 min</span> <span class="float-right text-black-50"> $350 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-danger">OFFER</span> <small> Use Coupon OSAHAN50</small>
-                                        </div>
+                                    <h5 class="shop-thumb__title">
+                                      Product Title
+                                    </h5>
+                                    <div class="shop-thumb__price">
+                                        <span class="d-block mb-3 font-size-xs text-muted"> Compralo desde: <span class="font-weight-semibold">$59.99</span></span>
                                     </div>
+                                    
+                                    <div class="shop-thumb__price">
+                                        <a class="btn btn-pill btn-outline-primary btn-sm" routerLink="/product/2"> Comprar </a>
+                                    </div>
+
+
+                                  </a>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/5.png" class="img-fluid item-img">
-                                        </a>
-                                    </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 2</a></h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 30–35 min</span> <span class="float-right text-black-50"> $250 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-success">OFFER</span> <small>65% off</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/6.png" class="img-fluid item-img">
-                                        </a>
-                                    </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 3
-                                             </a>
-                                          </h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 15–25 min</span> <span class="float-right text-black-50"> $500 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-danger">OFFER</span> <small>65% OSAHAN50</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/7.png" class="img-fluid item-img">
-                                        </a>
-                                    </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 4
-                                             </a>
-                                          </h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 15–25 min</span> <span class="float-right text-black-50"> $250 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-danger">OFFER</span> <small>65% Coupon OSAHAN50</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/8.png" class="img-fluid item-img">
-                                        </a>
-                                    </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 5
-                                             </a>
-                                          </h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 15–25 min</span> <span class="float-right text-black-50"> $250 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-danger">OFFER</span> <small> Coupon OSAHAN50</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-                                    <div class="list-card-image">
-                                        <div class="star position-absolute"><span class="badge badge-success"><i class="icofont-star"></i> 3.1 (300+)</span></div>
-                                        <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="icofont-heart"></i></a></div>
-                                        <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
-                                        <a href="#">
-                                            <img src="img/list/9.png" class="img-fluid item-img">
-                                        </a>
-                                    </div>
-                                    <div class="p-3 position-relative">
-                                        <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="#" class="text-black">Product 6
-                                             </a>
-                                          </h6>
-                                            <p class="text-gray mb-3">Category 1, Category 2, Another category</p>
-                                            <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="icofont-wall-clock"></i> 15–25 min</span> <span class="float-right text-black-50"> $250 FOR TWO</span></p>
-                                        </div>
-                                        <div class="list-card-badge">
-                                            <span class="badge badge-danger">OFFER</span> <small>65% </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>

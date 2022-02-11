@@ -136,7 +136,6 @@ export class ProductControlComponent implements OnInit {
       return ; 
     }
 
-
     if(this.current >= 1) {
       this.current = 1;
     }

@@ -161,7 +161,6 @@ export class DetailsProductComponent implements OnInit {
 
   public validateForm() : void {
     
-    
     for (const i in this.createProduct.controls) {
       if (this.createProduct.controls.hasOwnProperty(i)) {
         this.createProduct.controls[i].markAsDirty();
@@ -172,9 +171,9 @@ export class DetailsProductComponent implements OnInit {
     if(!this.createProduct.valid) {
       return; 
     }
+    
     let form = this.createProduct.value;
-    // Estos son los valores que haremos llegar al carrito
-    this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, ...this.element });
+    this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, priceR: this.calculatePrice(this.element.price, this.element.discount) ,...this.element });
 
   }
 
@@ -222,6 +221,12 @@ export class DetailsProductComponent implements OnInit {
     });
     let r = totalCalf / this.lstReviews.length;
     return r;
+  }
+
+  
+  calculatePrice(price :  any, discount : any) {
+    let r = price * (discount / 100);
+    return price - r;
   }
 
   

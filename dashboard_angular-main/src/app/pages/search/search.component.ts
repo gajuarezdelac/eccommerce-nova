@@ -2,12 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { min } from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subscription } from 'rxjs';
 import { ProductPaginate, Content } from 'src/app/models/ProductPaginate';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SearchService } from 'src/app/services/search.service';
+import { WishesService } from 'src/app/services/wishes.service';
 
 @Component({
   selector: 'app-search',
@@ -38,17 +41,11 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private searchService: SearchService,
+    private wishService : WishesService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
-
-    // this.route.queryParams.subscribe((params: any) => {
-    //   if(params.keyword){
-    //    this.key = params.keyword; 
-    //   }else {
-    //     this.key = "";
-    //   }
-    // });
 
     this.searchService.getKeyword()
     .subscribe(res=>{
@@ -62,22 +59,25 @@ export class SearchComponent implements OnInit {
       clasification: [''],
       typeClothing: [''],
       minPrice: [0],
-      maxPrice: [100000],
+      maxPrice: [10000],
     });
-
   }
+
+  
+  get f() { return this.filterForm.controls; }
 
   // ! Listado de registros para llenar la tabla 
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key}).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key,typeClothing: "", clasification: "",category: "" }).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
           this.total = response.totalElements;
           this.totalElementByPage = response.numberOfElements;
           this.onActivate();
+          this.resetFilter();
           this.isLoadingTable = false;
         },
         (errorResponse: HttpErrorResponse) => {
@@ -100,26 +100,103 @@ export class SearchComponent implements OnInit {
    }
 
 
-  //  ! Agregar a favoritos
-  addFavoritos($event: string) : void {
-    this.message.create("success",  "Agregado correctamente!");    
+   // ! Aplicar filtros
+
+   public filterSubmit() {
+
+    this.isLoadingTable = true;
+    
+    if(this.filterForm.value.minPrice < 0) {
+      this.createNotification('warning', 'El valor minimo no puede ser 0');
+      this.isLoadingTable = false;
+      return;
+    }
+
+    if(this.filterForm.value.maxPrice < this.filterForm.value.minPrice) {
+      this.createNotification('warning', 'El valor max no pueder ser menor al minimo');
+      this.isLoadingTable = false;
+      return;
+    }
+
+    if(this.current >= 1) {
+      this.current = 1;
+    }
+
+    this.subscriptions.push(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
+        (response: ProductPaginate) => {
+          this.temp = response.content;
+          this.products = response.content;
+          this.total = response.totalElements;
+          this.totalElementByPage = response.numberOfElements;
+          this.onActivate();
+          this.isLoadingTable = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingTable = false;
+          this.message.create("error",  "Ha ocurrido un error!");
+        }
+      )
+    );
+
+   }
+
+  
+
+  private resetFilter() {
+    this.filterForm = this.fb.group({
+      category: [''],
+      clasification: [''],
+      typeClothing: [''],
+      minPrice: [0],
+      maxPrice: [10000],
+    });
   }
 
+  // ! Calcular el precio total
+  calculatePrice(price :  any, discount : any) {
+    let r = price * (discount / 100);
+    return price - r;
+  }
+  
+  
+  //  ! Agregar a favoritos
+  addFavoritos(item: any) : void {
+    this.wishService.addtoWishes(item);
+    this.createNotificationF('success', "Se ha añadido a tu lista");
+  }
 
-   
   onActivate() {
-    // window.scroll(0,0);
- 
     window.scroll({ 
             top: 0, 
             left: 0, 
             behavior: 'smooth' 
-     });
- 
-     
- }
+     }); 
+  }
 
-   // Add to favorite
+  
+  createNotification(type: string, message: string): void {
+    this.notification.create(
+      type,
+      'Upps!',
+      `${message} 😞`,
+      { nzPlacement: 'bottomLeft' }
+    );
+  }
+
+  
+  createNotificationF(type: string, message: string): void {
+    this.notification.create(
+      type,
+      'Upps!',
+      `${message} 😍`,
+      { nzPlacement: 'bottomLeft' }
+    );
+  }
+
+
+
+
 
 
 

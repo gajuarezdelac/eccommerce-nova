@@ -116,3 +116,29 @@
 a:hover{
     text-decoration:none;
 }
+/*  */
+
+  .shop__thumb > a:hover {
+    text-decoration: none;
+  }
+
+  .shop-thumb__img img{
+      width: 100%;
+      height: auto !important;
+  }
+  .shop-thumb__title {
+    padding: 10px 0px 0px 0px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .shop-thumb__price {
+    color: #777777;
+    padding: 2px;
+    text-align: center;
+  }
+
+  .text-muted {
+      text-align: center;
+  }
+

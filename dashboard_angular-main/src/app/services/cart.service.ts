@@ -18,15 +18,29 @@ export class CartService {
   setProduct(product : any){
     this.cartItemList = [];
     this.cartItemList.push(...product);
-    this.productList.next(product);
+    this.productList.next(this.cartItemList);
   }
   
   addtoCart(product : any){
-    this.cartItemList.push(product);
+    this.cartItemList = this.updateWishes(product);
     this.productList.next(this.cartItemList);
-    localStorage.setItem('MyCart', JSON.stringify(this.productList.value));
+    localStorage.setItem('MyCart_Cotta', JSON.stringify(this.productList.value));
     this.getTotalPrice();
   }
+
+  updateWishes(product : any){
+    // En caso de que exista un producto con las mismas caracteristicas este se elimina
+    this.cartItemList.map((a:any, index:any)=>{
+      if(product.id == a.id && product.size == a.size && product.code == a.code){
+        this.cartItemList.splice(index,1);
+      }
+    });
+
+    // Se inserta el nuevo independientemente si existe o no
+    this.cartItemList.push(product);
+    return this.cartItemList;
+  }
+
 
   getTotalPrice() : number{
     let grandTotal = 0;
@@ -40,13 +54,13 @@ export class CartService {
   removeCartItem(product: any){
     
     this.cartItemList.map((a:any, index:any)=>{
-      if(product.id === a.id){
+      if(product.id == a.id && product.size == a.size && product.code == a.code){
         this.cartItemList.splice(index,1);
       }
     });
 
     this.productList.next(this.cartItemList);    
-    localStorage.setItem('MyCart', JSON.stringify(this.productList.value));
+    localStorage.setItem('MyCart_Cotta', JSON.stringify(this.productList.value));
 
   }
 
