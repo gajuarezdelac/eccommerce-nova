@@ -36,7 +36,7 @@ export class DetailsProductComponent implements OnInit {
   public createForm! : FormGroup;
   @ViewChild('f') myForm: NgForm | undefined;
   public isVisibleAdd : boolean = false;
-  public cantidad = 1;
+  public cantidad = 0;
 
   // Editar review
   public createProduct! : FormGroup;
@@ -45,14 +45,13 @@ export class DetailsProductComponent implements OnInit {
   public isLoadingSizes = false;
   public lstSizes : any = [];
   public sizeSelect : any;
+
   // Obtener la cantidad disponible basado en código de producto, size and id
+  public cantdMax : any = null;
+  public elementBySize : Product  = new Product();
 
+  public placeholder : string = "Selecciona una talla";
 
-
-
-
-
-  
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder,
@@ -213,63 +212,41 @@ export class DetailsProductComponent implements OnInit {
     );
   }
 
-
   getSizesByCode(code : string) {
     this.isLoadingSizes = true;
     this.subscriptions.push(
       this.productService.getProductsByCode(code).subscribe(
         (response: Product[]) => {          
           this.lstSizes = response;
-          console.log(response);
           this.isLoadingSizes = false;
           this.getAllReviews();
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingSizes = false;
           this.message.create("error",  errorResponse.error.message);
-          this.router.navigateByUrl('/home');
-        }
-      )
-    );
-  }
-
-  getCantByCode(code : string) {
-    this.isLoadingSizes = true;
-    this.subscriptions.push(
-      this.productService.getProductsByCode(code).subscribe(
-        (response: Product[]) => {          
-          this.lstSizes = response;
-          console.log(response);
-          this.isLoadingSizes = false;
-          this.getAllReviews();
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.isLoadingSizes = false;
-          this.message.create("error",  errorResponse.error.message);
-          this.router.navigateByUrl('/home');
         }
       )
     );
   }
 
   onChangeSize($event : any) {
-    console.log();
+    this.cantidad = 1;
+    this.elementBySize = new Product();
+    this.getCantByCodeAndSize(this.element.code,$event);
   }
 
-  getCantByCodeAndSize(code : string) {
+  getCantByCodeAndSize(code : string, size : string) {
     this.isLoadingSizes = true;
     this.subscriptions.push(
-      this.productService.getProductsByCode(code).subscribe(
-        (response: Product[]) => {          
-          this.lstSizes = response;
-          console.log(response);
+      this.productService.getProductByCodeAndSize(code, size).subscribe(
+        (response: Product) => {          
+          this.elementBySize = response;
           this.isLoadingSizes = false;
           this.getAllReviews();
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingSizes = false;
           this.message.create("error",  errorResponse.error.message);
-          this.router.navigateByUrl('/home');
         }
       )
     );
@@ -306,7 +283,7 @@ export class DetailsProductComponent implements OnInit {
 
   
   sumOne() {
-    if(this.cantidad >= 0 && this.element.cantd > this.cantidad) {
+    if(this.cantidad >= 0 && this.elementBySize?.cantd > this.cantidad) {
       this.cantidad += 1;   
     }else {
       return;

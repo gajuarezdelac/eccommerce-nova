@@ -84,8 +84,10 @@
               <nz-form-item [hidden]="element.typeClothing != '1'">
                 <nz-form-control  nzErrorTip="Campo requerido">
                   <nz-form-label nzRequired> Talla </nz-form-label>
-                  <nz-select nz-input formControlName="size">
-                    <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
+                  <nz-select nz-input formControlName="size"  nzAllowClear (ngModelChange)="onChangeSize($event)"> 
+                    <nz-option *ngFor="let item of lstSizes" [nzLabel]="item.size" [nzValue]="item.size"></nz-option>
+
+                    <!-- <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
                     <nz-option nzValue="3.5" nzLabel="Talla 3.5"></nz-option>
                     <nz-option nzValue="4" nzLabel="Talla 4"></nz-option>
                     <nz-option nzValue="4.5" nzLabel="Talla 4.5"></nz-option>
@@ -101,7 +103,7 @@
                     <nz-option nzValue="9.5" nzLabel="Talla 9.5"></nz-option>
                     <nz-option nzValue="10" nzLabel="Talla 10"></nz-option>
                     <nz-option nzValue="10.5" nzLabel="Talla 10.5"></nz-option>
-                    <nz-option nzValue="11" nzLabel="Talla 11"></nz-option>
+                    <nz-option nzValue="11" nzLabel="Talla 11"></nz-option> -->
                   </nz-select>
                 </nz-form-control>
               </nz-form-item>
@@ -112,11 +114,12 @@
               <nz-form-item [hidden]="element && element.typeClothing == '1'">
                 <nz-form-control nzErrorTip="Campo requerido">
                   <nz-form-label nzRequired> Talla </nz-form-label>
-                  <nz-select nz-input formControlName="size">
-                    <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
+                  <nz-select nz-input formControlName="size" (ngModelChange)="onChangeSize($event)">
+                    <nz-option *ngFor="let item of lstSizes" [nzLabel]="item.size" [nzValue]="item.size"></nz-option>
+                    <!-- <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
                     <nz-option nzValue="M" nzLabel="Mediano (M)"></nz-option>
                     <nz-option nzValue="L" nzLabel="Grande (L)"></nz-option>
-                    <nz-option nzValue="XL" nzLabel="Extra largo (XL)"></nz-option>
+                    <nz-option nzValue="XL" nzLabel="Extra largo (XL)"></nz-option> -->
                   </nz-select>
                 </nz-form-control>
               </nz-form-item>
@@ -135,17 +138,19 @@
                   </nz-select>
                 </nz-form-control>
               </nz-form-item>
-            </div>
-        
+            </div>        
           </div>
 
           <div class="product-count">
-            <label for="size">Cantidad (Piezas disponibles: {{element.cantd}})</label>
+            <label for="size" class="product-cantda"> <span class="required"></span> Digita la cantidad: </label>
             <div class="display-flex">
               <div class="qtyminus disable-select" (click)="lessOne()">-</div>
-              <input nz-input type="number"  formControlName="cantd" [(ngModel)]="cantidad" class="qty" value="1" max="{{element.cantd}}" />
+              <input nz-input type="number" formControlName="cantd" [(ngModel)]="cantidad" class="qty" value="1" min="1"  max="{{elementBySize?.cantd}}" />
               <div class="qtyplus disable-select" (click)="sumOne()" >+</div>
             </div>
+
+            <p><label for="size" class="product-cantd"> <span class="required">** Cantidad maxima: </span> {{ elementBySize?.cantd == 0 ? placeholder : elementBySize?.cantd }} </label></p>
+
             <button class="round-black-btn" nzType="primary" >
               Añadir al carrito
             </button>

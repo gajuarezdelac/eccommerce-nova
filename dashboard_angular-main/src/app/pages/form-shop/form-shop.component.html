@@ -1,11 +1,11 @@
 
 <div class="container-check-shopping">
 
-  <div class="py-5 text-center">
+  <div class="text-center">
     <h2>Información de entrega</h2>
     <p class="lead">Selecciona o crea una dirección de entrega</p>
   </div>
-
+<!-- 
   <div class="row">
       <div class="col-lg-4">
           <div class="card card-margin">
@@ -94,7 +94,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
   </div>
 
 
@@ -137,11 +137,14 @@
           
         </ul>
 
-        <a class="btn btn-primary btn-block" routerLink="/payment">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
+        <!-- <a class="btn btn-primary btn-block" routerLink="/payment">
+        Proceder al pago </a> -->
+
+          
+          <button class="btn btn-primary btn-lg btn-block" type="submit" routerLink="/payment">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
               <line x1="1" y1="10" x2="23" y2="10"></line>
-          </svg> Proceder al pago </a>
+          </svg>  Continuar </button>
       
       </div>
       <div class="col-md-8 order-md-1">
@@ -155,24 +158,22 @@
         >
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
+              <label for="names"> Nombre (s)  </label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
+              <label for="lastName">Apellido (s)</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
                     nz-input
-                    formControlName="title"
+                    formControlName="surnames"
                     placeholder="Escribe el titulo"
                   />
                 </nz-form-control>
@@ -182,38 +183,32 @@
   
           <div class="row">
             <div class="col-md-4 mb-1">
-              <label for="lastName">Last name</label>
+              <label for="names">Calle:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-4 mb-1">
-              <label for="lastName">Last name</label>
+              <label for="names">Colonia:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
 
             <div class="col-md-4 mb-1">
-              <label for="lastName">Last name</label>
+              <label for="names">Código postal:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
@@ -222,82 +217,77 @@
           </div>
   
           <div class="mb-3">
-            <label for="email">Email <span class="text-muted">(Optional)</span></label>
+            <label for="names">Correo <span class="text-muted">(Este correo estara siendo notificado del estatus de tu pedido)</span></label>
             <nz-form-item>
               <nz-form-control nzErrorTip="Campo requerido">
                 <input
-                  nz-input
-                  formControlName="title"
-                  placeholder="Escribe el titulo"
+                type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                 />
               </nz-form-control>
             </nz-form-item>
           </div>
   
-          <div class="mb-3">
-            <label for="address">Address</label>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Campo requerido">
-                <input
-                  nz-input
-                  formControlName="title"
-                  placeholder="Escribe el titulo"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+    
   
-          <div class="mb-3">
-            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Campo requerido">
-                <input
-                  nz-input
-                  formControlName="title"
-                  placeholder="Escribe el titulo"
-                />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+          <!-- <div class="mb-3">
+            <label for="names">Last name</label>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Campo requerido">
+                  <input
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  />
+                </nz-form-control>
+              </nz-form-item>
+          </div> -->
   
           <div class="row">
             <div class="col-md-5 mb-3">
-              <label for="country">Country</label>
+              <label for="names">Número de contacto</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="state">State</label>
+              <label for="names">No. exterior</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-3 mb-3">
-              <label for="zip">Zip</label>
+              <label for="names">No. interior</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                    nz-input
-                    formControlName="title"
-                    placeholder="Escribe el titulo"
+                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
           </div>
+
+          <div class="mb-12">
+            <label for="names">Describe como llegar a tu hogar</label>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Campo requerido">
+                <textarea
+                  nz-input
+                  formControlName="names"
+                  placeholder="¿Que te ha parecido el producto?"
+                  [nzAutosize]="{ minRows: 4, maxRows: 4 }"
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+
           <hr class="mb-4">
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="same-address">
@@ -306,12 +296,12 @@
           
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="save-info">
-            <label class="custom-control-label" for="save-info"> Me gustaria guardar esta dirección como mi casa </label>
+            <label class="custom-control-label" for="save-info"> Guardar la dirección para usarlo posteriormente </label>
           </div>
           <hr class="mb-4">
           
           <button class="btn btn-primary btn-lg btn-block" type="submit" > Guardar dirección </button>
-        </form>
+        </form>        
       </div>
     </div>
   </div>
