@@ -58,8 +58,18 @@ export class ProductService {
 
 
   // * Buscar listado de productos por código
-  public getProductsByCode(code : string):  Observable<Product> {
+  public getProductByCode(code : string):  Observable<Product> {
     return this.http.get<Product>(`${this.host}/product/code/${code}`)
+  }
+
+  // * Get all products by code
+  public getProductsByCode(code : string):  Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.host}/product/list-code/${code}`)
+  }
+ 
+  
+  public getProductByCodeAndSize(code : string, size : string) :   Observable<Product> {
+    return this.http.get<Product>(`${this.host}/product/code-size/${code}/${size}`)
   }
 
   // * Buscar listado top rating

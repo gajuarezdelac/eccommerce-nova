@@ -38,6 +38,13 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@GetMapping("/code-size/{code}/{size}")
+	public ResponseEntity<Product> getProdcutByCodeAndSize(@PathVariable(value = "code") String code, @PathVariable(value = "size") String size) throws ExceptionGeneric {
+		Product response = service.getProductByCodeAndSize(code, size);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	
 	
 	@GetMapping("/list-top")
 	public ResponseEntity<List<Product>> listTOP() {
@@ -48,6 +55,12 @@ public class ProductController {
 	@GetMapping("/list")
 	public ResponseEntity<List<Product>> list() {
 		List<Product> response = service.getAllProducts();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/list-code/{code}")
+	public ResponseEntity<List<Product>> listByCode(@PathVariable("code") String code) {
+		List<Product> response = service.getProductsByCodeL(code);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
@@ -100,7 +113,7 @@ public class ProductController {
 			                                  @RequestParam("category") String category,
 			                                  @RequestParam("typeGarment") String typeGarment,
 			                                  @RequestParam("typeClothing") String typeClothing,
-			                                  @RequestParam("images") List<MultipartFile> images) throws NotAnImageFileException, IOException {
+			                                  @RequestParam("images") List<MultipartFile> images) throws NotAnImageFileException, IOException, ExceptionGeneric {
 		
 		Product response = service.newProduct(codeProd, name, description, cant, size, price, discount, category, typeGarment, typeClothing, images);
 		return new ResponseEntity<>(response, HttpStatus.OK);

@@ -433,7 +433,7 @@ export class ProductControlComponent implements OnInit {
     let form = this.codeForm.value;
 
     this.subscriptions.push(
-      this.productService.getProductsByCode(form.code).subscribe(
+      this.productService.getProductByCode(form.code).subscribe(
         (response: Product) => {
           this.message.create("success", "Producto encontrado!");
           this.handleCancel();

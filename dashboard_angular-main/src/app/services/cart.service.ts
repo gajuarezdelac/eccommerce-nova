@@ -29,9 +29,12 @@ export class CartService {
   }
 
   updateWishes(product : any){
+    console.log(product);
+
     // En caso de que exista un producto con las mismas caracteristicas este se elimina
     this.cartItemList.map((a:any, index:any)=>{
-      if(product.id == a.id && product.size == a.size && product.code == a.code){
+      console.log(a);
+      if(product.id == a.id && product.talla == a.talla && product.code == a.code){
         this.cartItemList.splice(index,1);
       }
     });
@@ -54,7 +57,7 @@ export class CartService {
   removeCartItem(product: any){
     
     this.cartItemList.map((a:any, index:any)=>{
-      if(product.id == a.id && product.size == a.size && product.code == a.code){
+      if(product.id == a.id && product.talla == a.talla && product.code == a.code){
         this.cartItemList.splice(index,1);
       }
     });

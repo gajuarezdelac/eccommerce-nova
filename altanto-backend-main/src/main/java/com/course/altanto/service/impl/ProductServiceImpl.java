@@ -75,11 +75,12 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Override
 	public Product newProduct(String codeProd, String name, String description, int cant, String size, double price,
-			int discount, String category, String typeGarment,String typeClothing, List<MultipartFile> images) throws NotAnImageFileException, IOException {
+			int discount, String category, String typeGarment,String typeClothing, List<MultipartFile> images) throws NotAnImageFileException, IOException, ExceptionGeneric {
 
 		List<File> list = new ArrayList<>();
-		Product element = new Product();
 		
+		validateProductByCodeAndSize(codeProd, size);
+		Product element = new Product();
 		element.setCode(codeProd);
 		element.setName(name);
 		element.setShortDescription(description);
@@ -151,16 +152,10 @@ public class ProductServiceImpl implements IProductService {
 		return element;
 	}
 
-	private Product getProductsByCode(String codeProd) throws ExceptionGeneric {
 
-		Product element = productRepository.findProductByCodeNative(codeProd);
-		
-		if (element == null) {
-			throw new ExceptionGeneric("No se encontro un producto con el código: " + codeProd);
-		}
-		
-		return element;
-	}
+	
+	
+	
 	
 	private File saveImage(String codeProd, File entity,MultipartFile profileImage) throws IOException, NotAnImageFileException {
          if (profileImage != null) {
@@ -187,6 +182,12 @@ public class ProductServiceImpl implements IProductService {
 		return entity;
     }
 	
+	@Override
+	public Product getProductByCodeAndSize(String code, String size) throws ExceptionGeneric {
+		Product element = getProductsByCodeAndSize(code, size);
+		return element;
+	}
+	
 	private String setProfileImageUrl(String username) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(PRODUCT_IMAGE_PATH + username + "/"
         + username + DOT + JPG_EXTENSION).toUriString();
@@ -209,6 +210,46 @@ public class ProductServiceImpl implements IProductService {
 	public List<Product> findProductTopRating() {
 		return productRepository.findTopRating();
 	}
+
+	@Override
+	public List<Product> getProductsByCodeL(String code) {
+		return productRepository.findProductByCode(code);
+	}
+	
+	private Product getProductsByCode(String codeProd) throws ExceptionGeneric {
+
+		Product element = productRepository.findProductByCodeNative(codeProd);
+		
+		if (element == null) {
+			throw new ExceptionGeneric("No se encontro un producto con el código: " + codeProd);
+		}
+		
+		return element;
+	}
+	
+	private Product validateProductByCodeAndSize(String code, String size) throws ExceptionGeneric {
+
+		Product element = productRepository.findProductByCodeAndSize(code, size);
+		
+		if (element != null) {
+			throw new ExceptionGeneric("Ya existe un producto con esta talla");
+		}
+		
+		return element;
+	}
+	
+	private Product getProductsByCodeAndSize(String code, String size) throws ExceptionGeneric {
+
+		Product element = productRepository.findProductByCodeAndSize(code, size);
+		
+		if (element == null) {
+			throw new ExceptionGeneric("No se encontro el producto con esta talla");
+		}
+		
+		return element;
+	}
+
+	
 	
 
 }

@@ -41,7 +41,7 @@ export class ReviewService {
   public getAllReviewsByProduct(code : string):  Observable<Content[]> {
     return this.http.get<Content[]>(`${this.host}/review/product/${code}`)
   }
-  
+
   // * Get review by ID
   public getReviewById(id : string) : Observable<Content> {
       return this.http.get<Content>(`${this.host}/review/${id}`)

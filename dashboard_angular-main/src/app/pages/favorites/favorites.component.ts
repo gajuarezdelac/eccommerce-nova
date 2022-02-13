@@ -99,7 +99,11 @@ export class FavoritesComponent implements OnInit {
     this.searchService.search({keyword: "", typeClothing: ""});
     this.router.navigate(['/search']);
   }
-
+  
+  calculatePrice(price :  any, discount : any) {
+    let r = price * (discount / 100);
+    return price - r;
+  }
 
 
 

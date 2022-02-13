@@ -19,7 +19,6 @@ import { ReviewService } from 'src/app/services/review.service';
 })
 export class DetailsProductComponent implements OnInit {
 
-
   // Variables para visualizar el producto
   public subscriptions : Subscription[] = [];
   public element : Product = new Product();
@@ -41,6 +40,18 @@ export class DetailsProductComponent implements OnInit {
 
   // Editar review
   public createProduct! : FormGroup;
+
+  // Obtener las tallas disponibles
+  public isLoadingSizes = false;
+  public lstSizes : any = [];
+  public sizeSelect : any;
+  // Obtener la cantidad disponible basado en código de producto, size and id
+
+
+
+
+
+
   
   constructor(
     private authenticationService : AuthService,
@@ -82,8 +93,9 @@ export class DetailsProductComponent implements OnInit {
           
           this.images = response.images.slice(1);
           this.element = response;
-          this.isLoadingView = false;
+          this.getSizesByCode(response.code);
           this.getAllReviews();
+          this.isLoadingView = false;
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;
@@ -158,9 +170,7 @@ export class DetailsProductComponent implements OnInit {
     this.isVisibleAdd = true;
   }
 
-
-  public validateForm() : void {
-    
+  public validateForm() : void {    
     for (const i in this.createProduct.controls) {
       if (this.createProduct.controls.hasOwnProperty(i)) {
         this.createProduct.controls[i].markAsDirty();
@@ -176,7 +186,7 @@ export class DetailsProductComponent implements OnInit {
     this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, priceR: this.calculatePrice(this.element.price, this.element.discount) ,...this.element });
 
   }
-
+ 
   // Delete review by user
 
   public deleteReviewByUSer() : void {
@@ -202,6 +212,71 @@ export class DetailsProductComponent implements OnInit {
       )
     );
   }
+
+
+  getSizesByCode(code : string) {
+    this.isLoadingSizes = true;
+    this.subscriptions.push(
+      this.productService.getProductsByCode(code).subscribe(
+        (response: Product[]) => {          
+          this.lstSizes = response;
+          console.log(response);
+          this.isLoadingSizes = false;
+          this.getAllReviews();
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingSizes = false;
+          this.message.create("error",  errorResponse.error.message);
+          this.router.navigateByUrl('/home');
+        }
+      )
+    );
+  }
+
+  getCantByCode(code : string) {
+    this.isLoadingSizes = true;
+    this.subscriptions.push(
+      this.productService.getProductsByCode(code).subscribe(
+        (response: Product[]) => {          
+          this.lstSizes = response;
+          console.log(response);
+          this.isLoadingSizes = false;
+          this.getAllReviews();
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingSizes = false;
+          this.message.create("error",  errorResponse.error.message);
+          this.router.navigateByUrl('/home');
+        }
+      )
+    );
+  }
+
+  onChangeSize($event : any) {
+    console.log();
+  }
+
+  getCantByCodeAndSize(code : string) {
+    this.isLoadingSizes = true;
+    this.subscriptions.push(
+      this.productService.getProductsByCode(code).subscribe(
+        (response: Product[]) => {          
+          this.lstSizes = response;
+          console.log(response);
+          this.isLoadingSizes = false;
+          this.getAllReviews();
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingSizes = false;
+          this.message.create("error",  errorResponse.error.message);
+          this.router.navigateByUrl('/home');
+        }
+      )
+    );
+  }
+
+
+
 
   getReviewsByRate(rate : number) {
     let r = 0;

@@ -32,7 +32,7 @@
                     <a class="cart-item-thumb mx-auto mr-sm-4" href="#"><img src="{{item.images[0].routeFile}}" alt="Product"></a>
                     <div class="media-body pt-3">
                         <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#">{{item.name}}</a></h3>
-                        <div class="font-size-sm"><span class="text-muted mr-2">Talla:</span> {{item.size}} </div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Talla:</span> {{item.talla}} </div>
                         <div class="font-size-sm"><span class="text-muted mr-2">Color:</span>Pink / Dark green</div>
                         <div class="font-size-lg text-primary pt-2">$ {{item.price}} </div>
                     </div>
@@ -40,7 +40,7 @@
                 <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="max-width: 10rem;">
                     <div class="form-group mb-2">
                         <label for="quantity4">Cantidad</label>
-                        <input class="form-control form-control-sm" min="1" max="{{item.cantd}}" [ngModel]="item.cantidad" (ngModelChange)="onChangeCant($event, item)" type="number" id="quantity4" value="1">
+                        <input class="form-control form-control-sm" [disabled]="true" min="1" max="{{item.cantd}}" [ngModel]="item.cantidad" (ngModelChange)="onChangeCant($event, item)" type="number" id="quantity4" value="1">
                     </div>
                     <!-- <button class="btn btn-outline-secondary btn-sm btn-block mb-2" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw mr-1">
