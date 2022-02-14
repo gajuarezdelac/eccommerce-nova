@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Subscription } from 'rxjs';
 import { Address } from 'src/app/models/Address';
+import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -20,10 +23,18 @@ export class FormShopComponent implements OnInit {
 
   // Agregar dirección de entrega
   public createAddress! : FormGroup;
+  @ViewChild('e') editNgForm: NgForm | undefined;
   public isLoadingSave = false;
 
   // Seleccionar dirección
   public selectAddress : Address | undefined = undefined;
+
+  // Datos para calcular el total
+  public products : any = [];
+  public grandTotal !: number;
+  public subscriptions : Subscription[] = [];
+  
+
 
   constructor(
     private authenticationService : AuthService,
@@ -32,23 +43,39 @@ export class FormShopComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private cartService: CartService,
+    private addressService: AddressService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
+
     
-    this.createAddress = this.fb.group({
-      names: [null, Validators.required],
-      surnames: [null, Validators.required],
-      isYourHome: [true, Validators.required],
-      cp: [null, Validators.required],
-      phone: [null, Validators.required],
-      email: [null, Validators.required, Validators.email],
-      calle: [null, Validators.required],
-      colonia: [null, Validators.required],
-      noExternal: [null, Validators.required],
-      noInternal: [null, Validators.required],
-      moreInformation: [null, Validators.required]
+    this.cartService.getProducts()
+    .subscribe(res=>{
+      this.products = res;
+      this.grandTotal = this.cartService.getTotalPrice();
     });
+
+
+    this.selectAddress = this.addressService.getAddressFromLocalCache();
+
+    this.createAddress = this.fb.group({
+      names: ['', Validators.required],
+      surnames: ['', Validators.required],
+      cp: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      calle: ['', Validators.required],
+      colonia: ['', Validators.required],
+      noExternal: ['', Validators.required],
+      noInternal: ['', Validators.required],
+      moreInformation: ['', Validators.required],
+      typeSend: ['1'],
+    });
+
+    this.fillAddress(this.selectAddress);
+
+    
   }
 
 
@@ -61,10 +88,47 @@ export class FormShopComponent implements OnInit {
       }
     }
 
+    
     if(!this.createAddress.valid) {
       return ; 
     }
 
+    this.isLoadingSave = true;
     let form = this.createAddress.value;
+    this.addressService.addAddressToLocalStorage(form);
+    this.createNotification("success","Dirección guardada correctamente");
+    this.isLoadingSave = false;
   }
+
+  fillAddress(data : any) {
+
+    this.createAddress = this.fb.group({
+      names: [data.names, Validators.required],
+      surnames: [data.surnames, Validators.required],
+      cp: [data.cp, Validators.required],
+      phone: [data.phone, Validators.required],
+      email: [data.email,[Validators.required, Validators.email]],
+      calle: [data.calle, Validators.required],
+      colonia: [data.colonia, Validators.required],
+      noExternal: [data.noExternal, Validators.required],
+      noInternal: [data.noInternal, Validators.required],
+      moreInformation: [data.moreInformation, Validators.required],
+      typeSend: ['1', Validators.required],
+    });
+
+
+  }
+
+
+  createNotification(type: string, message: string): void {
+    this.notification.create(
+      type,
+      'Excelente!',
+      `${message} 😀`,
+      { nzPlacement: 'bottomLeft' }
+    );
+  }
+
+
+
 }

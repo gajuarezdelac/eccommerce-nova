@@ -67,7 +67,6 @@ export class FavoritesComponent implements OnInit {
         (response: Product[]) => {
           this.isLoadingView = false;
           this.lstProducts = response;
-          console.log();
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;

@@ -1,4 +1,6 @@
 
+<nz-spin [nzSpinning]="isLoadingSave">
+
 <div class="container-check-shopping">
 
   <div class="text-center">
@@ -141,7 +143,7 @@
         Proceder al pago </a> -->
 
           
-          <button class="btn btn-primary btn-lg btn-block" type="submit" routerLink="/payment">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" form="ngForm">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
               <line x1="1" y1="10" x2="23" y2="10"></line>
           </svg>  Continuar </button>
@@ -150,6 +152,8 @@
       <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Datos de pago y entrega</h4>
         <form
+        #e="ngForm"
+        id="ngForm"
         nz-form
         [formGroup]="createAddress"
         (ngSubmit)="createSubmit()"
@@ -183,32 +187,32 @@
   
           <div class="row">
             <div class="col-md-4 mb-1">
-              <label for="names">Calle:</label>
+              <label for="calle">Calle:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="text" nz-input formControlName="calle" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-4 mb-1">
-              <label for="names">Colonia:</label>
+              <label for="colonia">Colonia:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="text" nz-input formControlName="colonia" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
 
             <div class="col-md-4 mb-1">
-              <label for="names">Código postal:</label>
+              <label for="cp">Código postal:</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="text" nz-input formControlName="cp" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
@@ -217,11 +221,11 @@
           </div>
   
           <div class="mb-3">
-            <label for="names">Correo <span class="text-muted">(Este correo estara siendo notificado del estatus de tu pedido)</span></label>
+            <label for="email">Correo <span class="text-muted">(Este correo estara siendo notificado del estatus de tu pedido)</span></label>
             <nz-form-item>
               <nz-form-control nzErrorTip="Campo requerido">
                 <input
-                type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                type="email" nz-input formControlName="email" placeholder="Busqueda por mensaje..."
                 />
               </nz-form-control>
             </nz-form-item>
@@ -242,31 +246,31 @@
   
           <div class="row">
             <div class="col-md-5 mb-3">
-              <label for="names">Número de contacto</label>
+              <label for="phone">Número de contacto</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="number" nz-input formControlName="phone" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="names">No. exterior</label>
+              <label for="noExternal">No. exterior</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="text" nz-input formControlName="noExternal" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-3 mb-3">
-              <label for="names">No. interior</label>
+              <label for="noInternal">No. interior</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
-                  type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
+                  type="text" nz-input formControlName="noInternal" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
               </nz-form-item>
@@ -274,36 +278,48 @@
           </div>
 
           <div class="mb-12">
-            <label for="names">Describe como llegar a tu hogar</label>
+            <label for="moreInformation">Describe como llegar a tu hogar</label>
             <nz-form-item>
               <nz-form-control nzErrorTip="Campo requerido">
                 <textarea
                   nz-input
-                  formControlName="names"
-                  placeholder="¿Que te ha parecido el producto?"
+                  formControlName="moreInformation"
+                  placeholder="Escribe puntos de referencia para llegar al lugar de envio."
                   [nzAutosize]="{ minRows: 4, maxRows: 4 }"
                 ></textarea>
               </nz-form-control>
             </nz-form-item>
           </div>
 
-
           <hr class="mb-4">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="same-address">
-            <label class="custom-control-label" for="same-address"> Me gustaria recibir notificaciones a este email </label>
-          </div>
+
+          <label class="custom-control custom-radio">
+						<input value="1" type="radio" name="typeSend" formControlName="typeSend" checked="" class="custom-control-input">
+						<div class="custom-control-label"> $179 M.N  (Envio basico de 3 a 5 días) </div>
+					  </label>
+
+					<label class="custom-control custom-radio">
+					  <input value="2" type="radio" name="typeSend" formControlName="typeSend" class="custom-control-input">
+					  <div class="custom-control-label"> $279 M.N  (Envio basico de 1 a 3 días)  </div>
+					</label>
+	
+          <hr class="mb-4">
           
-          <div class="custom-control custom-checkbox">
+          <!-- <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="same-address">
+            <label class="custom-control-label" for="same-address"> Guardar la dirección </label>
+          </div> -->
+          
+          <!-- <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="save-info">
             <label class="custom-control-label" for="save-info"> Guardar la dirección para usarlo posteriormente </label>
           </div>
-          <hr class="mb-4">
-          
-          <button class="btn btn-primary btn-lg btn-block" type="submit" > Guardar dirección </button>
+          <hr class="mb-4"> -->
         </form>        
       </div>
     </div>
   </div>
 
-  <br>
+
+
+</nz-spin>

@@ -9,8 +9,24 @@ import { Address } from '../models/Address';
 })
 export class AddressService {
   
+
   public host  = environment.apiUrl;
+
   constructor(private http: HttpClient) { }
+
+  public removeAddress(): void  {
+    localStorage.removeItem("addressCotta_send");
+  }
+
+  public addAddressToLocalStorage(data: Address) {
+   localStorage.setItem('addressCotta_send', JSON.stringify(data));
+  }
+  
+  public getAddressFromLocalCache() : Address {
+    // Sintaxis para campos que pueden venir vacios
+    return JSON.parse(localStorage.getItem('addressCotta_send') || '{}');
+   }
+
 
   // * Get all orders By users
   public getAllReviews(userId : string):  Observable<Address[]> {
