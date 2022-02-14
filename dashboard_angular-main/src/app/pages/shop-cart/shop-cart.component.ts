@@ -36,7 +36,6 @@ export class ShopCartComponent implements OnInit {
       this.products = res;
       this.grandTotal = this.cartService.getTotalPrice();
     });
-
     
   }
 
@@ -46,6 +45,12 @@ export class ShopCartComponent implements OnInit {
 
   emptycart(){
     this.cartService.removeAllCart();
+  }
+
+  
+  calculatePrice(price :  any, discount : any) {
+    let r = price * (discount / 100);
+    return price - r;
   }
 
 

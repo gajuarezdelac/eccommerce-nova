@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
       this.productService.getAllProductsTopRating().subscribe(
         (response: Product[]) => {
           this.products = response;
-          console.log(this.products[0].name);
           this.isLoadingView = false;
           
         },
