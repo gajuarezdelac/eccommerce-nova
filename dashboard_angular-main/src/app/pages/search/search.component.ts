@@ -49,7 +49,13 @@ export class SearchComponent implements OnInit {
 
     this.searchService.getKeyword()
     .subscribe(res=>{
+
+     if(this.current >= 1) {
+      this.current = 1;
+     }
+
       this.key = res;
+      this.resetFilter();
       this.getListPaginate();
     });
     
@@ -70,14 +76,14 @@ export class SearchComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.key.typeClothing, clasification: "",category: "" }).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.filterForm.value["clasification"],category:  this.filterForm.value["category"]}).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
           this.total = response.totalElements;
           this.totalElementByPage = response.numberOfElements;
           this.onActivate();
-          this.resetFilter();
+          // this.resetFilter();
           this.isLoadingTable = false;
         },
         (errorResponse: HttpErrorResponse) => {
@@ -121,6 +127,10 @@ export class SearchComponent implements OnInit {
     if(this.current >= 1) {
       this.current = 1;
     }
+
+    // Key clear
+    this.key.typeClothing = undefined;
+
 
     this.subscriptions.push(
       this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
