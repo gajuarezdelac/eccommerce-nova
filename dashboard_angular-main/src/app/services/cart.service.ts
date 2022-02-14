@@ -29,8 +29,6 @@ export class CartService {
   }
 
   updateWishes(product : any){
-    console.log(product);
-
     // En caso de que exista un producto con las mismas caracteristicas este se elimina
     this.cartItemList.map((a:any, index:any)=>{
       console.log(a);
@@ -47,9 +45,12 @@ export class CartService {
 
   getTotalPrice() : number{
     let grandTotal = 0;
+
     this.cartItemList.map((a:any)=>{
-      grandTotal += a.price;
+      grandTotal += a.priceR * a.cantidad;
     })
+
+    console.log(grandTotal);
 
     return grandTotal;
   }
