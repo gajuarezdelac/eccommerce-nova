@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -26,7 +27,8 @@ export class ShopCartComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private searchService : SearchService,
-    private cartService: CartService
+    private cartService: CartService,
+    private notification: NzNotificationService
     ) { }
 
   ngOnInit(): void {

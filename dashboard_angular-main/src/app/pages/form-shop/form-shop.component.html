@@ -3,6 +3,9 @@
 
 <div class="container-check-shopping">
 
+
+  
+
   <div class="text-center">
     <h2>Información de entrega</h2>
     <p class="lead">Selecciona o crea una dirección de entrega</p>
@@ -106,8 +109,8 @@
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-muted">Cantidad</span>
-          <span class="badge badge-secondary badge-pill">3</span>
+          <span class="badge badge-primary badge-pill"> Cantidad: {{products.length}} </span>
+          <button type="button" class="btn btn-danger" routerLink="/my-cart"> <i class="fa fa-angle-double-left"></i> Retroceder </button>
         </h4>
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -115,7 +118,7 @@
               <h6 class="my-0">Subtotal:</h6>
               <small class="text-muted">Suma de los articulos.</small>
             </div>
-            <span class="text-muted">$1202</span>
+            <span class="text-muted"> ${{grandTotalDiscount}}.00  </span>
           </li>
           
           <li class="list-group-item d-flex justify-content-between bg-light">
@@ -123,18 +126,18 @@
               <h6 class="my-0">Descuento:</h6>
               <small class="text-muted">Descuento aplicado a la compra.</small>
             </div>
-            <span class="text-success">-$520</span>
+            <span class="text-success"> - ${{calculateDiscount(grandTotalDiscount,grandTotal)}}.00   </span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
-              <h6 class="my-0">IVA:</h6>
-              <small class="text-muted">I.V.A. aplicado a la compra</small>
+              <h6 class="my-0">Envio</h6>
+              <small class="text-muted">Costo del envio.</small>
             </div>
-            <span class="text-muted">$50</span>
+            <span class="text-danger"> ${{cost()}}.00  </span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (MXN)</span>
-            <strong>$20</strong>
+            <strong> ${{calculateTotal(grandTotal)}}.00  </strong>
           </li>
           
         </ul>
@@ -146,7 +149,7 @@
           <button class="btn btn-primary btn-lg btn-block" type="submit" form="ngForm">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
               <line x1="1" y1="10" x2="23" y2="10"></line>
-          </svg>  Continuar </button>
+          </svg>  Pagar </button>
       
       </div>
       <div class="col-md-8 order-md-1">
@@ -229,6 +232,34 @@
                 />
               </nz-form-control>
             </nz-form-item>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="names"> Estado </label>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Campo requerido">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person">
+                    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                  </nz-select>    
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Ciudad o localidad</label>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Campo requerido">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person">
+                    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                  </nz-select>    
+                </nz-form-control>
+              </nz-form-item>
+            </div>
           </div>
   
     

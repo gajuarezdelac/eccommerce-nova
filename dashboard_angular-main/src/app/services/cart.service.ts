@@ -26,6 +26,7 @@ export class CartService {
     this.productList.next(this.cartItemList);
     localStorage.setItem('MyCart_Cotta', JSON.stringify(this.productList.value));
     this.getTotalPrice();
+    this.getTotalDiscount();
   }
 
   updateWishes(product : any){
@@ -49,10 +50,17 @@ export class CartService {
     this.cartItemList.map((a:any)=>{
       grandTotal += a.priceR * a.cantidad;
     })
-
-    console.log(grandTotal);
-
     return grandTotal;
+  }
+
+  getTotalDiscount() : number{
+
+    let grandTotal = 0;
+    this.cartItemList.map((a:any)=>{
+      grandTotal += a.price * a.cantidad;
+    })
+    return grandTotal;
+
   }
 
   removeCartItem(product: any){

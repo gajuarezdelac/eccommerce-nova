@@ -18,7 +18,7 @@ export class AddressService {
     localStorage.removeItem("addressCotta_send");
   }
 
-  public addAddressToLocalStorage(data: Address) {
+  public addAddressToLocalStorage(data: any) {
    localStorage.setItem('addressCotta_send', JSON.stringify(data));
   }
   

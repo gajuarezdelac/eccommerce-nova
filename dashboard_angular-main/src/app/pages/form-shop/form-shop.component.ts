@@ -27,15 +27,14 @@ export class FormShopComponent implements OnInit {
   public isLoadingSave = false;
 
   // Seleccionar dirección
-  public selectAddress : Address | undefined = undefined;
+  public selectAddress : any;
 
   // Datos para calcular el total
   public products : any = [];
   public grandTotal !: number;
+  public grandTotalDiscount! : number;
   public subscriptions : Subscription[] = [];
   
-
-
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder,
@@ -54,11 +53,18 @@ export class FormShopComponent implements OnInit {
     .subscribe(res=>{
       this.products = res;
       this.grandTotal = this.cartService.getTotalPrice();
+
+      if(this.grandTotal == 0){ 
+        this.router.navigateByUrl("/home");
+        this.createMessage("warning",  "No tienes ningún producto en tu carrito");
+      }
+
+
+      this.grandTotalDiscount = this.cartService.getTotalDiscount();
     });
 
-
     this.selectAddress = this.addressService.getAddressFromLocalCache();
-
+    
     this.createAddress = this.fb.group({
       names: ['', Validators.required],
       surnames: ['', Validators.required],
@@ -69,13 +75,13 @@ export class FormShopComponent implements OnInit {
       colonia: ['', Validators.required],
       noExternal: ['', Validators.required],
       noInternal: ['', Validators.required],
+      // city: ['', Validators.required],
+      // state: ['', Validators.required],
       moreInformation: ['', Validators.required],
       typeSend: ['1'],
     });
 
     this.fillAddress(this.selectAddress);
-
-    
   }
 
 
@@ -95,10 +101,37 @@ export class FormShopComponent implements OnInit {
 
     this.isLoadingSave = true;
     let form = this.createAddress.value;
-    this.addressService.addAddressToLocalStorage(form);
-    this.createNotification("success","Dirección guardada correctamente");
+    this.addressService.addAddressToLocalStorage({ userId: "" ,calculateDiscount: this.calculateDiscount(this.grandTotalDiscount,this.grandTotal) , total:this.calculateTotal(this.grandTotal), envio: this.cost(),...form});
+    // this.createNotification("success","Dirección guardada correctamente");
+    this.router.navigateByUrl('/payment');
     this.isLoadingSave = false;
   }
+
+
+  //  ! Calculate discount total que se ha aplicado
+  public calculateDiscount(total: number, discount: number) {
+    return total - discount;
+  }
+
+
+  // Obtener el costo del envio
+  public cost() {
+    let envio = 0;
+    if(this.createAddress.value['typeSend'] == '1'){ envio = 179;}else {envio = 279;}
+    return envio;
+  }
+
+  // ! Calcular el total mas el envio
+  public calculateTotal(amount : number) { 
+    let envio = 0;
+    if(this.createAddress.value['typeSend'] == '1'){ envio = 179;}else {envio = 279;}
+    return amount + envio;
+  }
+  
+  createMessage(type: string, message: string): void {
+    this.message.create(type, message);
+  }
+
 
   fillAddress(data : any) {
 
@@ -115,8 +148,6 @@ export class FormShopComponent implements OnInit {
       moreInformation: [data.moreInformation, Validators.required],
       typeSend: ['1', Validators.required],
     });
-
-
   }
 
 

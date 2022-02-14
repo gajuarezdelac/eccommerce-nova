@@ -1,5 +1,5 @@
 .container-check-shopping {
-    margin: 30px auto;
+    margin: 70px auto;
     width: 70%;
 }
 
@@ -52,4 +52,9 @@
       display: flex;
       margin: 0px;
       padding: 0px;
+  }
+
+  .dir {
+    margin: 0px;
+    padding: 0px;
   }
