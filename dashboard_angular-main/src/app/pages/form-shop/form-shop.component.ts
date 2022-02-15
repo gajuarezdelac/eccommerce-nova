@@ -53,16 +53,16 @@ export class FormShopComponent implements OnInit {
     .subscribe(res=>{
       this.products = res;
       this.grandTotal = this.cartService.getTotalPrice();
-
-      if(this.grandTotal == 0){ 
-        this.router.navigateByUrl("/home");
-        this.createMessage("warning",  "No tienes ningún producto en tu carrito");
-      }
-
-
       this.grandTotalDiscount = this.cartService.getTotalDiscount();
     });
 
+    if(this.grandTotal == 0){ 
+      this.router.navigateByUrl("/home");
+      this.createMessage("warning",  "No tienes ningún producto en tu carrito");
+    }
+
+
+    
     this.selectAddress = this.addressService.getAddressFromLocalCache();
     
     this.createAddress = this.fb.group({

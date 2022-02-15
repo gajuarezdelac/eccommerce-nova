@@ -220,7 +220,7 @@
 				<span *ngIf="item.discount > 0" class="product-discount-label">{{item.discount}}%</span>
 			</div>
 			<div class="product-content">
-				<h3 class="title"><a href="#">{{item.name}}</a></h3>
+				<h3 class="title"><a routerLink="/product/{{item.id}}">{{item.name}}</a></h3>
 				<div class="price">
 					${{calculatePrice(item.price,item.discount)}}
 					<span *ngIf="item.discount > 0">${{item.price}}</span>

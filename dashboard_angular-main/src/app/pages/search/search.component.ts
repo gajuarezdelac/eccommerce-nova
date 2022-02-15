@@ -54,7 +54,18 @@ export class SearchComponent implements OnInit {
       this.current = 1;
      }
 
+
       this.key = res;
+      res.keyword ? res.keyword = res.keyword : res.keyword = "";
+      res.typeClothing ? res.typeClothing = res.typeClothing : res.typeClothing = "";
+      res.category ? res.category = res.category : res.category = "N";
+      res.clasification ? res.clasification = res.clasification : res.clasification = "N";
+
+      console.log(this.key);
+      
+ 
+
+
       this.resetFilter();
       this.getListPaginate();
     });
@@ -76,7 +87,7 @@ export class SearchComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.filterForm.value["clasification"],category:  this.filterForm.value["category"]}).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.key.clasification == 'N' ? "" : this.filterForm.value["clasification"],category:  this.key.category == 'N' ? "" : this.filterForm.value["category"]}).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
@@ -130,7 +141,8 @@ export class SearchComponent implements OnInit {
 
     // Key clear
     this.key.typeClothing = undefined;
-
+    this.key.category = undefined;
+    this.key.clasification = undefined;
 
     this.subscriptions.push(
       this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
