@@ -54,7 +54,6 @@ export class SearchComponent implements OnInit {
       this.current = 1;
      }
 
-
       this.key = res;
       res.keyword ? res.keyword = res.keyword : res.keyword = "";
       res.typeClothing ? res.typeClothing = res.typeClothing : res.typeClothing = "";

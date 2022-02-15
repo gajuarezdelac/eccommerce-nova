@@ -123,6 +123,7 @@ import { CardProductComponent } from './components/card-product/card-product.com
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { P404Component } from './components/p404/p404.component';
 import { DetailOrderComponent } from './pages/detail-order/detail-order.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 
 @NgModule({
@@ -156,6 +157,7 @@ import { DetailOrderComponent } from './pages/detail-order/detail-order.componen
     CardProductComponent,
     P404Component,
     DetailOrderComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     ChartsModule,
