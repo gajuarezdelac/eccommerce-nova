@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -5,9 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subscription } from 'rxjs';
 import { Address } from 'src/app/models/Address';
+import { Generic } from 'src/app/models/Generic';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { GenericService } from 'src/app/services/generic.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -34,7 +37,16 @@ export class FormShopComponent implements OnInit {
   public grandTotal !: number;
   public grandTotalDiscount! : number;
   public subscriptions : Subscription[] = [];
-  
+
+  // Is loading state
+  public isLoadingState = false;
+  public lstState : Generic[] = [];
+
+
+  // Is loading cities
+  public isLoadingCities = false;
+  public lstCities : Generic[] = [];
+
   constructor(
     private authenticationService : AuthService,
     private fb: FormBuilder,
@@ -43,12 +55,16 @@ export class FormShopComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private addressService: AddressService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private genericService : GenericService
   ) { }
 
   ngOnInit(): void {
 
     
+    this.getAllStates();
+
+
     this.cartService.getProducts()
     .subscribe(res=>{
       this.products = res;
@@ -64,7 +80,7 @@ export class FormShopComponent implements OnInit {
 
     
     this.selectAddress = this.addressService.getAddressFromLocalCache();
-    
+
     this.createAddress = this.fb.group({
       names: ['', Validators.required],
       surnames: ['', Validators.required],
@@ -75,13 +91,14 @@ export class FormShopComponent implements OnInit {
       colonia: ['', Validators.required],
       noExternal: ['', Validators.required],
       noInternal: ['', Validators.required],
-      // city: ['', Validators.required],
-      // state: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
       moreInformation: ['', Validators.required],
       typeSend: ['1'],
     });
 
-    this.fillAddress(this.selectAddress);
+    this.fillAddress(this.selectAddress.city);
+
   }
 
 
@@ -133,22 +150,50 @@ export class FormShopComponent implements OnInit {
   }
 
 
-  fillAddress(data : any) {
-
-    this.createAddress = this.fb.group({
-      names: [data.names, Validators.required],
-      surnames: [data.surnames, Validators.required],
-      cp: [data.cp, Validators.required],
-      phone: [data.phone, Validators.required],
-      email: [data.email,[Validators.required, Validators.email]],
-      calle: [data.calle, Validators.required],
-      colonia: [data.colonia, Validators.required],
-      noExternal: [data.noExternal, Validators.required],
-      noInternal: [data.noInternal, Validators.required],
-      moreInformation: [data.moreInformation, Validators.required],
-      typeSend: ['1', Validators.required],
-    });
+  fillAddress(key : any) {
+    this.getAllCitiesByKey(key);
   }
+
+  
+  public getAllStates() {
+    this.isLoadingState = true;
+    this.subscriptions.push(
+      this.genericService.getAllOrders().subscribe(
+        (response: Generic[]) => {
+          this.lstState = response;
+          this.isLoadingState = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingState = false;
+          this.message.create("error",  "Error al recuperar los estados!");
+        }
+      )
+    );
+   }
+
+
+   public getAllCitiesByKey(key : string) {
+    this.isLoadingCities = true;
+    this.subscriptions.push(
+      this.genericService.getAllCitiesByKey(key).subscribe(
+        (response: Generic[]) => {
+          this.lstCities = response;
+          this.isLoadingCities = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingCities = false;
+          this.message.create("error",  "Error al recuperar los estados!");
+        }
+      )
+    );
+   }
+
+   public onChangeState(event : any) {
+     this.selectAddress.city = null;
+     this.lstCities = [];
+    this.getAllCitiesByKey(event);
+   }
+
 
 
   createNotification(type: string, message: string): void {

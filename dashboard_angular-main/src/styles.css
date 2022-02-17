@@ -49,3 +49,6 @@ section {
   width: 100%;
   height: 350px;
 } */
+.capitalize {
+  text-transform: capitalize !important;
+}

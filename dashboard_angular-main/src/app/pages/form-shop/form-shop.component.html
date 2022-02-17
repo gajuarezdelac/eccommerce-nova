@@ -167,6 +167,7 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  [(ngModel)]="selectAddress && selectAddress!.names"
                   type="text" nz-input formControlName="names" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -178,6 +179,7 @@
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
                     nz-input
+                    [(ngModel)]="selectAddress && selectAddress!.surnames"
                     formControlName="surnames"
                     placeholder="Escribe el titulo"
                   />
@@ -192,6 +194,8 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  
+                  [(ngModel)]="selectAddress && selectAddress!.calle"
                   type="text" nz-input formControlName="calle" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -202,6 +206,7 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  [(ngModel)]="selectAddress && selectAddress!.colonia"
                   type="text" nz-input formControlName="colonia" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -213,6 +218,7 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  [(ngModel)]="selectAddress && selectAddress!.colonia"
                   type="text" nz-input formControlName="cp" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -226,7 +232,8 @@
             <nz-form-item>
               <nz-form-control nzErrorTip="Campo requerido">
                 <input
-                type="email" nz-input formControlName="email" placeholder="Busqueda por mensaje..."
+                 [(ngModel)]="selectAddress && selectAddress!.email"
+                 type="email" nz-input formControlName="email" placeholder="Busqueda por mensaje..."
                 />
               </nz-form-control>
             </nz-form-item>
@@ -237,10 +244,10 @@
               <label for="names"> Estado </label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person">
-                    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                  <nz-select nzShowSearch nzAllowClear formControlName="state" nzPlaceHolder="Seleccioa un estado" 
+                  [(ngModel)]="selectAddress && selectAddress!.state"
+                  (ngModelChange)="onChangeState($event)">
+                    <nz-option class="capitalize" *ngFor="let item of lstState" [nzLabel]="item.value" [nzValue]="item.clave"></nz-option> 
                   </nz-select>    
                 </nz-form-control>
               </nz-form-item>
@@ -250,10 +257,9 @@
               <label for="lastName">Ciudad o localidad</label>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person">
-                    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                  <nz-select nzShowSearch nzAllowClear formControlName="city"  nzPlaceHolder="Selecciona una persona" 
+                  [(ngModel)]="selectAddress && selectAddress!.city">
+                    <nz-option *ngFor="let item of lstCities" [nzLabel]="item.value" [nzValue]="item.value"></nz-option> 
                   </nz-select>    
                 </nz-form-control>
               </nz-form-item>
@@ -279,6 +285,8 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  
+                  [(ngModel)]="selectAddress && selectAddress!.phone"
                   type="number" nz-input formControlName="phone" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -289,6 +297,8 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  
+                  [(ngModel)]="selectAddress && selectAddress!.noExternal"
                   type="text" nz-input formControlName="noExternal" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -299,6 +309,8 @@
               <nz-form-item>
                 <nz-form-control nzErrorTip="Campo requerido">
                   <input
+                  
+                  [(ngModel)]="selectAddress && selectAddress!.noInternal"
                   type="text" nz-input formControlName="noInternal" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -313,6 +325,7 @@
                 <textarea
                   nz-input
                   formControlName="moreInformation"
+                  [(ngModel)]="selectAddress && selectAddress!.moreInformation"
                   placeholder="Escribe puntos de referencia para llegar al lugar de envio."
                   [nzAutosize]="{ minRows: 4, maxRows: 4 }"
                 ></textarea>
@@ -323,12 +336,17 @@
           <hr class="mb-4">
 
           <label class="custom-control custom-radio">
-						<input value="1" type="radio" name="typeSend" formControlName="typeSend" checked="" class="custom-control-input">
+						<input value="1" type="radio" name="typeSend" 
+            
+            [(ngModel)]="selectAddress && selectAddress!.typeSend"
+            formControlName="typeSend" checked="" class="custom-control-input">
 						<div class="custom-control-label"> $179 M.N  (Envio basico de 3 a 5 días) </div>
 					  </label>
 
 					<label class="custom-control custom-radio">
-					  <input value="2" type="radio" name="typeSend" formControlName="typeSend" class="custom-control-input">
+					  <input value="2" type="radio" name="typeSend" 
+            [(ngModel)]="selectAddress && selectAddress!.typeSend"
+            formControlName="typeSend" class="custom-control-input">
 					  <div class="custom-control-label"> $279 M.N  (Envio basico de 1 a 3 días)  </div>
 					</label>
 	

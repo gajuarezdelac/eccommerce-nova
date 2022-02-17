@@ -6,9 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Subscription } from 'rxjs';
 import { FileUploadStatus } from 'src/app/models/file-upload-status';
+import { Generic } from 'src/app/models/Generic';
 import { Order } from 'src/app/models/Order';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { GenericService } from 'src/app/services/generic.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -49,6 +51,11 @@ export class UserProfileComponent implements OnInit {
   // Restablecer contraseña
   public resetForm! : FormGroup;
   public isLoadingReset = false;
+
+  // Get all states 
+  public isLoadingState = false;
+  public lstState : Generic[] = [];
+
  
 
   constructor(
@@ -58,7 +65,8 @@ export class UserProfileComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private modal: NzModalService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private genericService : GenericService
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +74,7 @@ export class UserProfileComponent implements OnInit {
       this.user = this.authenticationService.getUserFromLocalCache();
       this.getUerByUsername();
       this.getOrdersByUsers();
+      this.getAllStates();
     } else {  
       this.router.navigateByUrl("/home");
     }
@@ -213,6 +222,24 @@ export class UserProfileComponent implements OnInit {
       )
     );
   }
+
+
+  public getAllStates() {
+    this.isLoadingState = true;
+    this.subscriptions.push(
+      this.genericService.getAllOrders().subscribe(
+        (response: Generic[]) => {
+          this.lstState = response;
+          this.isLoadingState = false;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isLoadingState = false;
+          this.message.create("error",  "Error al recuperar los estados!");
+        }
+      )
+    );
+   }
+
 
   public onUpdateProfileImage(): void {
     const formData = new FormData();

@@ -144,12 +144,7 @@
                               <nz-form-label nzRequired> Estado </nz-form-label>
                               <nz-select nz-input formControlName="location" 
                               [(ngModel)]="currentUsername && currentUsername!.location">
-                                <nz-option nzValue="Deportiva" nzLabel="Deportiva"></nz-option>
-                                <nz-option nzValue="Interior" nzLabel="Interior"></nz-option>
-                                <nz-option nzValue="Etiqueta" nzLabel="Etiqueta"></nz-option>
-                                <nz-option nzValue="Informal" nzLabel="Informal"></nz-option>
-                                <nz-option nzValue="Trabajo" nzLabel="Trabajo"></nz-option>
-                                <nz-option nzValue="Uniformes" nzLabel="Uniformes"></nz-option>
+                              <nz-option *ngFor="let item of lstState" [nzLabel]="item.value" [nzValue]="item.clave"></nz-option>                            
                               </nz-select>
                             </nz-form-control>
                           </nz-form-item>
