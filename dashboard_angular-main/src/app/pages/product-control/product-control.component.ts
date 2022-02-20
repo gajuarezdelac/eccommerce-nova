@@ -272,7 +272,7 @@ export class ProductControlComponent implements OnInit {
 
   showDeleteConfirm(element: Content): void {
     this.modal.confirm({
-      nzTitle: '¿Estas seguro de eliminar el mensaje?',
+      nzTitle: '¿Estas seguro de eliminar el producto?',
       nzContent: '<b style="color: red;"> Una vez eliminado no sera posible recupearlo! </b>',
       nzOkText: 'Eliminar',
       nzOkType: 'primary',
@@ -325,7 +325,7 @@ export class ProductControlComponent implements OnInit {
       this.productService.createProduct(formData).subscribe(
         (response: Product) => {
           this.getListPaginate();
-          this.message.create("success", "Usuario creado de manera correcta!");
+          this.message.create("success", "Producto creado de manera correcta");
           this.closeCreateDrawer();
           this.createForm.reset();
           this.files = [];
@@ -381,7 +381,7 @@ export class ProductControlComponent implements OnInit {
       this.productService.updateProduct(formData).subscribe(
         (response: Product) => {
           this.getListPaginate();
-          this.message.create("success", "Usuario actualizado de manera correcta!");
+          this.message.create("success", "Producto actualizado de manera correcta!");
           this.closeEditDrawer();
           this.isLoadingEditDrawer = false;
         },

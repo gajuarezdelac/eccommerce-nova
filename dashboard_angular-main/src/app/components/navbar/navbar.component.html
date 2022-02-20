@@ -37,21 +37,21 @@
 
     <div class="collapse navbar-collapse">
       <form [formGroup]="validateForm" (ngSubmit)="onSubmit()" class="form-inline my-2 my-lg-0 mx-auto">
-        <input class="form-control" type="search" formControlName="keyword" placeholder="Search for products..." aria-label="Search">
+        <input class="form-control" type="search" formControlName="keyword" placeholder="Escribe o presiona el botón de busqueda..." aria-label="Search">
         <button class="btn btn-success my-2 my-sm-0" type="submit"><i class="bx bx-search"></i></button>
       </form>
 
       <ul class="navbar-nav">
         
-        <li class="nav-item">
+        <li class="nav-item" data-toggle="tooltip" title="Administración">
           <a class="btn btn-link" routerLink="dashboard/statistics"><i class="bx bx-bar-chart-alt icon-single"></i></a>
         </li>
 
-        <li class="nav-item">
-          <a class="btn btn-link" routerLink="/favorites" ><i class="fas fa-user"></i></a>
+        <li class="nav-item" data-toggle="tooltip" title="Mi perfil">
+          <a class="btn btn-link" routerLink="/favorites"  ><i class="fas fa-user"></i></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" data-toggle="tooltip" title="Mi carrito">
           <a class="btn btn-link" routerLink="/my-cart"><i class="bx bxs-cart icon-single"></i> <span class="badge badge-danger">{{totalItem}}</span></a>
         </li>
 
@@ -87,19 +87,19 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mujeres </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/search"> Calzado </a>
-            <a class="dropdown-item" routerLink="/search"> Ropa </a>
-            <a class="dropdown-item" routerLink="/search">  Accesorios </a>
-            <a class="dropdown-item" routerLink="/search">  Vestidos </a>
+            <a class="dropdown-item" (click)="searchByCategory('1', '3')"> Calzado </a>
+            <a class="dropdown-item" (click)="searchByCategory('2', '3')"> Ropa </a>
+            <a class="dropdown-item" (click)="searchByCategory('3', '3')">  Accesorios </a>
+            <a class="dropdown-item" (click)="searchByCategory('4', '3')">  Vestidos </a>
           </div>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Niños</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/search"> Calzado </a>
-            <a class="dropdown-item" routerLink="/search"> Ropa </a>
-            <a class="dropdown-item" routerLink="/search">  Accesorios </a>
+            <a class="dropdown-item" (click)="searchByCategory('1', '2')"> Calzado </a>
+            <a class="dropdown-item" (click)="searchByCategory('2', '2')"> Ropa </a>
+            <a class="dropdown-item" (click)="searchByCategory('3', '2')">  Accesorios </a>
           </div>
         </li>
 
@@ -124,8 +124,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <form class="form-inline mb-3 mx-auto">
-          <input class="form-control" type="search" placeholder="Search for products..." aria-label="Search">
+        <form [formGroup]="validateForm" (ngSubmit)="onSubmit()" class="form-inline mb-3 mx-auto">
+          <input class="form-control" type="search"  formControlName="keyword" placeholder="Escribe o presiona el botón de busqueda..." aria-label="Search">
           <button class="btn btn-success" type="submit"><i class="bx bx-search"></i></button>
         </form>
       </div>

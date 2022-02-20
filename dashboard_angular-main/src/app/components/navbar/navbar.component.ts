@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public searchByCategory(key: string, gender: string) {
-    this.search({keyword: "", typeClothing: key, typeGarment: gender} );
+    this.search({keyword: "", typeClothing: key, clasification: gender} );
     this.router.navigate(['/search']);
   }
   

@@ -55,16 +55,11 @@ export class SearchComponent implements OnInit {
      }
 
       this.key = res;
+      console.log(res);
       res.keyword ? res.keyword = res.keyword : res.keyword = "";
       res.typeClothing ? res.typeClothing = res.typeClothing : res.typeClothing = "";
       res.category ? res.category = res.category : res.category = "N";
-      res.clasification ? res.clasification = res.clasification : res.clasification = "N";
-
-      console.log(this.key);
-      
- 
-
-
+      res.clasification ? res.clasification = res.clasification : res.clasification = "";
       this.resetFilter();
       this.getListPaginate();
     });
@@ -86,14 +81,13 @@ export class SearchComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.key.clasification == 'N' ? "" : this.filterForm.value["clasification"],category:  this.key.category == 'N' ? "" : this.filterForm.value["category"]}).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.key.clasification =! undefined ? this.key.clasification : this.filterForm.value["clasification"],category:  this.key.category == 'N' ? "" : this.filterForm.value["category"]}).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
           this.total = response.totalElements;
           this.totalElementByPage = response.numberOfElements;
           this.onActivate();
-          // this.resetFilter();
           this.isLoadingTable = false;
         },
         (errorResponse: HttpErrorResponse) => {
@@ -115,13 +109,9 @@ export class SearchComponent implements OnInit {
     this.getListPaginate();
    }
 
-
-   // ! Aplicar filtros
-
    public filterSubmit() {
 
-    this.isLoadingTable = true;
-    
+    this.isLoadingTable = true;    
     if(this.filterForm.value.minPrice < 0) {
       this.createNotification('warning', 'El valor minimo no puede ser 0');
       this.isLoadingTable = false;

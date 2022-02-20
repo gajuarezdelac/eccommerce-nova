@@ -27,7 +27,7 @@ public class CityINEGI implements Serializable{
 	@Column(nullable = false, updatable = false)
 	private Long id;
 	
-	public String StateIN;
+	public String clave;
 	
 	public String value;
 
