@@ -17,6 +17,8 @@ import { FormShopComponent } from './pages/form-shop/form-shop.component';
 import { HomeComponent } from './pages/home/home.component';
 import { InboxControlComponent } from './pages/inbox-control/inbox-control.component';
 import { OrdersControlComponent } from './pages/orders-control/orders-control.component';
+import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ProductControlComponent } from './pages/product-control/product-control.component';
 import { ReviewsControlComponent } from './pages/reviews-control/reviews-control.component';
@@ -52,6 +54,8 @@ const routes: Routes = [
     {path: 'product/:id', component: DetailsProductComponent },
     { path: 'my-cart' , component: ShopCartComponent },
     { path: 'my-profile' , component: UserProfileComponent, canActivate: [ AuthGuard ] },
+    { path: 'success' , component: PaymentSuccessComponent, canActivate: [ AuthGuard ] },
+    { path: 'error' , component: PaymentErrorComponent, canActivate: [ AuthGuard ] },
     { path: "faq",  component: FaqComponent },
     { path: "order/:id", component: DetailOrderComponent, canActivate: [ AuthGuard ] },
     { path: 'check-delivery', component: FormShopComponent, canActivate: [ AuthGuard ] },

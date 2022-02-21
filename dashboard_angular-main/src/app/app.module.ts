@@ -125,6 +125,7 @@ import { P404Component } from './components/p404/p404.component';
 import { DetailOrderComponent } from './pages/detail-order/detail-order.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     P404Component,
     DetailOrderComponent,
     PaymentSuccessComponent,
+    PaymentErrorComponent,
   ],
   imports: [
     ChartsModule,
