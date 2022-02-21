@@ -41,9 +41,5 @@ public interface IProductService {
 	
 	List<Product> getProductsByCodeL(String code);
 	
-//	List<String> getSizesByCode(String code);
-	
-//	List<String> getCantByCode(String code);
-	
 
 }

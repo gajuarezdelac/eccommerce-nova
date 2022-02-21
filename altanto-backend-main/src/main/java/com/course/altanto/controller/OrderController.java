@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.altanto.entity.Orders;
+import com.course.altanto.entity.dto.CreateOrderDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.service.IOrdersService;
 
@@ -67,7 +68,7 @@ public class OrderController {
 	}
     
     @PostMapping("/create")
-    public ResponseEntity<Orders> createOrder(@RequestBody Orders request) {
+    public ResponseEntity<Orders> createOrder(@RequestBody CreateOrderDTO request) {
     	Orders response = service.createOrder(request);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }

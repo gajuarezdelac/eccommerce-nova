@@ -11,8 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Orders;
+import com.course.altanto.entity.Product;
+import com.course.altanto.entity.dto.CreateOrderDTO;
+import com.course.altanto.entity.dto.ProductsCantdDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.repository.IOrdersRepository;
+import com.course.altanto.repository.IProductRepository;
+import com.course.altanto.repository.IUserRepository;
 import com.course.altanto.service.IOrdersService;
 
 @Component
@@ -20,19 +25,30 @@ import com.course.altanto.service.IOrdersService;
 public class OrdersServiceImpl implements IOrdersService{
 
 	private IOrdersRepository ordersRepository;
+	private IProductRepository productRepository;
+	private IUserRepository userRepository;
 	
-	public OrdersServiceImpl(IOrdersRepository ordersRepository) {
+	public OrdersServiceImpl(IOrdersRepository ordersRepository, IProductRepository productRepository, IUserRepository userRepository) {
 		this.ordersRepository = ordersRepository;
+		this.productRepository = productRepository;
+		this.userRepository = userRepository;
 	}
-	
+
+
 	@Override
-	public Orders createOrder(Orders request) {
+	public Orders createOrder(CreateOrderDTO request) {
+		
+		// Almacenar los datos primarios de la orden
 		Orders element = new Orders();
-		element.setAmount(request.getAmount());
-		element.setUserId(request.getUserId());
-		element.setStatus(request.getStatus());
-		element.setAddressId(request.getAddressId());
-		element.setListProducts(request.getListProducts());
+		
+		updateQuantity(request.getList());
+//		element.setAmount(request.getAmount());
+//		element.setUserId(request.getUserId());
+//		element.setStatus(request.getStatus());
+//		element.setAddressId(request.getAddressId());
+//		element.setListProducts(request.getListProducts());
+		
+		
 		element.setCreatedAt(new Date());
 		ordersRepository.save(element);
 		return element;
@@ -84,6 +100,25 @@ public class OrdersServiceImpl implements IOrdersService{
 		  Page<Orders> response = ordersRepository.searchByFilters(id, userId, dateBegin, dateFinish, pageable);  
 		return response;
 	}
+	
+	
+	
+	private void updateQuantity(List<ProductsCantdDTO> listIds) {
+		
+		
+		
+		for(ProductsCantdDTO e :  listIds) {
+			Product product = productRepository.findProductByCodeAndSizeAndId(e.getCode(), e.getSize(), e.getSize());
+			// Calculate cantd
+			int cantCurrently = product.getCantd();
+			System.out.println(cantCurrently);
+			int newCantd = cantCurrently - e.getCantd();
+			System.out.println(newCantd);
+			product.setCantd(newCantd);
+			productRepository.save(product);
+		}
+	}
+	
 	
 	
 	

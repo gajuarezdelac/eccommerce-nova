@@ -14,6 +14,8 @@ public interface IUserRepository extends JpaRepository<User, String> {
     User findUserByUsername(String username);
     
     User findUserByTokenAndUsername(String token, String username);
+
+    User findUserById(String id);
   
     @Query(value = "SELECT * FROM user u WHERE u.username LIKE %:username% AND u.names LIKE %:names% AND u.surnames LIKE %:surnames%",nativeQuery = true)
 	Page<User> searchByFilters(@Param("username") String username,@Param("names") String names,@Param("surnames") String surnames, Pageable pageable);

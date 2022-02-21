@@ -6,12 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.course.altanto.entity.Orders;
+import com.course.altanto.entity.dto.CreateOrderDTO;
 import com.course.altanto.exception.ExceptionGeneric;
 
 @Component
 public interface IOrdersService {
 	
-	Orders createOrder(Orders request);
+	Orders createOrder(CreateOrderDTO request);
 	
 	Orders updateOrder(int status, String id);
 	

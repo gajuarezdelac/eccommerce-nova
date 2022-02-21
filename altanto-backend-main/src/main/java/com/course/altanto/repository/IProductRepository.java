@@ -16,6 +16,8 @@ public interface IProductRepository extends JpaRepository<Product, String> {
 	
 	Product findProductByCodeAndSize(String code, String size);
 	
+	Product findProductByCodeAndSizeAndId(String code, String size, String id);
+	
 	List<Product> findProductByCode(String code);
 	
 	Product findProductById(String id);
