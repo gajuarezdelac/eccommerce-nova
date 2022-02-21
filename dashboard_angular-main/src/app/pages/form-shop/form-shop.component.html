@@ -219,7 +219,7 @@
               <nz-form-item>
                 <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                   <input
-                  [(ngModel)]="selectAddress && selectAddress!.colonia"
+                  [(ngModel)]="selectAddress && selectAddress!.cp"
                   type="text" nz-input formControlName="cp" placeholder="Busqueda por mensaje..."
                   />
                 </nz-form-control>
@@ -245,7 +245,7 @@
               <label for="names"> Estado </label>
               <nz-form-item>
                 <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
-                  <nz-select nzShowSearch nzAllowClear formControlName="state" nzPlaceHolder="Seleccioa un estado" 
+                  <nz-select nzShowSearch nzAllowClear formControlName="state" nzPlaceHolder="Selecciona un estado" 
                   [(ngModel)]="selectAddress && selectAddress!.state"
                   (ngModelChange)="onChangeState($event)">
                     <nz-option class="capitalize" *ngFor="let item of lstState" [nzLabel]="item.value" [nzValue]="item.clave"></nz-option> 

@@ -182,7 +182,7 @@ export class DetailsProductComponent implements OnInit {
     }
     
     let form = this.createProduct.value;
-    this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, priceR: this.calculatePrice(this.element.price, this.element.discount) ,...this.element });
+    this.addtocart({ cantidad: form.cantd, talla: form.size, extra: form.extra, priceR: this.calculatePrice(this.elementBySize.price, this.elementBySize.discount) ,...this.elementBySize  });
 
   }
  

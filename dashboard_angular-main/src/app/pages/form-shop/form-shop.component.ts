@@ -91,8 +91,8 @@ export class FormShopComponent implements OnInit {
       colonia: ['', Validators.required],
       noExternal: ['', Validators.required],
       noInternal: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
+      city: [null, Validators.required],
+      state: [null, Validators.required],
       moreInformation: ['', Validators.required],
       typeSend: ['1'],
     });
