@@ -32,6 +32,7 @@
         </li>
       </ul>
       <br />
+      
       <div id="tabsContent" class="tab-content">
         <div id="home1" class="tab-pane fade active show">
           <div class="row" id="home1">
@@ -73,8 +74,9 @@
                     <div class="mb-3">
                       <nz-form-item>
                         <nz-form-label nzRequired> Correo electronico </nz-form-label>
-                        <nz-form-control nzErrorTip="Campo requerido">
+                        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                           <input
+                           
                             type="text"
                             nz-input
                             formControlName="username"
@@ -90,7 +92,7 @@
                       <div class="col-md-6">
                         <nz-form-item>
                           <nz-form-label nzRequired> Nombres (s) </nz-form-label>
-                          <nz-form-control nzErrorTip="Campo requerido">
+                          <nz-form-control  nzHasFeedback nzErrorTip="Campo requerido">
                             <input
                               type="text"
                               nz-input
@@ -105,7 +107,7 @@
                       <div class="col-md-6">
                         <nz-form-item>
                           <nz-form-label nzRequired> Apellido (s) </nz-form-label>
-                          <nz-form-control nzErrorTip="Campo requerido">
+                          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                             <input
                               type="text"
                               nz-input
@@ -125,7 +127,7 @@
                         <div class="col-md-6">
                           <nz-form-item>
                             <nz-form-label nzRequired> Número de telefono </nz-form-label>
-                            <nz-form-control nzErrorTip="Campo requerido">
+                            <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                               <input
                                 type="text"
                                 nz-input
@@ -140,7 +142,7 @@
 
                         <div class="col-md-6">
                           <nz-form-item>
-                            <nz-form-control nzErrorTip="Campo requerido">
+                            <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                               <nz-form-label nzRequired> Estado </nz-form-label>
                               <nz-select nz-input formControlName="location" 
                               [(ngModel)]="currentUsername && currentUsername!.location">
@@ -156,7 +158,7 @@
                       <div class="col-md-6">
                     
                         <nz-form-item>
-                          <nz-form-control nzErrorTip="Campo requerido">
+                          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
                             <nz-form-label nzRequired> Genero </nz-form-label>
                             <nz-select nz-input formControlName="gender" 
                             [(ngModel)]="currentUsername && currentUsername!.gender">

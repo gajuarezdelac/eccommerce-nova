@@ -24,7 +24,7 @@
       <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">
         <nz-form-item class="input-content" > 
           <label>Cod. Producto </label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control  nzErrorTip="Campo requerido">
             <nz-input-group nzPrefixIcon="container">
               <input type="text" nz-input formControlName="codeProd" placeholder="Escribe el codigo del producto..." />
             </nz-input-group>
@@ -35,7 +35,7 @@
       <div nz-col class="gutter-row"  [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
           <label>Description </label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control   nzErrorTip="Campo requerido">
             <nz-input-group nzPrefixIcon="container">
               <input type="text" nz-input formControlName="description" placeholder="Escribe la descripción... " />
             </nz-input-group>
@@ -46,7 +46,7 @@
       <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
           <label>Nombre </label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control   nzErrorTip="Campo requerido">
             <nz-input-group nzPrefixIcon="audit">
               <input type="text" nz-input formControlName="name" placeholder="Escribe el nombre del producto..." />
             </nz-input-group>
@@ -59,7 +59,7 @@
       <div nz-col class="gutter-row" [nzSpan]="6"><div class="inner-box">            
         <nz-form-item class="input-content" > 
           <label>Categoria </label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control  nzErrorTip="Campo requerido">
             <nz-input-group nzPrefixIcon="apartment">
               <input type="text" nz-input formControlName="category" placeholder="Escribe la categoria.." />
             </nz-input-group>
@@ -248,7 +248,7 @@ class="login-form"
     <div hidden="true" nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Código de producto </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             nz-input
             formControlName="id"
@@ -262,7 +262,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Código de producto </nz-form-label>
-        <nz-form-control  nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             [disabled]="true"
             nz-input
@@ -276,7 +276,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Nombre del producto </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             nz-input
             formControlName="name"
@@ -292,7 +292,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Precio </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             type="number"
             nz-input
@@ -307,7 +307,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Descuento </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
            type="number"
             nz-input
@@ -323,7 +323,7 @@ class="login-form"
   <div nz-row [nzGutter]="8">
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Categoria </nz-form-label>
           <nz-select [nzDisabled]="true" nz-input formControlName="category" 
           [(ngModel)]="viewElement && viewElement!.category">
@@ -339,7 +339,7 @@ class="login-form"
     </div>
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Clasificación </nz-form-label>
           <nz-select [nzDisabled]="true" nz-input formControlName="typeGarment" [(ngModel)]="viewElement && viewElement!.typeGarment">
             <nz-option nzValue="1" nzLabel="Hombres"></nz-option>
@@ -353,7 +353,7 @@ class="login-form"
 
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
           <nz-select [nzDisabled]="true" nz-input formControlName="typeClothing" [(ngModel)]="viewElement && viewElement!.typeClothing">
             <nz-option nzValue="1" nzLabel="Calzado"></nz-option>
@@ -370,7 +370,7 @@ class="login-form"
     <div nz-col nzSpan="24">
       <nz-form-item>
         <nz-form-label>Description</nz-form-label>
-        <nz-form-control>
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido"> 
           <textarea
             nz-input
             formControlName="shortDescription"
@@ -395,7 +395,7 @@ class="login-form"
       <div nz-col nzSpan="12">
 
         <nz-form-item  [hidden]="viewElement && viewElement!.typeClothing != '1'"  >
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
               <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
@@ -420,7 +420,7 @@ class="login-form"
         </nz-form-item>
 
         <nz-form-item [hidden]="viewElement && viewElement!.typeClothing == '1'">
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select   [nzDisabled]="true" nz-input formControlName="size" [(ngModel)]="viewElement && viewElement!.size">
               <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
@@ -435,7 +435,7 @@ class="login-form"
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired> Cantidad </nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <input
               type="number"
               nz-input
@@ -517,7 +517,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Código de producto </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             nz-input
             formControlName="code"
@@ -529,7 +529,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Nombre del producto </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback  nzErrorTip="Campo requerido">
           <input
             nz-input
             formControlName="name"
@@ -544,7 +544,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Precio </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             type="number"
             nz-input
@@ -558,7 +558,7 @@ class="login-form"
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label nzRequired> Descuento </nz-form-label>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <input
             type="number"
             max="70"
@@ -574,7 +574,7 @@ class="login-form"
   <div nz-row [nzGutter]="8">
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Categoria </nz-form-label>
           <nz-select nz-input formControlName="category">
             <nz-option nzValue="1" nzLabel="Deportiva"></nz-option>
@@ -589,7 +589,7 @@ class="login-form"
     </div>
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Clasificación </nz-form-label>
           <nz-select nz-input formControlName="typeGarment">
             <nz-option nzValue="1" nzLabel="Hombres"></nz-option>
@@ -603,7 +603,7 @@ class="login-form"
 
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Campo requerido">
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <nz-form-label nzRequired> Tipo de prenda </nz-form-label>
           <nz-select nz-input formControlName="typeClothing" (ngModelChange)="onChangeType($event)">
             <nz-option nzValue="1" nzLabel="Calzado"></nz-option>
@@ -620,7 +620,7 @@ class="login-form"
     <div nz-col nzSpan="24">
       <nz-form-item>
         <nz-form-label>Description</nz-form-label>
-        <nz-form-control>
+        <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
           <textarea
             nz-input
             formControlName="shortDescription"
@@ -646,7 +646,7 @@ class="login-form"
     
       <div nz-col nzSpan="12">
         <nz-form-item  [hidden]="!isCalzado">
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select nz-input formControlName="size">
               <nz-option nzValue="3" nzLabel="Talla 3"></nz-option>
@@ -672,7 +672,7 @@ class="login-form"
 
 
         <nz-form-item  [hidden]="isCalzado">
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <nz-form-label nzRequired> Talla </nz-form-label>
             <nz-select nz-input formControlName="size">
               <nz-option nzValue="S" nzLabel="Pequeño (S)"></nz-option>
@@ -689,7 +689,7 @@ class="login-form"
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired> Cantidad </nz-form-label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <input
               type="number"
               nz-input
@@ -788,7 +788,7 @@ class="login-form"
         <div class="inner-box">
         <nz-form-item class="input-content" > 
           <label nzRequired>Cod. Producto </label>
-          <nz-form-control nzErrorTip="Campo requerido">
+          <nz-form-control nzHasFeedback nzErrorTip="Campo requerido">
             <nz-input-group nzPrefixIcon="container">
               <input type="text" nz-input formControlName="code" placeholder="Escribe el código del producto..." />
             </nz-input-group>

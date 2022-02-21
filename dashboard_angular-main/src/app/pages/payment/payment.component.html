@@ -76,11 +76,11 @@
 
         <div>
 
-          <p class="dir"> <strong> Se entregara a: </strong> <span class="text-muted"> Gabriel Juarez de la Cruz </span> </p>
-          <p class="dir"> <strong> Dirección de entrega: </strong> <span class="text-muted"> Calle Manuel M. Ponce, Colonia compositores. Lote 23, No. 20, Carmen, Campeche </span> </p>
-          <p class="dir"> <strong> Número de contacto: </strong> <span class="text-muted"> 938 121 93 30 </span> </p>
-          <p class="dir"> <strong> Correo de contacto: </strong> <span class="text-muted"> bicosind@gmail.com </span> </p>
-          <p class="dir"> <strong> Tipo de entrega: </strong> <span class="text-muted"> Basica (De 3 a 6 días) </span> </p>
+          <p class="dir"> <strong> Se entregara a: </strong> <span class="text-muted"> {{ selectAddress && selectAddress.names }} {{ selectAddress && selectAddress.surnames }}  </span> </p>
+          <p class="dir"> <strong> Dirección de entrega: </strong> <span class="text-muted">  Calle {{ selectAddress && selectAddress.calle }}, Colonia {{ selectAddress && selectAddress.colonia }}, CP: {{ selectAddress && selectAddress.cp }}, No. {{ selectAddress && selectAddress.noExternal != '' ? selectAddress.noExternal : selectAddress.noInternal }}; {{ selectAddress && selectAddress.state }}, {{ selectAddress && selectAddress.city }}  </span> </p>
+          <p class="dir"> <strong> Número de contacto: </strong> <span class="text-muted"> {{ selectAddress && selectAddress.phone }} </span> </p>
+          <p class="dir"> <strong> Correo de contacto: </strong> <span class="text-muted"> {{ selectAddress && selectAddress.email }} </span> </p>
+          <p class="dir"> <strong> Tipo de entrega: </strong> <span class="text-muted"> {{ selectAddress && selectAddress.typeSend == '1' ? 'Urgente (De 3 a 6 días)' : 'Urgente (De 5 a 10 días)'  }} </span> </p>
           
           
         </div>
@@ -98,20 +98,25 @@
             <br>
             <div id="tabsContent" class="tab-content">
                 <div id="home1" class="tab-pane fade active show">
-                    <h1> Payment 1</h1>
+                    
+
+                  <div #paypal></div>
+
+                  <!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
+
+
                 </div>
                 <div id="profile1" class="tab-pane fade">
-                    <h1> Payment 2</h1> 
+                  
+                  En esta sección se realizarán pagos con mercado pago
+
                 </div>
                 <div id="messages1" class="tab-pane fade">
-                    <h3> Payment 3 </h3>
+                    
                 </div>
             </div>
         </div>
 
-        
-        
-        <button class="btn btn-primary btn-lg btn-block" type="submit"> Proceder al pago </button>
         
         
 

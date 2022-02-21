@@ -28,8 +28,8 @@ export class ProductService {
     const params = new HttpParams({
       fromObject: {
         typeClothing: pagination.typeClothing,
-        clasification: pagination.clasification,
-        category: pagination.category,
+        clasification: pagination.clasification,// Sexo de la persona
+        category: pagination.category, 
         keyWord: pagination.keyword,
         pageNo: pagination.numberPage,
         pageSize: pagination.sizePage

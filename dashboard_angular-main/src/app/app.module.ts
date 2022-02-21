@@ -124,6 +124,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { P404Component } from './components/p404/p404.component';
 import { DetailOrderComponent } from './pages/detail-order/detail-order.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 @NgModule({
@@ -163,6 +164,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
     ChartsModule,
     BrowserModule,
     AppRoutingModule,
+    NgxPayPalModule,
     NgxCaptchaModule,
     FormsModule,
     ReactiveFormsModule,
