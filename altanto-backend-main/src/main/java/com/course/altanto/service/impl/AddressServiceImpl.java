@@ -43,7 +43,6 @@ public class AddressServiceImpl implements IAddressService{
 		entity.setPhone(request.getPhone());
 		entity.setSurnames(request.getSurnames());
 		entity.setTown(request.getTown());
-		entity.setYourHome(request.isYourHome());
 		addressRepository.save(entity);
 		return entity;
 	}
@@ -70,7 +69,6 @@ public class AddressServiceImpl implements IAddressService{
 		entity.setPhone(request.getPhone());
 		entity.setSurnames(request.getSurnames());
 		entity.setTown(request.getTown());
-		entity.setYourHome(request.isYourHome());
 		addressRepository.save(entity);
 		
 		return entity;

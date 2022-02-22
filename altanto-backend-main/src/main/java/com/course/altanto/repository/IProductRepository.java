@@ -25,8 +25,8 @@ public interface IProductRepository extends JpaRepository<Product, String> {
 	@Query(value = "SELECT * FROM product p WHERE p.code LIKE %:code_prod% AND p.short_description LIKE %:desc% AND p.name LIKE %:name%  AND p.category LIKE %:category% ",nativeQuery = true)
 	Page<Product> searchByFilters(@Param("code_prod") String codeProd,@Param("desc") String description,@Param("name") String name,@Param("category") String category, Pageable pageable);
 	
-	@Query(value = "SELECT * FROM product p WHERE p.name LIKE %:keyword% AND p.category LIKE %:category% AND p.type_garment LIKE %:clasf% AND p.type_clothing LIKE %:type% GROUP BY p.code ORDER BY p.name ASC, p.discount DESC ",nativeQuery = true)
-	Page<Product> search(@Param("type") String typeCloth,@Param("clasf") String clasif,@Param("category") String category,@Param("keyword") String keyword, Pageable pageable);
+	@Query(value = "SELECT * FROM product p WHERE p.name LIKE %:keyword% AND p.category LIKE %:category% AND p.type_garment LIKE %:clasf% AND p.type_clothing LIKE %:type% AND (p.price >= :minPrice AND p.price <= :maxPrice) GROUP BY p.code ORDER BY p.name ASC, p.discount DESC ",nativeQuery = true)
+	Page<Product> search(@Param("type") String typeCloth,@Param("clasf") String clasif,@Param("category") String category,@Param("keyword") String keyword, @Param("minPrice") int minPrice, @Param("maxPrice") int maxPrice, Pageable pageable);
 	
 	@Query(value = "SELECT * FROM product p GROUP BY p.code ORDER BY p.rating DESC LIMIT 6 ",nativeQuery = true)
 	List<Product> findTopRating();

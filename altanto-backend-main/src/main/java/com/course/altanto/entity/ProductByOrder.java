@@ -1,6 +1,8 @@
 package com.course.altanto.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,41 +20,30 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Address implements Serializable {
-
+public class ProductByOrder implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
+
+	private String code;
 	
-	private String userId;
+	private String productId;
+
+	private String name;
+
+	private int cantd;
 	
-	private String names;
+	private String size;
 	
-	private String surnames;
+	private double price;
 	
-	private String state;
+	private int discount;
 	
-	private String town;
-	
-	private String cp;
-	
-	private String phone;
-	
-	private String emailNotification;
-	
-	private String calle;
-	
-	private String colonia;
-	
-	private String noExterior;
-	
-	private String noInterior;
-	
-	private String moreInformation;
-	
-	private String typeSend;
-	
+	private Date createdAt;
+
+
 }

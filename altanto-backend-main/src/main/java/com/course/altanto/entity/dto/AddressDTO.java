@@ -13,7 +13,9 @@ public class AddressDTO {
 	
 	private String surnames;
 	
-	private boolean isYourHome;
+	private String typeSend;
+	
+	private String state;
 	
 	private String town;
 	
@@ -32,6 +34,8 @@ public class AddressDTO {
 	private String noInterior;
 	
 	private String details;
+	
+	
 
 	
 }

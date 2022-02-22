@@ -86,6 +86,18 @@ export class FavoritesComponent implements OnInit {
 
 
 
+  getInitials() {
+    
+    let text = this.user?.names + ' ' + this.user?.surnames;
+    let names = text?.split(' '),
+        initials = names![0].substring(0, 1).toUpperCase();
+    
+    if (names!.length > 1) {
+        initials += names![names.length - 1].substring(0, 1).toUpperCase();
+    }
+
+    return initials;
+};
 
 
   // delete favorite

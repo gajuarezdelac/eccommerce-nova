@@ -18,7 +18,7 @@ import com.course.altanto.service.IGenericService;
 
 @RestController
 @RequestMapping("/generic")
-public class IGenericController {
+public class GenericController {
 
 	@Autowired
 	private IGenericService service;

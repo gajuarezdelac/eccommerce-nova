@@ -76,10 +76,12 @@ public class ProductController {
 			@RequestParam(value = "clasification", defaultValue = "", required = false) String clasification,    
 			@RequestParam(value = "category", defaultValue = "", required = false) String category,    
 			@RequestParam(value = "keyWord", defaultValue = "", required = false) String keyWord,    
+			@RequestParam(value = "minPrice", defaultValue = "0", required = false) int minPrice,
+			@RequestParam(value = "maxPrice", defaultValue = "100000", required = false) int maxPrice,
 			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
 		
-		Page<Product> response = service.searchEC(typeClothing, clasification, category, keyWord, pageNo, pageSize);
+		Page<Product> response = service.searchEC(typeClothing, clasification, category, keyWord, minPrice, maxPrice, pageNo, pageSize);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

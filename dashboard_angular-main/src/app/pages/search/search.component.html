@@ -115,7 +115,7 @@
 				</a>
 			</header>
 			
-			<div class="filter-content collapse show" id="collapse_C" style="">
+			<div class="filter-content collapse show" id="collapse_C" >
 		
 				<div class="card-body">
 					<label class="custom-control custom-radio">
@@ -156,7 +156,7 @@
 					<h6 class="title"> Tipo de prenda </h6>
 				</a>
 			</header>
-			<div class="filter-content collapse show" id="collapse_5" style="">
+			<div class="filter-content collapse show" id="collapse_5">
 				<div class="card-body">
 					<label class="custom-control custom-radio">
 						<input value="" type="radio" name="typeClothing" formControlName="typeClothing" checked="" class="custom-control-input">
@@ -206,7 +206,32 @@
 		</div>
 </header><!-- sect-heading -->
 
+
+<div [hidden]="products.length > 0">
+	<div id="empty">
+		<nz-empty
+		nzNotFoundImage="../assets/truck.png"
+		[nzNotFoundContent]="contentTpl"
+		[nzNotFoundFooter]="footerTpl"
+		>
+		<ng-template #contentTpl>
+		  <span>
+			No hemos encontrado ningún producto, pero proximamente estaremos agregando mas.
+			<!-- <a href="#"> Restablecer busqueda </a> -->
+		  </span>
+		</ng-template>
+		<ng-template #footerTpl>
+		  <button nz-button nzType="primary" (click)="resetSearch()" > Mostrar todos </button>
+		</ng-template>
+	   </nz-empty>
+
+	</div>
+</div>
+
 <div class="row">
+
+
+
 	<div class="col-md-4 col-sm-6 pro" *ngFor="let item of products" >
 		<div class="product-grid4">
 			<div class="product-image4">

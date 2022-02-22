@@ -147,7 +147,7 @@ public class ProductServiceImpl implements IProductService {
 	private Product validateProductExist(String id) throws ExceptionGeneric {
 		Product element = productRepository.findProductById(id);
 		if (element == null) {
-			throw new ExceptionGeneric("No existe el producto seleccionado");
+			throw new ExceptionGeneric("No hemos encontrado el producto");
 		}
 		return element;
 	}
@@ -200,9 +200,9 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Page<Product> searchEC(String typeClothing, String clasification, String category, String keyWord, int pageNo, int pageSize) {
+	public Page<Product> searchEC(String typeClothing, String clasification, String category, String keyWord,int minPrice, int maxPrice, int pageNo, int pageSize) {
 		  Pageable pageable = PageRequest.of(pageNo, pageSize);   
-		  Page<Product> response = productRepository.search(typeClothing, clasification, category,keyWord,pageable);
+		  Page<Product> response = productRepository.search(typeClothing, clasification, category, keyWord, minPrice, maxPrice, pageable);
 	      return response;
 	}
 

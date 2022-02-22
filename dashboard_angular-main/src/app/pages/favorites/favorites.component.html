@@ -9,7 +9,7 @@
                            
                             <div class="user-l">
                                 <div class="circle">
-                                    <span class="initials">MS</span>
+                                    <span class="initials"> {{getInitials()}}</span>
                                   </div>
                             </div>
 
@@ -59,7 +59,7 @@
                                 <div class="shop__thumb">
                                   <a>
                                     <div class="shop-thumb__img">
-                                      <img src="{{item.images[0].routeFile}}" class="img-responsive" alt="...">
+                                      <img src="{{item && item.images[0].routeFile}}" class="img-responsive" alt="...">
                                     </div>
                                     <h5 class="shop-thumb__title">
                                       {{item.name}}

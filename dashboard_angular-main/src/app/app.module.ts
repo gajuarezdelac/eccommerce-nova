@@ -126,6 +126,7 @@ import { DetailOrderComponent } from './pages/detail-order/detail-order.componen
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PaymentErrorComponent } from './pages/payment-error/payment-error.component';
+import { SplashComponent } from './components/splash/splash.component';
 
 
 @NgModule({
@@ -161,6 +162,7 @@ import { PaymentErrorComponent } from './pages/payment-error/payment-error.compo
     DetailOrderComponent,
     PaymentSuccessComponent,
     PaymentErrorComponent,
+    SplashComponent,
   ],
   imports: [
     ChartsModule,

@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
     private message: NzMessageService,
     private searchService : SearchService,
     private router: Router,
-    
     private cartService : CartService
   ) { }
 

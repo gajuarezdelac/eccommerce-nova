@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit {
   getListPaginate() : void {
     this.isLoadingTable = true;
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.key.clasification =! undefined ? this.key.clasification : this.filterForm.value["clasification"],category:  this.key.category == 'N' ? "" : this.filterForm.value["category"]}).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword,typeClothing: this.key.typeClothing != undefined ?  this.key.typeClothing : this.filterForm.value["typeClothing"], clasification: this.key.clasification =! undefined ? this.key.clasification : this.filterForm.value["clasification"],category:  this.key.category == 'N' ? "" : this.filterForm.value["category"], minPrice: this.filterForm.value["minPrice"], maxPrice: this.filterForm.value["maxPrice"]}).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
@@ -134,7 +134,7 @@ export class SearchComponent implements OnInit {
     this.key.clasification = undefined;
 
     this.subscriptions.push(
-      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category }).subscribe(
+      this.productService.searchProducts({ numberPage: (this.current - 1), sizePage: this.pageSize, keyword: this.key.keyword ,typeClothing: this.filterForm.value.typeClothing, clasification: this.filterForm.value.clasification,category:  this.filterForm.value.category, minPrice:  this.filterForm.value.minPrice, maxPrice: this.filterForm.value.maxPrice }).subscribe(
         (response: ProductPaginate) => {
           this.temp = response.content;
           this.products = response.content;
@@ -205,6 +205,16 @@ export class SearchComponent implements OnInit {
     );
   }
 
+
+  
+  public resetSearch() {
+    this.search({keyword: "", typeClothing: "", clasification: ""} );
+    this.router.navigate(['/search']);
+  }
+  
+  search(keyword: any){
+    this.searchService.search(keyword);
+  }
 
 
 

@@ -32,6 +32,8 @@ export class ProductService {
         category: pagination.category, 
         keyWord: pagination.keyword,
         pageNo: pagination.numberPage,
+        minPrice: pagination.minPrice,
+        maxPrice: pagination.maxPrice,
         pageSize: pagination.sizePage
       }
     });

@@ -2,11 +2,15 @@ package com.course.altanto.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,19 +38,30 @@ public class Orders implements Serializable {
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
 		
-	@Column(nullable = false)
-	private String userId;
+	private double subtotal;
 	
 	private double amount;
 	
-	private String[] listProducts;
+	private String reference;
 	
+	private String statusReference;
+	
+	private String methodPayment;
+    
 	private int status;
 	
+	@ManyToMany(targetEntity = ProductByOrder.class,cascade = CascadeType.ALL)
+	private List<ProductByOrder> products;
+	
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private User user;
+	
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+ 	private Address address;
+    
 	private Date createdAt;
 	
-	private String addressId;
-	
 	private Date EditAt;
+	
 	
 }

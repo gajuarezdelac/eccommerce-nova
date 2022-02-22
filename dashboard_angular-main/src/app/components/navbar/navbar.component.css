@@ -281,3 +281,16 @@ a.avatar-user:hover {
 
   /* font style */
 
+
+  i.bx-bar-chart-alt, i.bxs-cart, i.fa-user {
+    color: black;
+  }
+
+
+  i.fa-heart {
+    color: red;
+    
+  }
+
+  
+

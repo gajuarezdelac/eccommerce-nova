@@ -1,5 +1,6 @@
 package com.course.altanto.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +11,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import com.course.altanto.entity.Address;
 import com.course.altanto.entity.Orders;
 import com.course.altanto.entity.Product;
+import com.course.altanto.entity.ProductByOrder;
+import com.course.altanto.entity.User;
+import com.course.altanto.entity.dto.AddressDTO;
 import com.course.altanto.entity.dto.CreateOrderDTO;
 import com.course.altanto.entity.dto.ProductsCantdDTO;
 import com.course.altanto.exception.ExceptionGeneric;
+import com.course.altanto.repository.IAddressRepository;
 import com.course.altanto.repository.IOrdersRepository;
+import com.course.altanto.repository.IProductByOrderRepository;
 import com.course.altanto.repository.IProductRepository;
 import com.course.altanto.repository.IUserRepository;
 import com.course.altanto.service.IOrdersService;
@@ -27,30 +34,45 @@ public class OrdersServiceImpl implements IOrdersService{
 	private IOrdersRepository ordersRepository;
 	private IProductRepository productRepository;
 	private IUserRepository userRepository;
+	private IAddressRepository addressRepository;
+	private IProductByOrderRepository productByOrderRepository;
 	
-	public OrdersServiceImpl(IOrdersRepository ordersRepository, IProductRepository productRepository, IUserRepository userRepository) {
+	
+	public OrdersServiceImpl(IOrdersRepository ordersRepository, IProductRepository productRepository, IUserRepository userRepository,IAddressRepository addressRepository,IProductByOrderRepository productByOrderRepository) {
 		this.ordersRepository = ordersRepository;
 		this.productRepository = productRepository;
 		this.userRepository = userRepository;
+		this.addressRepository = addressRepository;
+		this.productByOrderRepository = productByOrderRepository;
 	}
-
 
 	@Override
 	public Orders createOrder(CreateOrderDTO request) {
-		
 		// Almacenar los datos primarios de la orden
+		
 		Orders element = new Orders();
+	
+		User user = userRepository.findUserById(request.getOrder().getUserId());
+		Address address = createOrder(request.getAddress());
+		List<ProductByOrder> products = saveProducts(request.getList());
 		
-		updateQuantity(request.getList());
-//		element.setAmount(request.getAmount());
-//		element.setUserId(request.getUserId());
-//		element.setStatus(request.getStatus());
-//		element.setAddressId(request.getAddressId());
-//		element.setListProducts(request.getListProducts());
-		
-		
+		element.setAmount(request.getOrder().getTotal());
+		element.setSubtotal(request.getOrder().getSubtotal());
+		element.setReference(request.getOrder().getReference());
+		element.setStatusReference(request.getOrder().getStatusReference());
+		element.setMethodPayment(request.getOrder().getMethodPayment());
+		element.setStatus(1);
+		element.setAddress(address);
+		element.setProducts(products);
+		element.setUser(user);
 		element.setCreatedAt(new Date());
+		updateQuantity(request.getList());
+		
 		ordersRepository.save(element);
+		
+		
+	
+		
 		return element;
 	}
 
@@ -102,13 +124,9 @@ public class OrdersServiceImpl implements IOrdersService{
 	}
 	
 	
-	
 	private void updateQuantity(List<ProductsCantdDTO> listIds) {
-		
-		
-		
 		for(ProductsCantdDTO e :  listIds) {
-			Product product = productRepository.findProductByCodeAndSizeAndId(e.getCode(), e.getSize(), e.getSize());
+			Product product = productRepository.findProductByCodeAndSizeAndId(e.getCode(), e.getSize(), e.getProductId());
 			// Calculate cantd
 			int cantCurrently = product.getCantd();
 			System.out.println(cantCurrently);
@@ -117,6 +135,50 @@ public class OrdersServiceImpl implements IOrdersService{
 			product.setCantd(newCantd);
 			productRepository.save(product);
 		}
+	}
+	
+	
+	// Nos permite generar una nueva dirección de entrega
+	private Address createOrder(AddressDTO request) {
+		Address address = new Address();
+		address.setCalle(request.getCalle());
+		address.setColonia(request.getColonia());
+		address.setCp(request.getCp());
+		address.setEmailNotification(request.getEmail());
+		address.setMoreInformation(request.getDetails());
+		address.setNames(address.getNames());
+		address.setNoExterior(request.getNoInterior());
+		address.setNoInterior(request.getNoInterior());
+		address.setPhone(request.getPhone());
+		address.setSurnames(request.getSurnames());
+		address.setTown(request.getTown());
+		address.setState(request.getState());
+		address.setUserId(request.getUserId());
+		address.setTypeSend(request.getTypeSend());
+		Address newAddress = addressRepository.save(address);
+		return newAddress;
+	}
+	
+	private List<ProductByOrder> saveProducts(List<ProductsCantdDTO> request ) {
+		
+		List<ProductByOrder> list = new ArrayList<>();
+		
+		for(ProductsCantdDTO e :  request) {
+			ProductByOrder element = new ProductByOrder();
+			element.setCantd(e.getCantd());
+			element.setCode(e.getCode());
+			element.setCreatedAt(new Date());
+			element.setDiscount(e.getDiscount());
+			element.setName(e.getName());
+			element.setPrice(e.getPrice());
+			element.setProductId(e.getProductId());
+			element.setSize(e.getSize());
+			list.add(element);
+		}
+		
+		productByOrderRepository.saveAll(list);
+		return list;
+		
 	}
 	
 	

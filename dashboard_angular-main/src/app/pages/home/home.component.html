@@ -246,8 +246,8 @@
         <div class="col-md-4 col-sm-6"  *ngFor="let item of products" >
             <div class="card border-0 mb-grid-gutter">
                 <a class="card-img-tiles" href="shop-style1-ls.html">
-                    <div class="main-img"><img src="{{item.images[0].routeFile}}" alt="Clothing"></div>
-                    <div class="thumblist"><img src="{{item.images[1].routeFile}}" alt="Clothing"><img src="{{item.images[2].routeFile}}" alt="Clothing"></div>
+                    <div class="main-img"><img src="{{item && item.images[0].routeFile}}" alt="Clothing"></div>
+                    <div class="thumblist"><img src="{{item && item.images[1].routeFile}}" alt="Clothing"><img src="{{item && item.images[2].routeFile}}" alt="Clothing"></div>
                 </a>
 
                 <div class="card-body border mt-n1 py-4 text-center">

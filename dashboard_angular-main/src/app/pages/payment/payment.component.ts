@@ -35,6 +35,8 @@ export class PaymentComponent implements OnInit {
   // ! Datos de la dirección
   public selectAddress: any;
 
+  public resultPayment : any;
+
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef | undefined;
 
   constructor(
@@ -86,12 +88,12 @@ export class PaymentComponent implements OnInit {
           });
         },
         onApprove: async (data: any, actions: any) => {
-          const order = await actions.order.capture();
-          console.log(order);
 
           this.isLoadingCreate = true;
-
-
+          
+          const order = await actions.order.capture();
+          this.resultPayment = await order;
+          this.createOrder({methodPayment: "Paypal", ...this.resultPayment});
         },
         onError: (err: any) => { 
           this.router.navigateByUrl('/error');
@@ -133,44 +135,53 @@ export class PaymentComponent implements OnInit {
   }
 
   // Create order
-  public createOrder(): void {
-    this.isLoadingCreate = true;
+  public createOrder(d : any): void {
+
+
+    let listProducts = this.products.map((x : any, key : any) => {
+      return {
+        cantd: x.cantidad,
+        code: x.code,
+        discount: x.discount,
+        name: x.name,
+        price: x.priceR,
+        productId: x.id,
+        size: x.size,
+      }
+    });
+    
+    
 
     let data = {
       address: {
-        calle: 'string',
-        colonia: 'string',
-        cp: 'string',
-        details: 'string',
-        email: 'string',
-        id: 'string',
-        names: 'string',
-        noExterior: 'string',
-        noInterior: 'string',
-        phone: 'string',
-        surnames: 'string',
-        town: 'string',
-        typeSend: 'string',
-        userId: 'string',
+        calle: this.selectAddress.calle,
+        colonia: this.selectAddress.colonia,
+        cp: this.selectAddress.cp,
+        details: this.selectAddress.moreInformation,
+        email: this.selectAddress.email,
+        names: this.selectAddress.names,
+        noExterior: this.selectAddress.noExternal,
+        noInterior: this.selectAddress.noInternal,
+        phone: this.selectAddress.phone,
+        surnames: this.selectAddress.surnames,
+        state: this.selectAddress.state,
+        town: this.selectAddress.city,
+        typeSend: this.selectAddress.typeSend,
+        userId: this.user?.id,
       },
-      list: [
-        {
-          cantd: 0,
-          code: 'string',
-          discount: 0,
-          name: 'string',
-          price: 0,
-          productId: 'string',
-          size: 'string',
-        },
-      ],
+      list: listProducts,
       order: {
-        subtotal: 0,
-        total: 0,
-        typeSend: 'string',
-        userId: 'string',
+        methodPayment: d.methodPayment,
+        reference: d.id,
+        statusReference: d.status,
+        subtotal: this.grandTotalDiscount,
+        total: this.calculateTotal(this.grandTotal),
+        typeSend: this.selectAddress.typeSend,
+        userId: this.user?.id,
       },
     };
+
+    console.log(data);
 
     this.subscriptions.push(
       this.orderService.createOrder(data).subscribe(
@@ -183,6 +194,7 @@ export class PaymentComponent implements OnInit {
 
           
           setTimeout(() => {
+            this.cartService.removeAllCart();
             this.isLoadingCreate = false;
             this.router.navigateByUrl('/success');
             }, 3000)
@@ -194,6 +206,8 @@ export class PaymentComponent implements OnInit {
         }
       )
     );
+
+
   }
 
   private initConfig(): void {
