@@ -179,7 +179,7 @@
           </ng-template>
 
           <nz-descriptions [nzColumn]="2" nzTitle="Orden: #{{viewOrder?.id}}">
-            <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{viewOrder?.userId}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{userOrder?.id}}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="Monto: " [nzSpan]="2"> {{viewOrder?.amount}} </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Estatus: " [nzSpan]="2"> {{viewOrder?.status}} </nz-descriptions-item>
@@ -271,7 +271,7 @@
         </ng-template>
 
         <nz-descriptions [nzColumn]="2" nzTitle="Orden: #{{viewOrder?.id}}">
-          <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{viewOrder?.userId}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Creada por " [nzSpan]="2">{{userOrder?.id}}</nz-descriptions-item>
           <nz-descriptions-item nzTitle="Monto: " [nzSpan]="2"> {{viewOrder?.amount}} </nz-descriptions-item>
           <nz-descriptions-item nzTitle="Fecha " [nzSpan]="2"> {{viewOrder?.createdAt | date: 'dd/MM/yyyy'}} </nz-descriptions-item>
           <nz-descriptions-item nzTitle="Estatus: " [nzSpan]="2"> {{viewOrder?.status}} </nz-descriptions-item>

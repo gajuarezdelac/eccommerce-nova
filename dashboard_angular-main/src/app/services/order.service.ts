@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../models/Order';
+import { OrderById } from '../models/OrderById';
 import { OrderPaginate } from '../models/OrderPaginate';
 import { Pagination } from '../models/Pagination';
 import { PaginationOrder } from '../models/PaginationOrder';
@@ -40,28 +41,28 @@ export class OrderService {
   }
 
    // * Get list of inbox
-   public getOrdersByUser(userId : string):  Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.host}/order/list`)
+   public getOrdersByUser(userId : string):  Observable<OrderById[]> {
+    return this.http.get<OrderById[]>(`${this.host}/order/list`)
    }
   
   // * Get inbox by ID
-  public getOrderById(id : string) : Observable<Order> {
-      return this.http.get<Order>(`${this.host}/order/${id}`)
+  public getOrderById(id : string) : Observable<OrderById> {
+      return this.http.get<OrderById>(`${this.host}/order/${id}`)
   }
 
   // * Crear orden
-  public createOrder(formData: any): Observable<Order> {
-    return this.http.post<Order>(`${this.host}/order/create`, formData);
+  public createOrder(formData: any): Observable<OrderById> {
+    return this.http.post<OrderById>(`${this.host}/order/create`, formData);
   }
 
   // * Crear orden
-  public changeStatus(formData: any): Observable<Order> {
-    return this.http.put<Order>(`${this.host}/order/change-status`, formData);
+  public changeStatus(formData: any): Observable<OrderById> {
+    return this.http.put<OrderById>(`${this.host}/order/change-status`, formData);
   }
   
   // * Delete inbox
-  public deleteOrder(id: string): Observable<Order> {
-    return this.http.delete<Order>(`${this.host}/order/${id}`);
+  public deleteOrder(id: string): Observable<OrderById> {
+    return this.http.delete<OrderById>(`${this.host}/order/${id}`);
   }
 
 

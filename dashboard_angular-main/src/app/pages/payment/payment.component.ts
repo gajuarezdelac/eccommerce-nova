@@ -13,6 +13,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { OrderById } from 'src/app/models/OrderById';
 
 declare var paypal: any;
 
@@ -185,7 +186,7 @@ export class PaymentComponent implements OnInit {
 
     this.subscriptions.push(
       this.orderService.createOrder(data).subscribe(
-        (response: Order) => {
+        (response: OrderById) => {
           
           this.message.create(
             'success',

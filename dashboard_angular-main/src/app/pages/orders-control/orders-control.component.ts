@@ -15,6 +15,7 @@ import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import * as moment from 'moment';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/Product';
+import { Address, OrderById, ProductByOrder, UserOrder } from 'src/app/models/OrderById';
 
 @Component({
   selector: 'app-orders-control',
@@ -39,7 +40,7 @@ export class OrdersControlComponent implements OnInit {
   public lstProducts : Product[] = [];
   public visibleDrawer = false;
   public isLoadingDrawer = false;
-  public viewOrder :  Content | undefined = undefined;
+  public viewOrder :  OrderById | undefined = undefined;
 
   // * Variables para cambiar el estatus de la orden
 
@@ -48,7 +49,11 @@ export class OrdersControlComponent implements OnInit {
 
   // * Variables para generar el reporte
 
-  public isLoadingGeneral = false;
+  public isLoadingGeneral = false;  
+  public productsByOrder : ProductByOrder[] = [];
+  public address! : Address;
+  public userOrder! : UserOrder;
+
 
   //  Variables para realizar el filtrado de busqueda
   public validateForm!: FormGroup;
@@ -179,9 +184,10 @@ export class OrdersControlComponent implements OnInit {
     this.isLoadingDrawer = true;
     this.subscriptions.push(
       this.orderService.getOrderById(id).subscribe(
-        (response: Content) => {
+        (response: OrderById) => {
           this.viewOrder = response;
-          this.getProductsByIds(response.listProducts);
+          this.userOrder = response.user;
+          // this.getProductsByIds(response.listProducts);
           this.isLoadingDrawer = false;
         },
         (errorResponse: HttpErrorResponse) => {
@@ -242,7 +248,7 @@ export class OrdersControlComponent implements OnInit {
     this.isLoadingGeneral = true;
     this.subscriptions.push(
       this.orderService.deleteOrder(id).subscribe(
-        (response: Content) => {
+        (response: OrderById) => {
           this.message.create("success",  "Se elimino de manera correcta!");
 
           // Con esto evitamos que se quede vacio cuando aun existen registros en la página 1.

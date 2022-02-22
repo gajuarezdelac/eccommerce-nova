@@ -324,7 +324,7 @@
                         <th class="border-gray-200" scope="col">Amount</th>
                         <th class="border-gray-200" scope="col">Date</th>
                         <th class="border-gray-200" scope="col">Status</th>
-                        <th class="border-gray-200" scope="col">Opciones</th>
+                        <th class="border-gray-200" scope="col">Visualizar</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -338,12 +338,12 @@
                         
                         <td>
                           <nz-space>
-                            <button nz-button nzShape="circle" nzType="text">
+                            <button nz-button nzShape="circle" nzType="text"  routerLink="/order/{{item.id}}">
                               <i nz-icon nzTheme="twotone" nzType="eye"></i>
                             </button>
-                            <button nz-button nzShape="circle" nzType="text" routerLink="/order/{{item.id}}">
+                            <!-- <button nz-button nzShape="circle" nzType="text">
                               <i nz-icon nzTheme="twotone" [nzTwotoneColor]="'#006699'" nzType="file"></i>
-                            </button>
+                            </button> -->
                           </nz-space>
                         </td>
 

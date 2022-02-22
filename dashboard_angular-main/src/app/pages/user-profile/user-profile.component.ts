@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { FileUploadStatus } from 'src/app/models/file-upload-status';
 import { Generic } from 'src/app/models/Generic';
 import { Order } from 'src/app/models/Order';
+import { OrderById } from 'src/app/models/OrderById';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { GenericService } from 'src/app/services/generic.service';
@@ -43,7 +44,8 @@ export class UserProfileComponent implements OnInit {
 
   // Variables para el listado de ordenes
   public isLoadingOrders = false;
-  public lstOrders : Order[] = [];
+  public lstOrders : OrderById[] = [];
+  
 
   // Variables para el listado de ordenes
   public isLoadingGeneral = false;
@@ -233,7 +235,7 @@ export class UserProfileComponent implements OnInit {
     this.isLoadingOrders = true;
     this.subscriptions.push(
       this.orderService.getOrdersByUser("3030202020").subscribe(
-        (response: Order[]) => {
+        (response: OrderById[]) => {
           this.lstOrders = response;
           this.isLoadingOrders = false;
         },

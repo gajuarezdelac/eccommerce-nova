@@ -181,10 +181,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of lstProducts">
+                    <tr *ngFor="let item of productsByOrder">
                       <td>
                         #
-                        <a routerLink="/product/{{ item.id }}">
+                        <a routerLink="/product/{{ item.productId }}">
                           {{ item.name }}</a
                         >
                       </td>
