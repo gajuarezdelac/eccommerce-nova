@@ -54,6 +54,7 @@ export interface OrderById {
     reference: string;
     statusReference: string;
     methodPayment: string;
+    discount: number;
     status: number;
     products: ProductByOrder[];
     user: UserOrder;

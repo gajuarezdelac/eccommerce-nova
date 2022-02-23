@@ -44,6 +44,7 @@ export class DetailOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     this.orderId = this.actRoute.snapshot.params.id;
     this.getOrderById(this.actRoute.snapshot.params.id); 
   }
@@ -58,6 +59,8 @@ export class DetailOrderComponent implements OnInit {
           this.userOrder = response.user;
           this.address = response.address;
           this.productsByOrder = response.products;
+          console.log(response);
+          
         },
         (errorResponse: HttpErrorResponse) => {
           this.isLoadingView = false;
@@ -67,6 +70,34 @@ export class DetailOrderComponent implements OnInit {
       )
     );
   }
+
+   //  ! Calculate discount total que se ha aplicado
+   public calculateDiscount() {
+    return this.element.subtotal - this.element.discount;
+  }
+
+  // Obtener el costo del envio
+  public cost() {
+    let envio = 0;
+    if (this.element.address.typeSend == '1') {
+      envio = 179;
+    } else {
+      envio = 279;
+    }
+    return envio;
+  }
+
+  // ! Calcular el total mas el envio
+  public calculateTotal(amount: number) {
+    let envio = 0;
+    if (this.element.address.typeSend == '1') {
+      envio = 179;
+    } else {
+      envio = 279;
+    }
+    return amount + envio;
+  }
+
 
   // public getProductsByIds(lst : string[]) {
   //   this.subscriptions.push(

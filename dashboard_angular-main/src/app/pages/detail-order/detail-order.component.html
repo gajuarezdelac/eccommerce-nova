@@ -34,19 +34,9 @@
                     <a
                       href="javascript:;"
                       class="btn btn-sm btn-white m-b-10 p-l-5"
-                      ><i
-                        class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"
-                      ></i>
-                      Export as PDF</a
-                    >
-                    <a
-                      href="javascript:;"
-                      onclick="window.print()"
-                      class="btn btn-sm btn-white m-b-10 p-l-5"
-                      ><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a
-                    >
+                      ><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i>Exportar a PDF</a>
                   </span>
-                  Company Name, Inc
+                  Cotta Store 
                 </div>
                 <!-- end invoice-company -->
                 <!-- begin invoice-header -->
@@ -55,23 +45,24 @@
                     <small>Datos de entrega:</small>
                     <address class="m-t-5 m-b-5">
                       <strong class="text-inverse">
-                        Recibe: Gabriel Adrian Juarez De la cruz</strong
+                        Recibe: {{userOrder.names}} {{userOrder.surnames}}</strong
                       ><br />
-                      Calle: Manuel. M.<br />
-                      Cd. Del Carmen, 24154<br />
-                      Phone: 9381219330<br />
-                      No. Ext: N/A <br />
-                      No. Int: N/A <br />
+                      <strong>Calle:</strong> {{address.calle}}, Colonia {{ address.colonia }}, CP: {{ address.cp}}  <br />
+                      <strong>Estado: </strong> {{address.state}}  , CP: {{address.town}} <br />
+                      <strong>Número de contacto: </strong> {{address.phone}} <br />
+                      <strong>No. Ext:</strong> {{address.noExterior}} <br />
+                      <strong>No. Int:</strong> {{address.noInterior}} <br />
+                      <strong>Detalles:</strong> {{address.moreInformation}} <br />
                     </address>
                   </div>
 
                   <div class="invoice-date">
-                    <small>Fecha de entrega</small>
+                    <small>Fecha de solicitud</small>
                     <div class="date text-inverse m-t-5">
-                      14 de Febrero 2022
+                       {{element.createdAt | date: 'dd/MM/yyyy'}} 
                     </div>
                     <div class="invoice-detail">
-                      #0000123DSS<br />
+                      Orden ID: #{{element.id}}<br />
                       Enviado por: DHL Express<br />
                       Estatus: En curso<br />
                     </div>
@@ -98,27 +89,26 @@
                               >El costo total de los productos adquiridos
                             </small>
                           </td>
-                          <td class="text-center">50</td>
-                          <td class="text-right">$2,500.00</td>
+                          <td class="text-center"> ${{ element.subtotal }}.00  </td>
+                          <td class="text-right"> ${{ element.subtotal }}.00</td>
                         </tr>
                         <tr>
                           <td>
                             <span class="text-inverse">Descuento</span><br />
                             <small>El total en descuentos acumulado. </small>
                           </td>
-                          <td class="text-center">40</td>
-                          <td class="text-right">$2,000.00</td>
+                          <td class="text-center"> - ${{element.discount}}..00</td>
+                          <td class="text-right">${{calculateDiscount()}}..00</td>
                         </tr>
                         <tr>
                           <td>
-                            <span class="text-inverse">IVA (16%)</span><br />
+                            <span class="text-inverse">Envio </span><br />
                             <small
-                              >El impuesto derivado por parte del tipo de
-                              producto.</small
+                              >El costo del envio seleccionado.</small
                             >
                           </td>
-                          <td class="text-center">50</td>
-                          <td class="text-right">$2,500.00</td>
+                          <td class="text-center">+ ${{ cost() }}..00 </td>
+                          <td class="text-right">${{ element.amount }}.00</td>
                         </tr>
                       </tbody>
                     </table>
@@ -130,19 +120,19 @@
                       <div class="invoice-price-row">
                         <div class="sub-price">
                           <small>SUBTOTAL</small>
-                          <span class="text-inverse">$4,500.00</span>
+                          <span class="text-inverse">${{calculateDiscount()}}.00</span>
                         </div>
                         <div class="sub-price">
                           <i class="fa fa-plus text-muted"></i>
                         </div>
                         <div class="sub-price">
-                          <small>IVA (16%)</small>
-                          <span class="text-inverse">$108.00</span>
+                          <small>ENVIO</small>
+                          <span class="text-inverse">${{cost()}}.00</span>
                         </div>
                       </div>
                     </div>
                     <div class="invoice-price-right">
-                      <small>TOTAL</small> <span class="f-w-600">$4508.00</span>
+                      <small>TOTAL</small> <span class="f-w-600">$ {{ element.amount }}.00</span>
                     </div>
                   </div>
                   <!-- end invoice-price -->
@@ -183,16 +173,13 @@
                   <tbody>
                     <tr *ngFor="let item of productsByOrder">
                       <td>
-                        #
-                        <a routerLink="/product/{{ item.productId }}">
-                          {{ item.name }}</a
-                        >
+                        <a routerLink="/product/{{ item.productId }}">{{ item.name }}</a>
                       </td>
                       <td>{{ item.size }}</td>
                       <td>${{ item.price }}</td>
                       <td>
                         <span class="badge bg-light text-dark">{{
-                          item.cantd
+                            item.cantd
                         }}</span>
                       </td>
                     </tr>

@@ -174,6 +174,7 @@ export class PaymentComponent implements OnInit {
       order: {
         methodPayment: d.methodPayment,
         reference: d.id,
+        discount: this.calculateDiscount(this.grandTotalDiscount,this.grandTotal),
         statusReference: d.status,
         subtotal: this.grandTotalDiscount,
         total: this.calculateTotal(this.grandTotal),
