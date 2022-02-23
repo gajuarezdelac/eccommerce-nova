@@ -12,6 +12,8 @@ public class OrdersDTO {
 
 	private double subtotal;
 	
+	private double discount;
+	
 	private double total;
 	
 	private String typeSend;

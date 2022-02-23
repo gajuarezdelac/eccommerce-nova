@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.altanto.entity.CityINEGI;
-import com.course.altanto.entity.Inbox;
 import com.course.altanto.entity.StateINEGI;
 import com.course.altanto.exception.ExceptionGeneric;
 import com.course.altanto.service.IGenericService;

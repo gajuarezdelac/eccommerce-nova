@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import com.course.altanto.repository.IProductByOrderRepository;
 import com.course.altanto.repository.IProductRepository;
 import com.course.altanto.repository.IUserRepository;
 import com.course.altanto.service.IOrdersService;
+import com.course.altanto.utils.EmailService;
 
 @Component
 @Transactional
@@ -36,26 +38,28 @@ public class OrdersServiceImpl implements IOrdersService{
 	private IUserRepository userRepository;
 	private IAddressRepository addressRepository;
 	private IProductByOrderRepository productByOrderRepository;
+    private EmailService emailService; 
 	
-	
-	public OrdersServiceImpl(IOrdersRepository ordersRepository, IProductRepository productRepository, IUserRepository userRepository,IAddressRepository addressRepository,IProductByOrderRepository productByOrderRepository) {
+	public OrdersServiceImpl(IOrdersRepository ordersRepository, IProductRepository productRepository, IUserRepository userRepository,IAddressRepository addressRepository,IProductByOrderRepository productByOrderRepository, EmailService emailService) {
 		this.ordersRepository = ordersRepository;
 		this.productRepository = productRepository;
 		this.userRepository = userRepository;
 		this.addressRepository = addressRepository;
 		this.productByOrderRepository = productByOrderRepository;
+		this.emailService = emailService;
 	}
 
 	@Override
-	public Orders createOrder(CreateOrderDTO request) {
+	public Orders createOrder(CreateOrderDTO request) throws MessagingException {
 		// Almacenar los datos primarios de la orden
 		
-		Orders element = new Orders();
+		Orders element = new Orders(); 
 	
 		User user = userRepository.findUserById(request.getOrder().getUserId());
 		Address address = createOrder(request.getAddress());
 		List<ProductByOrder> products = saveProducts(request.getList());
 		
+		element.setDiscount(request.getOrder().getDiscount());
 		element.setAmount(request.getOrder().getTotal());
 		element.setSubtotal(request.getOrder().getSubtotal());
 		element.setReference(request.getOrder().getReference());
@@ -67,13 +71,9 @@ public class OrdersServiceImpl implements IOrdersService{
 		element.setUser(user);
 		element.setCreatedAt(new Date());
 		updateQuantity(request.getList());
-		
-		ordersRepository.save(element);
-		
-		
-	
-		
-		return element;
+		Orders newOrder = ordersRepository.save(element);
+		emailService.sendNotification(user.getNames(), newOrder.getId(), user.getUsername());
+		return newOrder;
 	}
 
 	@Override

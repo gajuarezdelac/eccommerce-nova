@@ -2,6 +2,8 @@ package com.course.altanto.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +70,7 @@ public class OrderController {
 	}
     
     @PostMapping("/create")
-    public ResponseEntity<Orders> createOrder(@RequestBody CreateOrderDTO request) {
+    public ResponseEntity<Orders> createOrder(@RequestBody CreateOrderDTO request) throws MessagingException {
     	Orders response = service.createOrder(request);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }

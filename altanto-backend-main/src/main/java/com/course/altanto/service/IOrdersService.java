@@ -2,6 +2,8 @@ package com.course.altanto.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,7 @@ import com.course.altanto.exception.ExceptionGeneric;
 @Component
 public interface IOrdersService {
 	
-	Orders createOrder(CreateOrderDTO request);
+	Orders createOrder(CreateOrderDTO request) throws MessagingException;
 	
 	Orders updateOrder(int status, String id);
 	
