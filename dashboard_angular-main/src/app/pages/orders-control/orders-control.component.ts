@@ -187,7 +187,6 @@ export class OrdersControlComponent implements OnInit {
         (response: OrderById) => {
           this.viewOrder = response;
           this.userOrder = response.user;
-          // this.getProductsByIds(response.listProducts);
           this.isLoadingDrawer = false;
         },
         (errorResponse: HttpErrorResponse) => {

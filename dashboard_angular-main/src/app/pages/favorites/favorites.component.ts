@@ -103,7 +103,7 @@ export class FavoritesComponent implements OnInit {
   // delete favorite
   public deleteFavorite(item : any) {
     this.wishService.removeItem(item);
-    this.createNotificationF('success', "Se ha añadido a tu lista");
+    this.createNotificationF('success', "Se a eliminado correctamente");
   }
 
   public navigate() {
@@ -121,8 +121,8 @@ export class FavoritesComponent implements OnInit {
   createNotificationF(type: string, message: string): void {
     this.notification.create(
       type,
-      'Upps!',
-      `${message} 😍`,
+      'Aviso',
+      `${message}`,
       { nzPlacement: 'bottomLeft' }
     );
   }

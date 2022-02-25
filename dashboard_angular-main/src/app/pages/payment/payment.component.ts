@@ -208,8 +208,6 @@ export class PaymentComponent implements OnInit {
         }
       )
     );
-
-
   }
 
   private initConfig(): void {
@@ -296,4 +294,7 @@ export class PaymentComponent implements OnInit {
   createMessage(type: string, message: string): void {
     this.message.create(type, message);
   }
+
+
+
 }

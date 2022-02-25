@@ -31,12 +31,12 @@
                 <!-- begin invoice-company -->
                 <div class="invoice-company text-inverse f-w-600">
                   <span class="pull-right hidden-print">
-                    <a
+                    <!-- <a
                       href="javascript:;"
                       class="btn btn-sm btn-white m-b-10 p-l-5"
-                      ><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i>Exportar a PDF</a>
+                      ><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i>Exportar a PDF</a> -->
                   </span>
-                  Cotta Store 
+                  Orden No: {{element.id.toUpperCase()}} 
                 </div>
                 <!-- end invoice-company -->
                 <!-- begin invoice-header -->
@@ -48,7 +48,7 @@
                         Recibe: {{userOrder.names}} {{userOrder.surnames}}</strong
                       ><br />
                       <strong>Calle:</strong> {{address.calle}}, Colonia {{ address.colonia }}, CP: {{ address.cp}}  <br />
-                      <strong>Estado: </strong> {{address.state}}  , CP: {{address.town}} <br />
+                      <strong>Estado: </strong> {{address.state}}  , Ciudad: {{address.town}} <br />
                       <strong>Número de contacto: </strong> {{address.phone}} <br />
                       <strong>No. Ext:</strong> {{address.noExterior}} <br />
                       <strong>No. Int:</strong> {{address.noInterior}} <br />

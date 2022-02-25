@@ -44,7 +44,6 @@ export class DetailOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
     this.orderId = this.actRoute.snapshot.params.id;
     this.getOrderById(this.actRoute.snapshot.params.id); 
   }
@@ -97,7 +96,6 @@ export class DetailOrderComponent implements OnInit {
     }
     return amount + envio;
   }
-
 
   // public getProductsByIds(lst : string[]) {
   //   this.subscriptions.push(

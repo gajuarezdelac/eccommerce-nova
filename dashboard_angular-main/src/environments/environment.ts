@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:8082",
+  apiUrl: "https://app-spring-a.herokuapp.com",
   siteKey: "6LeWvCgeAAAAAFe6vTfcy6leSolamsXODSpTyl6k"
 };
 

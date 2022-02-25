@@ -28,10 +28,12 @@
             <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade  active show" id="favourites" role="tabpanel" aria-labelledby="favourites-tab">
-                        <h4 class="font-weight-bold mt-0 mb-4"> Mis productos  </h4>
+                        <h4 class="font-weight-bold mt-0 mb-4"> Mis favoritos  </h4>
 
 
                         <div id="empty">
+
+
                             <nz-empty
                             [hidden]="lstProducts.length > 0"
                             nzNotFoundImage="https://cdn-icons-png.flaticon.com/512/1437/1437185.png"
@@ -50,8 +52,6 @@
                            </nz-empty>
                 
                         </div>
-
-
 
                         <div class="row">
                         
@@ -88,3 +88,4 @@
         </div>
     </div>
 </div>
+
