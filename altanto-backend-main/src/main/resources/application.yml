@@ -13,13 +13,16 @@ spring:
     url: jdbc:mysql://localhost:3306/myblog1 #change this to your database url
     password: Macropay21 #change this to your database password 
     username: GABRIEL #change this to your database username
+    #url: jdbc:mysql://sql5.freemysqlhosting.net:3306/sql5475173 #change this to your database url
+    #password: GMk9mTsBXl #change this to your database password 
+    #username: sql5475173 #change this to your database username
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   mvc:
     throw-exception-if-no-handler-found: true
   resources:

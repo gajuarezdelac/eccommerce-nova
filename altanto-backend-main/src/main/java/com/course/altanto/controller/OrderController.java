@@ -27,6 +27,9 @@ import com.course.altanto.service.IOrdersService;
 public class OrderController {
 
 	
+//	MercadoPago.SDK.setAccessToken("PROD_ACCESS_TOKEN");
+
+	
 	private IOrdersService service;
 	
 	public OrderController(IOrdersService service) {

@@ -25,10 +25,13 @@ public class AltantoApplication {
 	
 	@Bean
 	public CorsFilter corsFilter() {
+		
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+//		corsConfiguration.setAllowCredentials(false);
+//		corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+				corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:3000"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
@@ -37,6 +40,7 @@ public class AltantoApplication {
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
+		
 	}
 
 	@Bean
